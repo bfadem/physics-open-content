@@ -3,6 +3,9 @@ name: generate
 on:
   workflow_dispatch:
     inputs:
+      request:
+        description: "Optional: request file (requests/<date>_<sequence>_<cursor>.json) for curriculum-gated generation. Blank = topic mode"
+        default: ""
       count:
         description: "Number of problems to attempt"
         default: "30"
@@ -40,7 +43,8 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          COUNT: ${{ inputs.count }}
+          REQUEST: ${{ inputs.request }}
+          COUNT: ${{ inputs.request == '' && inputs.count || '' }}
           AUTHOR_MODEL: ${{ inputs.author_model }}
           SOLVER_MODEL: ${{ inputs.solver_model }}
         run: python3 tools/generate.py

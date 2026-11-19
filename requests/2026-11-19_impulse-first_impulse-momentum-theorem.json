@@ -1,0 +1,9 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "impulse-momentum-theorem",
+  "calculus": "graphical",
+  "target_concepts": ["impulse-momentum-theorem"],
+  "tiers": {"plug-and-chug": 6, "multi-step": 3, "interesting": 1},
+  "count": 10,
+  "model": "gemini-4-hydrogen"
+}

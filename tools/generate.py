@@ -20,9 +20,19 @@ engines in tools/engines.json as each one's quota runs out. The solver is
 never the same engine as the author of that record. The batch stops cleanly,
 keeping what it produced, only when every engine for a role is exhausted.
 
-Env: provider keys (GEMINI_API_KEY, GROQ_API_KEY, ...), COUNT, BATCH, and
-optional AUTHOR_MODEL / SOLVER_MODEL ("provider:model", or a bare Gemini
-model) to put first in that role's chain.
+Two modes:
+- Topic mode (default): COUNT problems on random topics, one per call.
+- Request mode (REQUEST=requests/<file>.json): curriculum-gated. The request
+  fixes a sequence, cursor, calculus capabilities, target concepts and tier
+  counts. One author call per tier returns that many problems, built by
+  tools/prompt.py from explicit label sets only (spec R3). Checks 6-8
+  (curriculum, lexical, pedagogy) run before the blind solve so no solver
+  quota is spent on inadmissible problems, and again in the final verify.
+
+Env: provider keys (GEMINI_API_KEY, GROQ_API_KEY, ...), COUNT, BATCH,
+REQUEST, and optional AUTHOR_MODEL / SOLVER_MODEL ("provider:model", or a
+bare Gemini model) to put first in that role's chain. A request's "model"
+field is used as AUTHOR_MODEL when that is not set.
 """
 import datetime
 import json
@@ -37,6 +47,8 @@ from sympy import Symbol
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import verify  # noqa: E402
+import curriculum as cur  # noqa: E402
+import prompt as P  # noqa: E402
 from engines import QuotaExhausted, Router, Unavailable  # noqa: E402
 
 PAUSE = 4.0            # seconds between calls; stay well under per-minute caps
@@ -61,10 +73,7 @@ TOPICS = [
 ]
 TIERS = ["plug-and-chug", "multi-step", "interesting"]
 
-UNIT_VOCAB = ", ".join(sorted(k for k in verify.UNIT_NS if k != "1"))
-RESERVED = set(verify.ALLOWED_NAMES) | {
-    "lambda", "I", "S", "N", "O", "Q", "beta", "gamma", "zeta", "Ei",
-}
+UNIT_VOCAB, RESERVED = P.UNIT_VOCAB, P.RESERVED
 
 AUTHOR_PROMPT = """You write physics problems for an introductory
 university course. Write ONE {tier} problem on: {topic}.
@@ -177,9 +186,96 @@ def equivalent(a_text, b_text, names, trials=8):
     return True, f"agree at {checked} random points"
 
 
+class Rejected(Exception):
+    def __init__(self, stage, reason):
+        super().__init__(reason)
+        self.stage = stage
+
+
+def finish(rec, router, author, accepted, state):
+    """precheck -> instantiate -> [curriculum gate] -> blind solve ->
+    agreement -> dedupe -> verify (checks 1-5, or 1-8 with a State).
+    Raises Rejected, Unavailable or QuotaExhausted."""
+    stage = "precheck"
+    try:
+        problem = precheck(rec)
+        if problem:
+            raise ValueError(problem)
+
+        stage = "instantiate"
+        rec["expected_value"] = instantiate(rec)
+
+        if state is not None:
+            stage = "curriculum-gate"
+            failed = [(n, d) for n, ok, d in verify.curriculum_checks(rec, state)
+                      if not ok]
+            if failed:
+                raise Rejected(failed[0][0], "; ".join(f"{n}: {d}" for n, d in failed))
+
+        stage = "blind-solve"
+        time.sleep(PAUSE)
+        sym_list = "\n".join(f"- {n}: {m.get('desc', '')} [{m.get('unit', '')}]"
+                             for n, m in rec["symbols"].items())
+        sol, solver = router.call("solver", SOLVER_PROMPT.format(
+            statement=rec["statement"], symbols=sym_list), avoid={author})
+        rec["provenance"]["solver"] = solver
+        rec["solver_expression"] = str(sol.get("answer_expression", ""))
+
+        stage = "agreement"
+        ok, detail = equivalent(rec["answer_expression"],
+                                rec["solver_expression"], list(rec["symbols"]))
+        if not ok:
+            raise ValueError(f"author and blind solver disagree: {detail}")
+
+        stage = "dedupe"
+        for prev in accepted:
+            # Compare on symbols the answers USE: declared-but-unused
+            # extras must not hide a duplicate.
+            names = sorted(set(prev["symbols"]) | set(rec["symbols"]))
+            ua = {x.name for x in verify.safe_parse(
+                prev["answer_expression"], names).free_symbols}
+            ub = {x.name for x in verify.safe_parse(
+                rec["answer_expression"], names).free_symbols}
+            if ua == ub and equivalent(prev["answer_expression"],
+                                       rec["answer_expression"], sorted(ua))[0]:
+                raise ValueError(f"duplicate of {prev['id']}")
+
+        stage = "verify"
+        failed = [(n, d) for n, good, d in verify.check(rec, state) if not good]
+        if failed:
+            raise ValueError("; ".join(f"{n}: {d}" for n, d in failed))
+        rec["provenance"]["agreement"] = detail
+    except (Rejected, Unavailable, QuotaExhausted):
+        raise
+    except Exception as e:
+        raise Rejected(stage, f"{type(e).__name__}: {e}")
+
+
+def plan_calls(count, batch, request, state):
+    """[(tier, n, prompt_text, label)] -- one author call each."""
+    if request is None:
+        rng = random.Random(batch)
+        calls = []
+        for i in range(count):
+            topic, tier = rng.choice(TOPICS), TIERS[i % 3]
+            calls.append((tier, 1, AUTHOR_PROMPT.format(
+                tier=tier, topic=topic, reserved=", ".join(sorted(RESERVED)),
+                units=UNIT_VOCAB), topic))
+        return calls
+    tiers = request.get("tiers") or {"multi-step": request.get("count", count)}
+    targets = request["target_concepts"]
+    return [(tier, n, P.build_prompt(state, targets, tier, n), f"{n} x {tier}")
+            for tier, n in tiers.items() if n > 0]
+
+
 def main():
-    count = int(os.environ.get("COUNT", "30"))
-    router = Router(overrides={"author": os.environ.get("AUTHOR_MODEL"),
+    request = state = None
+    request_path = os.environ.get("REQUEST") or None
+    if request_path:
+        request, state = cur.load_request(request_path)
+    count = int(os.environ.get("COUNT") or (request or {}).get("count") or 30)
+    author_override = os.environ.get("AUTHOR_MODEL") or (request or {}).get("model")
+    router = Router(overrides={"author": author_override,
                                "solver": os.environ.get("SOLVER_MODEL")})
     for role, chain in router.describe().items():
         print(f"{role} chain: {chain or 'NONE'}")
@@ -189,86 +285,82 @@ def main():
         datetime.timezone.utc).strftime("%Y%m%d-%H%M")
     outdir = os.path.join("candidates", batch)
     os.makedirs(outdir, exist_ok=True)
+    if request is not None:
+        with open(os.path.join(outdir, "request.json"), "w") as f:
+            json.dump({"source": request_path, **request}, f, indent=2)
+            f.write("\n")
 
-    rng = random.Random(batch)
-    jobs = [(rng.choice(TOPICS), TIERS[i % 3]) for i in range(count)]
     accepted, rejected, unavailable = [], [], []
     stop_reason = None
+    n_rec = 0
 
-    for i, (topic, tier) in enumerate(jobs, 1):
-        rid = f"gen-{batch}-{i:03d}"
-        print(f"\n[{i}/{count}] {tier}: {topic}")
-        rec = {"id": rid, "tier": tier}
-        stage = "author"
+    for ci, (tier, n, prompt_text, label) in enumerate(
+            plan_calls(count, batch, request, state), 1):
+        print(f"\n[call {ci}] {tier}: {label}")
         try:
-            out, author = router.call("author", AUTHOR_PROMPT.format(
-                tier=tier, topic=topic, reserved=", ".join(sorted(RESERVED)),
-                units=UNIT_VOCAB))
-            rec["provenance"] = {"author": author}
-            rec.update({k: out.get(k) for k in (
-                "topic", "statement", "symbols", "answer_expression",
-                "answer_unit", "given", "limits")})
-            rec["limits"] = rec.get("limits") or []
-            rec["tier"] = tier
-
-            stage = "precheck"
-            problem = precheck(rec)
-            if problem:
-                raise ValueError(problem)
-
-            stage = "instantiate"
-            rec["expected_value"] = instantiate(rec)
-
-            stage = "blind-solve"
-            time.sleep(PAUSE)
-            sym_list = "\n".join(f"- {n}: {m.get('desc', '')} [{m.get('unit', '')}]"
-                                 for n, m in rec["symbols"].items())
-            sol, solver = router.call("solver", SOLVER_PROMPT.format(
-                statement=rec["statement"], symbols=sym_list), avoid={author})
-            rec["provenance"]["solver"] = solver
-            rec["solver_expression"] = str(sol.get("answer_expression", ""))
-
-            stage = "agreement"
-            ok, detail = equivalent(rec["answer_expression"],
-                                    rec["solver_expression"], list(rec["symbols"]))
-            if not ok:
-                raise ValueError(f"author and blind solver disagree: {detail}")
-
-            stage = "dedupe"
-            for prev in accepted:
-                # Compare on symbols the answers USE: declared-but-unused
-                # extras must not hide a duplicate.
-                names = sorted(set(prev["symbols"]) | set(rec["symbols"]))
-                ua = {x.name for x in verify.safe_parse(
-                    prev["answer_expression"], names).free_symbols}
-                ub = {x.name for x in verify.safe_parse(
-                    rec["answer_expression"], names).free_symbols}
-                if ua == ub and equivalent(prev["answer_expression"],
-                                           rec["answer_expression"], sorted(ua))[0]:
-                    raise ValueError(f"duplicate of {prev['id']}")
-
-            stage = "verify"
-            results = verify.check(rec)
-            failed = [(n, d) for n, good, d in results if not good]
-            if failed:
-                raise ValueError("; ".join(f"{n}: {d}" for n, d in failed))
-
-            rec["provenance"]["agreement"] = detail
-            accepted.append(rec)
-            print(f"   ACCEPT  {rec['answer_expression']}")
+            out, author = router.call("author", prompt_text)
         except Unavailable as e:
-            unavailable.append({"id": rid, "topic": topic, "stage": stage,
-                                "reason": str(e)[:300]})
-            print(f"   SKIP    [{stage}] model unavailable")
+            for _ in range(n):
+                n_rec += 1
+                unavailable.append({"id": f"gen-{batch}-{n_rec:03d}", "topic": label,
+                                    "stage": "author", "reason": str(e)[:300]})
+            print("   SKIP    [author] model unavailable")
+            continue
         except QuotaExhausted as e:
             stop_reason = str(e)
             print(f"   STOP    {e}")
             break
         except Exception as e:
-            rec["rejected_at"] = stage
-            rec["reason"] = f"{type(e).__name__}: {e}"[:500]
-            rejected.append(rec)
-            print(f"   REJECT  [{stage}] {rec['reason']}")
+            n_rec += 1
+            rejected.append({"id": f"gen-{batch}-{n_rec:03d}", "tier": tier,
+                             "topic": label, "rejected_at": "author",
+                             "reason": f"{type(e).__name__}: {e}"[:500]})
+            print(f"   REJECT  [author] {e}")
+            continue
+
+        items = out.get("problems") if isinstance(out, dict) and "problems" in out \
+            else [out]
+        if not isinstance(items, list):
+            items = []
+        if request is not None and len(items) != n:
+            print(f"   note: asked for {n}, got {len(items)}")
+        for item in items[:n]:
+            n_rec += 1
+            rid = f"gen-{batch}-{n_rec:03d}"
+            item = item if isinstance(item, dict) else {}
+            rec = {"id": rid, "tier": tier, "provenance": {"author": author}}
+            rec.update({k: item.get(k) for k in (
+                "topic", "statement", "symbols", "answer_expression",
+                "answer_unit", "given", "limits")})
+            rec["topic"] = rec.get("topic") or label
+            rec["limits"] = rec.get("limits") or []
+            print(f"  {rid} {rec['topic']}")
+            try:
+                if request is not None:
+                    try:
+                        rec["curriculum"] = P.map_curriculum_fields(
+                            item.get("solution_profile") or item.get("curriculum"),
+                            state)
+                    except ValueError as e:
+                        raise Rejected("curriculum-map", str(e))
+                finish(rec, router, author, accepted, state)
+                accepted.append(rec)
+                print(f"   ACCEPT  {rec['answer_expression']}")
+            except Unavailable as e:
+                unavailable.append({"id": rid, "topic": rec["topic"],
+                                    "stage": "blind-solve", "reason": str(e)[:300]})
+                print("   SKIP    [blind-solve] model unavailable")
+            except QuotaExhausted as e:
+                stop_reason = str(e)
+                print(f"   STOP    {e}")
+                break
+            except Rejected as e:
+                rec["rejected_at"] = e.stage
+                rec["reason"] = str(e)[:500]
+                rejected.append(rec)
+                print(f"   REJECT  [{e.stage}] {rec['reason']}")
+        if stop_reason:
+            break
         time.sleep(PAUSE)
 
     for name, data in (("accepted", accepted), ("rejected", rejected)):
@@ -280,8 +372,20 @@ def main():
     by_stage = {}
     for r in rejected:
         by_stage[r["rejected_at"]] = by_stage.get(r["rejected_at"], 0) + 1
-    lines = [
-        f"# Batch {batch}", "",
+    lines = [f"# Batch {batch}", ""]
+    if request is not None:
+        concepts = cur.load_concepts()
+        lines += [
+            f"- Request: `{request_path}` (copied to `request.json`)",
+            f"- State: {len(state.covered)} concepts covered through "
+            f"`{state.cursor}`, {len(state.forbidden)} forbidden; calculus "
+            f"{sorted(state.calculus)}; representations "
+            f"{sorted(state.representations) or 'none'}",
+            "- Targets: " + ", ".join(concepts[c]["label"]
+                                     for c in request["target_concepts"]),
+            "- Checks: 1-8 (curriculum, lexical, pedagogy included)",
+        ]
+    lines += [
         f"- Requested {count}, attempted {attempted}, "
         f"**accepted {len(accepted)}**, rejected {len(rejected)}, "
         f"skipped (model unavailable) {len(unavailable)}",

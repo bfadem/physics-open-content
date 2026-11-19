@@ -1,0 +1,107 @@
+You write physics problems for students who know exactly the
+physics listed below and nothing more.
+
+THE STUDENT KNOWS (the complete set of physics tools available):
+- measurement and uncertainty
+- position and velocity, including reading them from graphs
+- motion with constant acceleration
+- Newton's first law
+- Newton's second law
+- free fall
+- projectile motion
+- Newton's law of universal gravitation
+- the normal force
+- tension in strings and ropes
+- static and kinetic friction
+- motion on an inclined plane
+- forces in uniform circular motion
+- momentum as mass times velocity
+- impulse as force times time interval
+- the impulse-momentum theorem: impulse equals change in momentum
+
+NOT YET AVAILABLE (must not appear in any problem statement or symbol
+description, and must not be needed to solve any problem):
+- Newton's third law
+- conservation of linear momentum in one dimension
+- perfectly inelastic collisions in one dimension
+- center of mass and its motion
+- conservation of linear momentum in two dimensions
+- perfectly inelastic collisions in two dimensions
+- work done by a constant force
+- work as the dot product of force and displacement
+- power as the rate of doing work
+- spring force and Hooke's law
+- work done by a variable force
+- kinetic energy
+- the work-energy theorem: net work equals change in kinetic energy
+- conservative and nonconservative forces
+- gravitational potential energy
+- conservation of mechanical energy
+- elastic potential energy stored in a spring
+- elastic collisions in one dimension
+- thermal energy produced by friction
+- the work-energy principle including nonconservative work
+- angular position, velocity and acceleration
+- torque
+- rotational inertia (moment of inertia)
+- Newton's second law for rotation: net torque equals rotational inertia times angular acceleration
+- the vector cross product
+- angular momentum
+- conservation of angular momentum
+- simple harmonic motion
+- the simple pendulum
+
+MATHEMATICS AVAILABLE (the complete set of mathematical operations; anything
+else, such as calculus not listed here, is unavailable):
+- read an accumulated quantity as the area under a graph
+- read a rate of change as the slope of a graph
+- resolve a vector into components using sine and cosine
+
+DIAGRAMS AND GRAPHS THE STUDENT CAN DRAW OR READ:
+- free-body diagram
+
+TASK: write 3 different multi-step problem(s) that exercise:
+- the impulse-momentum theorem: impulse equals change in momentum
+A multi-step problem: two or more ideas chained; an intermediate quantity must be found first.
+Do not write a problem that a listed tool solves more simply than the
+intended one; such problems waste the practice and will be discarded.
+
+Rules for every problem:
+- Identifiers: ASCII letters, digits, underscore; start with a letter. Do not
+  use these names: Abs, E, Ei, I, N, O, Q, S, acos, asin, atan, beta, cos, exp, gamma, lambda, log, oo, pi, sin, sqrt, tan, zeta. Use g for gravitational
+  acceleration and declare it as a symbol. Physical constants must also be
+  declared as symbols with units and given values.
+- Declare only the symbols the answer is expressed in. Do not declare the
+  unknown being solved for.
+- Units must be products/quotients/powers of: A, C, F, H, Hz, J, K, N, Pa, T, V, W, Wb, kg, m, mol, ohm, rad, s. Use ^ for powers,
+  e.g. "m/s^2". Angles: "rad". Dimensionless: "1".
+- Allowed functions: sin cos tan asin acos atan sqrt exp log Abs, constant pi.
+  Write infinity as oo.
+- Every symbol must be positive. Ask for a magnitude, not a signed quantity.
+- "given" assigns a realistic value to every declared symbol so the answer is
+  a real positive number. Angles in radians. Never compute the numeric answer.
+- Give 1 or 2 limiting cases a physicist would use to sanity-check the answer.
+- The statement is symbolic (no numbers), names every symbol by its exact
+  identifier, and asks for exactly one quantity.
+
+Reply with JSON only, an object with one key "problems" holding a list of
+3 objects, each with exactly these keys:
+{
+  "topic": "short description",
+  "statement": "the problem as a student reads it",
+  "symbols": {"<identifier>": {"desc": "...", "unit": "..."}},
+  "answer_expression": "SymPy-parseable, using only the declared identifiers",
+  "answer_unit": "...",
+  "given": {"<identifier>": "<positive number>"},
+  "limits": [{"symbol": "<identifier>", "to": "<value or identifier>", "expect": "<expression>"}],
+  "solution_profile": {
+    "requires": ["<every physics idea needed to solve it, copied exactly from THE STUDENT KNOWS>"],
+    "intended_path": "<the one idea it is meant to exercise, copied exactly>",
+    "trivial_if_available": ["<any listed idea that would give a simpler route; normally empty>"],
+    "representations": ["<diagrams or graphs the student must draw or read, copied exactly; may be empty>"],
+    "calculus_all_of": ["<every mathematical operation needed, copied exactly>"],
+    "calculus_any_of": ["<operations of which any one suffices, copied exactly; may be empty>"]
+  }
+}
+"requires" describes the solution, not the wording: list every idea the
+solution uses, even ones the statement never names.
