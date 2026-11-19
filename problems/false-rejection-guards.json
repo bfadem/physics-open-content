@@ -1,0 +1,39 @@
+[
+  {
+    "id": "mech-003",
+    "topic": "rocket equation (guard: log of a same-unit ratio must read as dimensionless)",
+    "tier": "multi-step",
+    "statement": "A rocket in free space ejects exhaust at speed u relative to itself. Its mass drops from m0 to mf. Find the change in its speed.",
+    "symbols": {
+      "u": {"desc": "exhaust speed relative to rocket", "unit": "m/s"},
+      "m0": {"desc": "initial mass", "unit": "kg"},
+      "mf": {"desc": "final mass", "unit": "kg"}
+    },
+    "answer_expression": "u*log(m0/mf)",
+    "answer_unit": "m/s",
+    "given": {"u": "2500", "m0": "1000", "mf": "400"},
+    "expected_value": 2290.73,
+    "limits": [
+      {"symbol": "mf", "to": "m0", "expect": "0"}
+    ]
+  },
+  {
+    "id": "mech-004",
+    "topic": "spring launch speed (guard: difference of derived-unit terms under a root)",
+    "tier": "multi-step",
+    "statement": "A block of mass m sits on a vertical spring of stiffness k compressed by x, then is released. Find its speed when the spring reaches its natural length.",
+    "symbols": {
+      "k": {"desc": "spring constant", "unit": "N/m"},
+      "x": {"desc": "initial compression", "unit": "m"},
+      "m": {"desc": "block mass", "unit": "kg"},
+      "g": {"desc": "gravitational acceleration", "unit": "m/s^2"}
+    },
+    "answer_expression": "sqrt(k*x^2/m - 2*g*x)",
+    "answer_unit": "m/s",
+    "given": {"k": "800", "x": "0.10", "m": "0.20", "g": "9.81"},
+    "expected_value": 6.16749,
+    "limits": [
+      {"symbol": "g", "to": "0", "expect": "x*sqrt(k/m)"}
+    ]
+  }
+]
