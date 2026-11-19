@@ -1,0 +1,53 @@
+[
+  {
+    "id": "mech-001",
+    "topic": "projectile range on level ground",
+    "tier": "plug-and-chug",
+    "statement": "A projectile is launched from level ground with speed v at angle theta above the horizontal. Neglecting air resistance, find its range.",
+    "symbols": {
+      "v": {"desc": "launch speed", "unit": "m/s"},
+      "theta": {"desc": "launch angle", "unit": "rad"},
+      "g": {"desc": "gravitational acceleration", "unit": "m/s^2"}
+    },
+    "answer_expression": "v**2*sin(2*theta)/g",
+    "answer_unit": "m",
+    "given": {"v": "25", "theta": "pi/6", "g": "9.81"},
+    "expected_value": 55.18,
+    "limits": [
+      {"symbol": "theta", "to": "0", "expect": "0"}
+    ]
+  },
+  {
+    "id": "mech-002",
+    "topic": "Atwood machine acceleration",
+    "tier": "multi-step",
+    "statement": "Two masses m1 and m2 hang from a light inextensible string over a frictionless massless pulley. Find the magnitude of the acceleration.",
+    "symbols": {
+      "m1": {"desc": "first mass", "unit": "kg"},
+      "m2": {"desc": "second mass", "unit": "kg"},
+      "g": {"desc": "gravitational acceleration", "unit": "m/s^2"}
+    },
+    "answer_expression": "(m2 - m1)*g/(m1 + m2)",
+    "answer_unit": "m/s^2",
+    "given": {"m1": "2", "m2": "3", "g": "9.81"},
+    "expected_value": 1.962,
+    "limits": [
+      {"symbol": "m2", "to": "m1", "expect": "0"}
+    ]
+  },
+  {
+    "id": "harness-selftest-001",
+    "topic": "spring-mass period (deliberately wrong numeric answer)",
+    "tier": "plug-and-chug",
+    "known_bad": true,
+    "statement": "A mass m on a spring of stiffness k undergoes simple harmonic motion. Find the period.",
+    "symbols": {
+      "m": {"desc": "mass", "unit": "kg"},
+      "k": {"desc": "spring constant", "unit": "N/m"}
+    },
+    "answer_expression": "2*pi*sqrt(m/k)",
+    "answer_unit": "s",
+    "given": {"m": "0.5", "k": "20"},
+    "expected_value": 1.25
+  }
+]

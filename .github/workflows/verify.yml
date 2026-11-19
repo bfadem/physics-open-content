@@ -1,0 +1,28 @@
+name: verify
+
+on:
+  push:
+    paths:
+      - "problems/**"
+      - "tools/verify.py"
+      - ".github/workflows/verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install SymPy
+        run: pip install --quiet sympy
+
+      - name: Verify problem records
+        run: python3 tools/verify.py
