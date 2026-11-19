@@ -1,0 +1,298 @@
+[
+  {
+    "id": "gen-20261119-1505-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Average force from change in speed",
+    "statement": "A cart of mass m moves in a straight line. Its speed increases from v_i to v_f while a constant horizontal force acts for a time interval dt. Find the magnitude of the average force.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the cart",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "initial speed",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "final speed",
+        "unit": "m/s"
+      },
+      "dt": {
+        "desc": "duration of the force",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "m*(v_f - v_i)/dt",
+    "answer_unit": "N",
+    "given": {
+      "m": "2.0",
+      "v_i": "3.0",
+      "v_f": "7.0",
+      "dt": "0.4"
+    },
+    "limits": [
+      {
+        "symbol": "dt",
+        "to": "0",
+        "expect": "oo"
+      },
+      {
+        "symbol": "v_f",
+        "to": "v_i",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['impulse-momentum theorem: impulse equals change in momentum']"
+  },
+  {
+    "id": "gen-20261119-1505-002",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Final speed after known impulse",
+    "statement": "A projectile of mass m moves horizontally with speed v_i. A constant horizontal force F acts on it for a time interval dt. Assuming no other forces, find the projectile\u2019s final speed.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the projectile",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "initial horizontal speed",
+        "unit": "m/s"
+      },
+      "F": {
+        "desc": "constant horizontal force",
+        "unit": "N"
+      }
+    },
+    "answer_expression": null,
+    "answer_unit": null,
+    "given": null,
+    "limits": [],
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  },
+  {
+    "id": "gen-20261119-1505-003",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Average impact force from a dropped ball",
+    "statement": "A ball of mass m is released from rest at a height h above a flat surface. It falls under gravity g and comes to an instantaneous stop when it contacts the surface. The contact lasts for a time interval t_imp. Using the impulse\u2011momentum theorem, determine the magnitude of the average force F_avg exerted by the surface on the ball during the impact.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the ball",
+        "unit": "kg"
+      },
+      "h": {
+        "desc": "initial drop height",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "t_imp": {
+        "desc": "duration of the impact",
+        "unit": "s"
+      },
+      "F_avg": {
+        "desc": "average impact force magnitude",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "m*sqrt(2*g*h)/t_imp",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.5",
+      "h": "2.0",
+      "g": "9.81",
+      "t_imp": "0.02"
+    },
+    "limits": [
+      {
+        "symbol": "t_imp",
+        "to": "0",
+        "expect": "infinity"
+      },
+      {
+        "symbol": "h",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['impulse-momentum theorem: impulse equals change in momentum']"
+  },
+  {
+    "id": "gen-20261119-1505-004",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Sequential impulses on a cart",
+    "statement": "A cart of mass m rests on a horizontal frictionless track. A constant horizontal force F is applied for a time interval \u0394t1, after which the force is removed. Immediately afterward, a second impulse of magnitude J acts opposite to the cart\u2019s motion, bringing it to a lower speed. Using the impulse\u2011momentum theorem, find the final speed v_final of the cart after both impulses.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the cart",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the applied constant force",
+        "unit": "N"
+      },
+      "\u0394t1": {
+        "desc": "duration of the applied force",
+        "unit": "s"
+      },
+      "J": {
+        "desc": "magnitude of the second impulse",
+        "unit": "N\u00b7s"
+      },
+      "v_final": {
+        "desc": "final speed of the cart",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "(F*\u0394t1 - J)/m",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "10.0",
+      "F": "20.0",
+      "\u0394t1": "3.0",
+      "J": "15.0"
+    },
+    "limits": [
+      {
+        "symbol": "J",
+        "to": "0",
+        "expect": "F*\u0394t1/m"
+      },
+      {
+        "symbol": "F",
+        "to": "0",
+        "expect": "-J/m"
+      }
+    ],
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['impulse-momentum theorem: impulse equals change in momentum']"
+  },
+  {
+    "id": "gen-20261119-1505-005",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Impact force after a tension\u2011driven lift and free fall",
+    "statement": "A mass m hangs from a vertical rope. A constant tension T lifts the mass upward from rest for a time interval \u0394t1, after which the rope is cut. The mass then rises to a maximum height and falls back to the ground, striking it with a contact time \u0394t2. Assuming the mass comes to rest during the impact, use the impulse\u2011momentum theorem to determine the magnitude of the average impact force F_imp exerted by the ground on the mass.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the object",
+        "unit": "kg"
+      },
+      "T": {
+        "desc": "constant tension in the rope",
+        "unit": "N"
+      },
+      "\u0394t1": {
+        "desc": "duration of the upward tension",
+        "unit": "s"
+      },
+      "\u0394t2": {
+        "desc": "duration of the impact with the ground",
+        "unit": "s"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "F_imp": {
+        "desc": "average impact force magnitude",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "T*\u0394t1/\u0394t2",
+    "answer_unit": "N",
+    "given": {
+      "m": "2.0",
+      "T": "30.0",
+      "\u0394t1": "1.5",
+      "\u0394t2": "0.03",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "\u0394t1",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "\u0394t2",
+        "to": "0",
+        "expect": "infinity"
+      }
+    ],
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['impulse-momentum theorem: impulse equals change in momentum']"
+  },
+  {
+    "id": "gen-20261119-1505-006",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Impulse on an inclined plane with kinetic friction",
+    "statement": "A block of mass m rests on a plane that makes an angle theta with the horizontal. The coefficient of kinetic friction between the block and the plane is mu_k. A brief horizontal impulse J is delivered to the block in a direction parallel to the plane, pushing it up the incline. Using only the impulse\u2011momentum theorem and the equations for motion with constant acceleration, determine the distance L the block travels up the plane before coming to rest.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "J": {
+        "desc": "magnitude of the applied impulse",
+        "unit": "N\u00b7s"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "theta": {
+        "desc": "incline angle measured from the horizontal",
+        "unit": "rad"
+      },
+      "mu_k": {
+        "desc": "coefficient of kinetic friction",
+        "unit": "1"
+      }
+    },
+    "answer_expression": "J**2/(2*m**2*g*(sin(theta)+mu_k*cos(theta)))",
+    "answer_unit": "m",
+    "given": {
+      "m": "2.0",
+      "J": "10.0",
+      "g": "9.8",
+      "theta": "0.1",
+      "mu_k": "0.2"
+    },
+    "limits": [
+      {
+        "symbol": "mu_k",
+        "to": "0",
+        "expect": "J**2/(2*m**2*g*sin(theta))"
+      },
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "J**2/(2*m**2*mu_k*g)"
+      }
+    ],
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['impulse-momentum theorem']"
+  }
+]
