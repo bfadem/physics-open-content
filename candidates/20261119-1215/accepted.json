@@ -1,0 +1,252 @@
+[
+  {
+    "id": "gen-20261119-1215-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Rotational kinematics with constant acceleration",
+    "statement": "A rigid wheel starts from rest and undergoes a constant angular acceleration alpha for a duration t. Calculate the magnitude of the resulting angular displacement theta.",
+    "symbols": {
+      "alpha": {
+        "desc": "constant angular acceleration",
+        "unit": "rad/s^2"
+      },
+      "t": {
+        "desc": "time interval",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "0.5 * alpha * t**2",
+    "answer_unit": "rad",
+    "given": {
+      "alpha": "2.5",
+      "t": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "t",
+        "to": 0,
+        "expect": "0"
+      },
+      {
+        "symbol": "alpha",
+        "to": 0,
+        "expect": "0"
+      }
+    ],
+    "expected_value": 20.0,
+    "solver_expression": "1/2*alpha*t**2"
+  },
+  {
+    "id": "gen-20261119-1215-002",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Magnitude of piston displacement during isobaric heating of an ideal gas",
+    "statement": "A vertical cylinder with cross-sectional area area_a contains n_moles of an ideal gas. A piston of mass mass_p rests on top of the gas in equilibrium. The piston is free to move vertically without friction. The external atmospheric pressure is p_ext. If the gas is heated from an initial temperature t_1 to a final temperature t_2, find the magnitude of the displacement of the piston. Use gas_R for the universal gas constant and g for the acceleration due to gravity.",
+    "symbols": {
+      "area_a": {
+        "desc": "cross-sectional area of the cylinder",
+        "unit": "m^2"
+      },
+      "n_moles": {
+        "desc": "amount of gas in moles",
+        "unit": "mol"
+      },
+      "mass_p": {
+        "desc": "mass of the piston",
+        "unit": "kg"
+      },
+      "p_ext": {
+        "desc": "external atmospheric pressure",
+        "unit": "Pa"
+      },
+      "t_1": {
+        "desc": "initial temperature of the gas",
+        "unit": "K"
+      },
+      "t_2": {
+        "desc": "final temperature of the gas",
+        "unit": "K"
+      },
+      "gas_R": {
+        "desc": "universal gas constant",
+        "unit": "J/(mol*K)"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "n_moles * gas_R * (t_2 - t_1) / (area_a * p_ext + mass_p * g)",
+    "answer_unit": "m",
+    "given": {
+      "area_a": "0.01",
+      "n_moles": "0.5",
+      "mass_p": "2.0",
+      "p_ext": "101325.0",
+      "t_1": "300.0",
+      "t_2": "400.0",
+      "gas_R": "8.314",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "t_2",
+        "to": "t_1",
+        "expect": "0"
+      },
+      {
+        "symbol": "n_moles",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.402471,
+    "solver_expression": "n_moles*gas_R*(t_2 - t_1)/(area_a*(p_ext + mass_p*g/area_a))"
+  },
+  {
+    "id": "gen-20261119-1215-003",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Moment of inertia of an annular disk",
+    "statement": "A thin, uniform annular disk (a flat ring) has a total mass M, an outer radius R_out, and a concentric inner hole of radius R_in. Determine the moment of inertia of the disk about an axis that passes through its center and is perpendicular to the plane of the disk.",
+    "symbols": {
+      "M": {
+        "desc": "total mass of the annular disk",
+        "unit": "kg"
+      },
+      "R_out": {
+        "desc": "outer radius of the disk",
+        "unit": "m"
+      },
+      "R_in": {
+        "desc": "inner radius of the concentric hole",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "M*(R_out**2 + R_in**2)/2",
+    "answer_unit": "kg*m^2",
+    "given": {
+      "M": "2.4",
+      "R_out": "0.5",
+      "R_in": "0.3"
+    },
+    "limits": [
+      {
+        "symbol": "R_in",
+        "to": 0,
+        "expect": "M*R_out**2/2"
+      },
+      {
+        "symbol": "R_in",
+        "to": "R_out",
+        "expect": "M*R_out**2"
+      }
+    ],
+    "expected_value": 0.408,
+    "solver_expression": "M * (R_in**2 + R_out**2) / 2"
+  },
+  {
+    "id": "gen-20261119-1215-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Period of a conical pendulum",
+    "statement": "A conical pendulum consists of a mass attached to a string of length L. The mass travels in a horizontal circle such that the string makes a constant angle theta_angle with the vertical. Calculate the magnitude of the period of revolution of the mass, given the gravitational acceleration g.",
+    "symbols": {
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta_angle": {
+        "desc": "angle between the string and the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta_angle)/g)",
+    "answer_unit": "s",
+    "given": {
+      "L": "1.5",
+      "theta_angle": "0.5235987755982988",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta_angle",
+        "to": 0,
+        "expect": "2*pi*sqrt(L/g)"
+      },
+      {
+        "symbol": "L",
+        "to": 0,
+        "expect": "0"
+      }
+    ],
+    "expected_value": 2.28642,
+    "solver_expression": "2*pi*sqrt(L*cos(theta_angle)/g)"
+  },
+  {
+    "id": "gen-20261119-1215-005",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Electric field of a uniformly charged thin rod along its axis",
+    "statement": "A thin rod of length L carries a total charge q_0 distributed uniformly along its length. Calculate the magnitude of the electric field elec_field_mag at a point located a distance d from the nearest end of the rod, along the axis of the rod. Use k_e as the Coulomb constant.",
+    "symbols": {
+      "q_0": {
+        "desc": "total charge of the rod",
+        "unit": "C"
+      },
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "d": {
+        "desc": "distance from the nearest end of the rod to the observation point",
+        "unit": "m"
+      },
+      "k_e": {
+        "desc": "Coulomb constant",
+        "unit": "N*m^2/C^2"
+      }
+    },
+    "answer_expression": "k_e * q_0 / (d * (d + L))",
+    "answer_unit": "N/C",
+    "given": {
+      "q_0": "5e-09",
+      "L": "0.1",
+      "d": "0.05",
+      "k_e": "8987551792.3"
+    },
+    "limits": [
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "k_e * q_0 / d^2"
+      }
+    ],
+    "expected_value": 5991.7,
+    "solver_expression": "k_e * q_0 / (d * (d + L))"
+  }
+]
