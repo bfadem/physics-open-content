@@ -1,0 +1,181 @@
+[
+  {
+    "id": "gen-20261119-1143-001",
+    "tier": "plug-and-chug",
+    "topic": "Acceleration of an Atwood machine",
+    "statement": "A simple Atwood machine consists of two masses, m_1 and m_2, connected by a massless string passing over a frictionless, massless pulley. If the system is released from rest and m_1 is greater than m_2, find the magnitude of the acceleration of the masses. Use g for the gravitational acceleration.",
+    "symbols": {
+      "m_1": {
+        "desc": "mass of the heavier block",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the lighter block",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "g * (m_1 - m_2) / (m_1 + m_2)",
+    "answer_unit": "m/s^2",
+    "given": {
+      "m_1": "5.0",
+      "m_2": "3.0",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "m_1",
+        "to": "m_2",
+        "expect": "0"
+      },
+      {
+        "symbol": "m_2",
+        "to": "0",
+        "expect": "g"
+      }
+    ],
+    "expected_value": 2.4525,
+    "solver_expression": "g*(m_1 - m_2)/(m_1 + m_2)",
+    "provenance": {
+      "author": "gemini-3-flash-preview",
+      "solver": "gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-1143-002",
+    "tier": "multi-step",
+    "topic": "Conical pendulum",
+    "statement": "A small bob of mass m is attached to a string of length L and rotates in a horizontal circle such that the string maintains a constant angle theta_v with the vertical axis. Find the magnitude of the orbital period P of the bob in terms of L, theta_v, and the gravitational acceleration g.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the bob",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta_v": {
+        "desc": "angle between the string and the vertical axis",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta_v)/g)",
+    "answer_unit": "s",
+    "given": {
+      "m": "0.5",
+      "L": "1.2",
+      "theta_v": "0.5236",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta_v",
+        "to": 0,
+        "expect": "2*pi*sqrt(L/g)"
+      }
+    ],
+    "expected_value": 2.04504,
+    "solver_expression": "2*pi*sqrt(L*cos(theta_v)/g)",
+    "provenance": {
+      "author": "gemini-3-flash-preview",
+      "solver": "gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-1143-003",
+    "tier": "interesting",
+    "topic": "Escape speed from a uniform density planet",
+    "statement": "A spherical planet has a uniform mass density rho and a radius R. Calculate the magnitude of the escape speed from the surface of this planet in terms of rho, R, and the universal gravitational constant G_grav.",
+    "symbols": {
+      "rho": {
+        "desc": "uniform mass density of the planet",
+        "unit": "kg/m^3"
+      },
+      "R": {
+        "desc": "radius of the planet",
+        "unit": "m"
+      },
+      "G_grav": {
+        "desc": "universal gravitational constant",
+        "unit": "N*m^2/kg^2"
+      }
+    },
+    "answer_expression": "R * sqrt(8 * pi * G_grav * rho / 3)",
+    "answer_unit": "m/s",
+    "given": {
+      "rho": "5510",
+      "R": "6371000",
+      "G_grav": "6.674e-11"
+    },
+    "limits": [
+      {
+        "symbol": "rho",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "R",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 11182.4,
+    "solver_expression": "sqrt(8*pi*G_grav*rho*R**2/3)",
+    "provenance": {
+      "author": "gemini-3-flash-preview",
+      "solver": "gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-1143-004",
+    "tier": "plug-and-chug",
+    "topic": "Doppler effect for a moving source",
+    "statement": "A source of sound moves at a constant speed v_source directly toward a stationary observer. The source emits sound waves at a frequency f_source. Given that the speed of sound in the air is v_sound, calculate the observed frequency.",
+    "symbols": {
+      "f_source": {
+        "desc": "frequency of the sound source",
+        "unit": "Hz"
+      },
+      "v_sound": {
+        "desc": "speed of sound in the medium",
+        "unit": "m/s"
+      },
+      "v_source": {
+        "desc": "speed of the source moving toward the observer",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "f_source * v_sound / (v_sound - v_source)",
+    "answer_unit": "Hz",
+    "given": {
+      "f_source": "440",
+      "v_sound": "343",
+      "v_source": "30"
+    },
+    "limits": [
+      {
+        "symbol": "v_source",
+        "to": "0",
+        "expect": "f_source"
+      }
+    ],
+    "expected_value": 482.173,
+    "solver_expression": "f_source * v_sound / (v_sound - v_source)",
+    "provenance": {
+      "author": "gemini-3-flash-preview",
+      "solver": "gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    }
+  }
+]
