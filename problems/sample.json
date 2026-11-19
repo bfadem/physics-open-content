@@ -40,6 +40,7 @@
     "topic": "spring-mass period (deliberately wrong numeric answer)",
     "tier": "plug-and-chug",
     "known_bad": true,
+    "expect_fail": ["numeric"],
     "statement": "A mass m on a spring of stiffness k undergoes simple harmonic motion. Find the period.",
     "symbols": {
       "m": {"desc": "mass", "unit": "kg"},

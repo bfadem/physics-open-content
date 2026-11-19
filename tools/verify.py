@@ -6,6 +6,9 @@ expressions are whitelisted before parsing, and all arithmetic is done by
 SymPy rather than by the model.
 
 Records flagged "known_bad": true are harness self-tests and MUST fail.
+If such a record also lists "expect_fail": [check names], exactly those
+checks must fail and every other check must pass -- otherwise a self-test
+could "succeed" by failing for the wrong reason.
 """
 import glob
 import json
@@ -70,15 +73,63 @@ def parse_unit(text):
                       transformations=TRANSFORMS)
 
 
-def base_dims(expr_with_units):
-    """Reduce to base SI dimensional dependencies.
+def _deps(dim):
+    """Base-SI dependencies of a Dimension, keyed by dimension NAME.
 
-    Comparing dimensional expressions directly fails for derived units:
-    newtons stay symbolic as 'force' instead of expanding to kg*m/s^2.
+    Keys must be names, not printed Dimension objects: Dimension(time) and
+    Dimension(time, T) are the same dimension but print differently.
     """
-    dim = Dimension(SI.get_dimensional_expr(expr_with_units))
     deps = dimsys_SI.get_dimensional_dependencies(dim)
-    return {str(k): v for k, v in dict(deps).items() if v != 0}
+    return {str(getattr(k, "name", k)): v
+            for k, v in dict(deps).items() if v != 0}
+
+
+def base_dims(expr):
+    """Base SI dimensions of an expression whose symbols carry units.
+
+    Walks the tree rather than asking SymPy for one dimensional expression,
+    so that every term of a sum is checked (not just the first) and that
+    function arguments (sin, exp, log, ...) are required to be dimensionless.
+    """
+    expr = sympy.sympify(expr)
+    if isinstance(expr, u.Quantity):
+        return _deps(SI.get_quantity_dimension(expr))
+    if isinstance(expr, Dimension):
+        return _deps(expr)
+    if expr.is_Number or expr.is_NumberSymbol or expr.is_Symbol:
+        return {}
+    if expr.is_Mul:
+        total = {}
+        for arg in expr.args:
+            for k, v in base_dims(arg).items():
+                total[k] = total.get(k, 0) + v
+        return {k: v for k, v in total.items() if v != 0}
+    if expr.is_Pow:
+        base, exp_ = expr.args
+        bd, ed = base_dims(base), base_dims(exp_)
+        if ed:
+            raise ValueError(f"exponent {exp_} is not dimensionless: {ed}")
+        if not bd:
+            return {}
+        if not exp_.is_Number:
+            raise ValueError(f"dimensional base {base} raised to symbolic power")
+        return {k: v * exp_ for k, v in bd.items()}
+    if expr.is_Add:
+        terms = [base_dims(a) for a in expr.args]
+        for t in terms[1:]:
+            if t != terms[0]:
+                raise ValueError(f"adding unlike dimensions: {terms[0] or 'dimensionless'}"
+                                 f" + {t or 'dimensionless'}")
+        return terms[0]
+    if isinstance(expr, sympy.Abs):
+        return base_dims(expr.args[0])
+    if isinstance(expr, sympy.Function):
+        for arg in expr.args:
+            ad = base_dims(arg)
+            if ad:
+                raise ValueError(f"{expr.func.__name__} of dimensional argument: {ad}")
+        return {}
+    raise ValueError(f"cannot determine dimensions of {expr!r}")
 
 
 def check(record):
@@ -107,7 +158,11 @@ def check(record):
 
     # 3. dimensions
     try:
-        subs = {Symbol(n, positive=True): parse_unit(meta.get("unit", "1"))
+        # Each symbol becomes (distinct positive dummy) * (its unit). Bare
+        # units would collapse sums: m1 and m2 both -> kilogram, so
+        # (m2 - m1) -> 0 and the whole answer would read as dimensionless.
+        subs = {Symbol(n, positive=True):
+                sympy.Dummy(n, positive=True) * parse_unit(meta.get("unit", "1"))
                 for n, meta in syms.items()}
         got = base_dims(expr.subs(subs))
         want = base_dims(parse_unit(record["answer_unit"]))
@@ -174,8 +229,15 @@ def main():
         for name, ok, detail in results:
             print(f"   {'ok  ' if ok else 'FAIL'}  {name:22s} {detail}")
 
+        failed = sorted(name for name, ok, _ in results if not ok)
+        expect_fail = rec.get("expect_fail")
         if known_bad and passed:
             print("   !! harness did not catch a known-bad record")
+            harness_ok = False
+        elif known_bad and expect_fail is not None \
+                and failed != sorted(expect_fail):
+            print(f"   !! known-bad record failed {failed}, "
+                  f"expected exactly {sorted(expect_fail)}")
             harness_ok = False
         elif not known_bad and not passed:
             real_failures += 1
@@ -186,7 +248,8 @@ def main():
           f"{real_failures} genuine failures.")
 
     if not harness_ok:
-        sys.exit("Harness self-test failed: a known-bad record passed.")
+        sys.exit("Harness self-test failed: a known-bad record passed "
+                 "or failed for the wrong reason.")
     if real_failures:
         sys.exit(f"{real_failures} record(s) failed verification.")
     print("All good.")
