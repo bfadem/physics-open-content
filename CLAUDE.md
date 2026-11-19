@@ -28,12 +28,32 @@ unlimited on public repositories. Nothing calls a model from the laptop.
 
 ## Layout
 
-- `tools/list_models.py` — enumerate models the key can see
-- `tools/gen_once.py` — one generateContent call; `MODEL` env var selects it
-- `tools/probe_models.py` — probe real entitlement; writes `docs/model-probe.md`
-- `tools/verify.py` — deterministic verification harness
-- `problems/*.json` — problem records
-- `.github/workflows/` — `smoke-test.yml`, `probe-models.yml`, `verify.yml`
+- `tools/list_models.py`, `tools/probe_models.py` — Gemini model listing / entitlement probe
+- `tools/list_provider_models.py` — list OpenAI-compatible provider models (no quota used)
+- `tools/engines.py` + `tools/engines.json` — router: ordered engines per role
+  (author, solver), falls over on daily quota / missing model / busy
+- `tools/generate.py` — topic mode, or curriculum-gated request mode (`REQUEST=`)
+- `tools/verify.py` — checks 1-5 always; 6-8 (curriculum, lexical, pedagogy)
+  with `--request`, otherwise reported PARTIAL
+- `tools/curriculum.py`, `tools/validate_curriculum.py`, `tools/check_rules.py`,
+  `tools/prompt.py`, `tools/render.py` — curriculum layer (see
+  `SPEC-curriculum-gating.md`)
+- `curriculum/` — concept registry, calculus flags, representations, sequences
+- `requests/` — committed request files; `requests/fixtures/` for CI
+- `problems/*.json` — hand-checked records, self-tests, guards
+- `candidates/<batch>/` — generated output awaiting human review; never
+  auto-promoted to `problems/`
+- `tests/` — unittest suite, golden prompt, curriculum fixture runner
+- Workflows: `verify.yml` (CI), `generate.yml`, `probe-models.yml`,
+  `list-provider-models.yml`, `smoke-test.yml`
+
+## Providers
+
+Gemini (`GEMINI_API_KEY`) and Groq (`GROQ_API_KEY`). One account per
+provider, personal identity, never institutional. Limits are honored, never
+evaded. Free Gemini models allow roughly 20 requests/day each; Groq about
+1,000/day per model. Groq is behind Cloudflare: send a User-Agent. Mistral's
+free plan no longer includes API keys (Nov 2026); GitHub Models is retired.
 
 ## Model entitlement (probed 2026-11-19, unbilled key)
 
@@ -83,18 +103,16 @@ what gets discarded.
 
 ## Current state
 
-Working: smoke test, entitlement probe, verification harness.
-Not yet built: the problem generator, multi-provider routing with fallback.
+Working: verification harness (checks 1-8), multi-engine routing with
+fallback, topic-mode and curriculum-gated generation with a blind-solver
+cross-check, LaTeX/Canvas rendering. Spec milestones M0-M5 done.
 
-Open bugs in `tools/verify.py`, dimensions check — both cause the harness to
-reject CORRECT physics:
+Not done: M6 (populate `work-first` and the other sequence stubs); the
+rotation/oscillation tail of `impulse-first` is provisional (`rotational-ke`
+unplaced) — do not generate past `extended-work-energy` until it is fixed.
+Checks 6 and 8 rely on the model's self-reported `requires` and
+`trivial_if_available`; only the lexical check is independent of it.
 
-1. Substituting units collapses sums. `m1` and `m2` both become `kilogram`,
-   so `(m2 - m1)` evaluates to zero and the expression reads as dimensionless.
-   Substitute distinct dummy coefficients times each unit instead.
-2. Dimensional dependencies are compared by printed form. `Dimension(time)`
-   and `Dimension(time, T)` are equal but print differently. Compare by
-   dimension name.
-
-Target: `verify.yml` green, with `mech-001` and `mech-002` passing all five
-checks and `harness-selftest-001` failing on `numeric` alone.
+Every false rejection found so far became a guard record or a regression
+test. Keep doing that: when a correct problem is rejected, fix the harness
+and add a guard.
