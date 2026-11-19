@@ -130,6 +130,46 @@
     ]
   },
   {
+    "id": "mech-006",
+    "topic": "work at an angle (guard: a decimal pi/2 limit point must be read as pi/2)",
+    "tier": "plug-and-chug",
+    "statement": "A constant force F acts at angle theta to a horizontal displacement d. Find the work done by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "displacement magnitude",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between force and displacement",
+        "unit": "1"
+      }
+    },
+    "answer_expression": "F*d*cos(theta)",
+    "answer_unit": "J",
+    "given": {
+      "F": "80",
+      "d": "4",
+      "theta": "0.5235987756"
+    },
+    "expected_value": 277.128,
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F*d"
+      },
+      {
+        "symbol": "theta",
+        "to": "1.5707963268",
+        "expect": "0"
+      }
+    ]
+  },
+  {
     "id": "em-001",
     "topic": "charging capacitor (guard: given values in scientific notation)",
     "tier": "plug-and-chug",

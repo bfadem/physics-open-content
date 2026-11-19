@@ -19,6 +19,7 @@ import argparse
 import glob
 import json
 import os
+import math
 import random
 import re
 import sys
@@ -109,6 +110,20 @@ def agree_near_given(a, b, record):
         if abs(va - vb) > 1e-9 * max(abs(va), abs(vb), 1e-30):
             return False
     return True
+
+
+def snap_to_pi(value):
+    """A decimal limit point within 1e-6 of k*pi/n (n <= 12) is the angle
+    the author meant: 1.5707963268 -> pi/2. Taking the limit at the decimal
+    leaves a residue (cos(1.5707963268) ~ -5e-12) that is not zero."""
+    if not (value.is_number and value.is_Float):
+        return value
+    v = float(value)
+    for n in range(1, 13):
+        k = round(v * n / math.pi)
+        if k and abs(v - k * math.pi / n) < 1e-6 * max(1.0, abs(v)):
+            return sympy.Rational(k, n) * sympy.pi
+    return value
 
 
 def parse_unit(text):
@@ -307,9 +322,9 @@ def check(record, state=None):
         try:
             # Models write infinity in several ways; SymPy spells it oo.
             to = re.sub(r"\b(infinity|Infinity|inf|Inf)\b", "oo", str(lim["to"]))
-            got = sympy.limit(expr,
-                              safe_parse(lim["symbol"], names),
-                              safe_parse(to, names))
+            point = snap_to_pi(parse_value(to) if NUMBER.fullmatch(to.strip())
+                               else safe_parse(to, names))
+            got = sympy.limit(expr, safe_parse(lim["symbol"], names), point)
             want = safe_parse(lim["expect"], names)
             ok = simplify(got - want) == 0
             how = "symbolically"

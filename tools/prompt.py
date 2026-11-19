@@ -129,18 +129,33 @@ def map_curriculum_fields(meta, state, concepts=None, calculus=None,
     cl = cur.concept_label_map(concepts)
     fl = cur.calculus_label_map(calculus)
     rl = cur.representation_label_map(representations)
+    # Models sometimes list a mathematics or diagram label under "requires".
+    # Those labels are unambiguous (validate_curriculum forbids shared
+    # variants), so route them to the field they belong to, never drop them.
+    requires, calc_extra, rep_extra = [], [], []
+    req = meta.get("requires")
+    for lab in ([req] if isinstance(req, str) else req or []):
+        key = cur._norm(lab)
+        if key not in cl and key in fl:
+            calc_extra.append(lab)
+        elif key not in cl and key in rl:
+            rep_extra.append(lab)
+        else:
+            requires.append(lab)
+
+    def ids(field, lmap, kind, extra=()):
+        v = meta.get(field)
+        v = [v] if isinstance(v, str) else list(v or [])
+        return list(dict.fromkeys(cur.labels_to_ids(v + list(extra), lmap, kind)))
+
     ip = cur.labels_to_ids(meta.get("intended_path") or [], cl, "concept")
     return {
         "sequence": state.sequence_name,
         "cursor": state.cursor,
-        "requires": cur.labels_to_ids(meta.get("requires"), cl, "concept"),
+        "requires": cur.labels_to_ids(requires, cl, "concept"),
         "intended_path": ip[0] if ip else None,
-        "trivial_if_available": cur.labels_to_ids(
-            meta.get("trivial_if_available"), cl, "concept"),
-        "representations": cur.labels_to_ids(
-            meta.get("representations"), rl, "representation"),
-        "calculus_all_of": cur.labels_to_ids(
-            meta.get("calculus_all_of"), fl, "calculus"),
-        "calculus_any_of": cur.labels_to_ids(
-            meta.get("calculus_any_of"), fl, "calculus"),
+        "trivial_if_available": ids("trivial_if_available", cl, "concept"),
+        "representations": ids("representations", rl, "representation", rep_extra),
+        "calculus_all_of": ids("calculus_all_of", fl, "calculus", calc_extra),
+        "calculus_any_of": ids("calculus_any_of", fl, "calculus"),
     }

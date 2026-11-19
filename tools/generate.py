@@ -339,10 +339,32 @@ def main():
             else [out]
         if not isinstance(items, list):
             items = []
+        # A record missing its answer or its solution profile cannot be
+        # checked; reject it here and count it toward the re-ask shortfall.
+        need = ["statement", "symbols", "answer_expression", "answer_unit", "given"]
+        complete = []
+        for item in items[:n]:
+            item = item if isinstance(item, dict) else {}
+            missing = [k for k in need if not item.get(k)]
+            if request is not None and not (item.get("solution_profile")
+                                            or item.get("curriculum")
+                                            or "requires" in item):
+                missing.append("solution_profile")
+            if missing:
+                n_rec += 1
+                rejected.append({"id": f"gen-{batch}-{n_rec:03d}", "tier": tier,
+                                 "topic": item.get("topic") or label,
+                                 "rejected_at": "author",
+                                 "reason": f"incomplete record: missing {missing}",
+                                 "raw_author_output": item})
+                print(f"   REJECT  [author] incomplete record: missing {missing}")
+            else:
+                complete.append(item)
+        items = complete
         if request is not None and len(items) < n:
             print(f"   note: asked for {n}, got {len(items)}")
             retries = label.count("(re-ask")
-            if retries < 2 and items:
+            if retries < 2:
                 short = n - len(items)
                 calls.insert(0, (tier, short, P.build_prompt(
                     state, request["target_concepts"], tier, short),

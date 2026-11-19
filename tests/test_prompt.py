@@ -107,6 +107,18 @@ class LabelMappingTest(unittest.TestCase):
         self.assertIn("newton-3rd", lex[2])
         self.assertIn("impulse-momentum-theorem", lex[2])
 
+    def test_math_and_diagram_labels_under_requires_are_rerouted(self):
+        # Real model output (batch 20261119-1802): the trig calculus flag's
+        # label listed as a required concept.
+        meta = {"requires": ["work as the dot product of force and displacement",
+                             "resolve a vector into components using sine and cosine",
+                             "free-body diagram"],
+                "intended_path": "work as the dot product of force and displacement"}
+        out = P.map_curriculum_fields(meta, self.state)
+        self.assertEqual(out["requires"], ["work-dot-product"])
+        self.assertEqual(out["calculus_all_of"], ["trig-decomposition"])
+        self.assertEqual(out["representations"], ["free-body-diagram"])
+
     def test_unknown_label_rejected(self):
         with self.assertRaises(ValueError):
             P.map_curriculum_fields({"requires": ["quantum tunnelling"],
