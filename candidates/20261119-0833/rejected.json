@@ -1,0 +1,244 @@
+[
+  {
+    "id": "gen-20261119-0833-001",
+    "tier": "plug-and-chug",
+    "rejected_at": "author",
+    "reason": "RuntimeError: HTTP 503 from gemini-4-hydrogen: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+  },
+  {
+    "id": "gen-20261119-0833-002",
+    "tier": "multi-step",
+    "topic": "torque and static equilibrium of a hinged beam with a supporting cable",
+    "statement": "A uniform horizontal beam of mass m_b and length L is attached at its left end to a vertical wall by a frictionless pivot hinge. A massless cable connects the right end of the beam to a point on the vertical wall directly above the hinge, forming an angle theta (with 0 < theta < pi/2) above the horizontal beam. A block of mass m_w hangs vertically from the beam at a distance d (with d < L) from the hinge. Taking the local gravitational acceleration to be g, find the magnitude of the force exerted by the hinge on the beam when the system is in static equilibrium.",
+    "symbols": {
+      "m_b": {
+        "desc": "mass of the uniform beam",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the beam",
+        "unit": "m"
+      },
+      "m_w": {
+        "desc": "mass of the hanging block",
+        "unit": "kg"
+      },
+      "d": {
+        "desc": "distance along the beam from the hinge to the hanging block",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between the cable and the horizontal beam",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "g * sqrt((cos(theta) / sin(theta) * (m_b / 2 + m_w * d / L))**2 + (m_b / 2 + m_w * (1 - d / L))**2)",
+    "answer_unit": "N",
+    "given": {
+      "m_b": "12.0",
+      "L": "3.0",
+      "m_w": "20.0",
+      "d": "2.0",
+      "theta": "0.6",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "m_w",
+        "to": "0",
+        "expect": "m_b * g / (2 * sin(theta))"
+      },
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "g * (m_b / 2 + m_w * (1 - d / L))"
+      }
+    ],
+    "expected_value": 303.7999267578125,
+    "solver_expression": "g * sqrt((m_b/2 + m_w*d/L)**2 / tan(theta)**2 + (m_b/2 + m_w*(1 - d/L))**2)",
+    "rejected_at": "verify",
+    "reason": "ValueError: limit m_w->0: got g*m_b/(2*Abs(sin(theta))), expected g*m_b/(2*sin(theta)); limit theta->pi/2: got g*sqrt(L**2*m_b**2 + 4*L**2*m_b*m_w + 4*L**2*m_w**2 - 4*L*d*m_b*m_w - 8*L*d*m_w**2 + 4*d**2*m_w**2)/(2*L), expected g*(m_b/2 + m_w*(1 - d/L))"
+  },
+  {
+    "id": "gen-20261119-0833-004",
+    "tier": "plug-and-chug",
+    "topic": "electric field on the axis of a uniformly charged ring",
+    "statement": "A thin circular ring of radius R_ring carries a positive total charge q_tot distributed uniformly along its circumference. Using Coulomb's constant k_e, find the magnitude of the electric field at a point on the central axis perpendicular to the plane of the ring at a distance z_axis from the center of the ring.",
+    "symbols": {
+      "k_e": {
+        "desc": "Coulomb's constant",
+        "unit": "N*m^2/C^2"
+      },
+      "q_tot": {
+        "desc": "total charge on the ring",
+        "unit": "C"
+      },
+      "R_ring": {
+        "desc": "radius of the ring",
+        "unit": "m"
+      },
+      "z_axis": {
+        "desc": "distance from the center of the ring along its central axis",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "k_e*q_tot*z_axis/(z_axis**2 + R_ring**2)**(3/2)",
+    "answer_unit": "N/C",
+    "given": {
+      "k_e": "8.99e9",
+      "q_tot": "4.5e-6",
+      "R_ring": "0.12",
+      "z_axis": "0.16"
+    },
+    "limits": [
+      {
+        "symbol": "z_axis",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "R_ring",
+        "to": "0",
+        "expect": "k_e*q_tot/z_axis**2"
+      }
+    ],
+    "rejected_at": "instantiate",
+    "reason": "ValueError: unknown identifiers: ['e9']"
+  },
+  {
+    "id": "gen-20261119-0833-014",
+    "tier": "multi-step",
+    "rejected_at": "author",
+    "reason": "RuntimeError: HTTP 503 from gemini-4-hydrogen: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+  },
+  {
+    "id": "gen-20261119-0833-017",
+    "tier": "multi-step",
+    "rejected_at": "author",
+    "reason": "TimeoutError: The read operation timed out"
+  },
+  {
+    "id": "gen-20261119-0833-018",
+    "tier": "interesting",
+    "rejected_at": "author",
+    "reason": "RuntimeError: HTTP 503 from gemini-4-hydrogen: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+  },
+  {
+    "id": "gen-20261119-0833-019",
+    "tier": "plug-and-chug",
+    "topic": "Charging an RC circuit",
+    "statement": "An initially uncharged capacitor of capacitance C_0 is connected in series with a resistor of resistance R and an ideal battery of emf V_0 when a switch is closed. Find the magnitude of the electric charge stored on the capacitor a time t after the switch is closed.",
+    "symbols": {
+      "C_0": {
+        "desc": "capacitance of the capacitor",
+        "unit": "C/V"
+      },
+      "R": {
+        "desc": "resistance of the resistor",
+        "unit": "ohm"
+      },
+      "V_0": {
+        "desc": "electromotive force of the battery",
+        "unit": "V"
+      },
+      "t": {
+        "desc": "elapsed time after the switch is closed",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "C_0*V_0*(1 - exp(-t/(R*C_0)))",
+    "answer_unit": "C",
+    "given": {
+      "C_0": "1e-05",
+      "R": "1000",
+      "V_0": "12",
+      "t": "0.015"
+    },
+    "limits": [
+      {
+        "symbol": "R",
+        "to": "0",
+        "expect": "C_0*V_0"
+      },
+      {
+        "symbol": "t",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "instantiate",
+    "reason": "ValueError: unknown identifiers: ['e']"
+  },
+  {
+    "id": "gen-20261119-0833-020",
+    "tier": "multi-step",
+    "topic": "capacitors and stored energy with dielectric insertion and charge sharing",
+    "statement": "An air-filled parallel-plate capacitor with plate area A_p and plate separation d (take the permittivity of free space to be eps0) is connected to a battery of potential difference V_0 until fully charged, and is then disconnected from the battery. While the capacitor remains isolated, a dielectric slab of dielectric constant kappa is inserted so that it completely fills the space between the plates. Next, this capacitor (with the dielectric slab still in place) is connected in parallel to a second, initially uncharged capacitor of capacitance C_2. Find the magnitude of the electrostatic energy dissipated during the connection to the second capacitor.",
+    "symbols": {
+      "A_p": {
+        "desc": "plate area of the parallel-plate capacitor",
+        "unit": "m^2"
+      },
+      "d": {
+        "desc": "plate separation of the parallel-plate capacitor",
+        "unit": "m"
+      },
+      "eps0": {
+        "desc": "permittivity of free space",
+        "unit": "C^2/(N*m^2)"
+      },
+      "V_0": {
+        "desc": "potential difference of the charging battery",
+        "unit": "V"
+      },
+      "kappa": {
+        "desc": "dielectric constant of the inserted slab",
+        "unit": "1"
+      },
+      "C_2": {
+        "desc": "capacitance of the second, initially uncharged capacitor",
+        "unit": "C/V"
+      }
+    },
+    "answer_expression": "eps0 * A_p * V_0**2 * C_2 / (2 * kappa * (kappa * eps0 * A_p + C_2 * d))",
+    "answer_unit": "J",
+    "given": {
+      "A_p": "0.02",
+      "d": "0.001",
+      "eps0": "8.854e-12",
+      "V_0": "12.0",
+      "kappa": "3.5",
+      "C_2": "5e-10"
+    },
+    "limits": [
+      {
+        "symbol": "C_2",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "C_2 * V_0**2 / (2 * kappa**2)"
+      }
+    ],
+    "rejected_at": "instantiate",
+    "reason": "ValueError: unknown identifiers: ['e']"
+  },
+  {
+    "id": "gen-20261119-0833-021",
+    "tier": "interesting",
+    "rejected_at": "author",
+    "reason": "RuntimeError: HTTP 503 from gemini-4-hydrogen: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+  },
+  {
+    "id": "gen-20261119-0833-023",
+    "tier": "multi-step",
+    "rejected_at": "author",
+    "reason": "RuntimeError: HTTP 503 from gemini-4-hydrogen: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n"
+  }
+]

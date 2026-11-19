@@ -1,0 +1,700 @@
+[
+  {
+    "id": "gen-20261119-0833-003",
+    "tier": "interesting",
+    "topic": "Maximum power transfer in a DC resistor network",
+    "statement": "A battery with electromotive force V_0 and internal resistance r_0 is connected in series with a fixed resistor R_1. The outer terminals of this series combination are connected across a parallel arrangement of a fixed resistor R_2 and a variable load resistor. Determine the maximum power that can be dissipated in the variable load resistor as its resistance is varied over all positive values.",
+    "symbols": {
+      "V_0": {
+        "desc": "Electromotive force of the battery",
+        "unit": "V"
+      },
+      "r_0": {
+        "desc": "Internal resistance of the battery",
+        "unit": "ohm"
+      },
+      "R_1": {
+        "desc": "Resistance of the series fixed resistor",
+        "unit": "ohm"
+      },
+      "R_2": {
+        "desc": "Resistance of the parallel fixed resistor",
+        "unit": "ohm"
+      }
+    },
+    "answer_expression": "V_0**2 * R_2 / (4 * (r_0 + R_1) * (r_0 + R_1 + R_2))",
+    "answer_unit": "W",
+    "given": {
+      "V_0": "12.0",
+      "r_0": "0.5",
+      "R_1": "3.5",
+      "R_2": "12.0"
+    },
+    "limits": [
+      {
+        "symbol": "R_2",
+        "to": "oo",
+        "expect": "V_0**2 / (4 * (r_0 + R_1))"
+      },
+      {
+        "symbol": "R_2",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 6.75,
+    "solver_expression": "V_0**2 * R_2 / (4 * (r_0 + R_1) * (r_0 + R_1 + R_2))",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-005",
+    "tier": "multi-step",
+    "topic": "DC circuits with resistors",
+    "statement": "A real battery with electromotive force V_0 and internal resistance r_0 is connected in series with a resistor of resistance R_1 and a parallel combination of two resistors of resistances R_2 and R_3. Determine the power dissipated in the resistor of resistance R_2.",
+    "symbols": {
+      "V_0": {
+        "desc": "electromotive force of the battery",
+        "unit": "V"
+      },
+      "r_0": {
+        "desc": "internal resistance of the battery",
+        "unit": "ohm"
+      },
+      "R_1": {
+        "desc": "resistance of the series resistor",
+        "unit": "ohm"
+      },
+      "R_2": {
+        "desc": "resistance of the first parallel resistor",
+        "unit": "ohm"
+      },
+      "R_3": {
+        "desc": "resistance of the second parallel resistor",
+        "unit": "ohm"
+      }
+    },
+    "answer_expression": "V_0**2 * R_2 * R_3**2 / ((r_0 + R_1) * (R_2 + R_3) + R_2 * R_3)**2",
+    "answer_unit": "W",
+    "given": {
+      "V_0": "12.0",
+      "r_0": "1.5",
+      "R_1": "4.0",
+      "R_2": "6.0",
+      "R_3": "3.0"
+    },
+    "limits": [
+      {
+        "symbol": "R_3",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "r_0",
+        "to": "0",
+        "expect": "V_0**2 * R_2 * R_3**2 / (R_1 * (R_2 + R_3) + R_2 * R_3)**2"
+      }
+    ],
+    "expected_value": 1.7066667079925537,
+    "solver_expression": "V_0**2 * R_2 * R_3**2 / ((r_0 + R_1) * (R_2 + R_3) + R_2 * R_3)**2",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-006",
+    "tier": "interesting",
+    "topic": "One-dimensional kinematics with constant acceleration and pursuit",
+    "statement": "A speeder passes a stationary police car while moving along a straight road at a constant speed v_s. After a reaction delay t_r following the instant the speeder passes, the police car starts from rest and pursues the speeder with a constant acceleration of magnitude a_p. Find the distance the police car travels from its starting point until it overtakes the speeder.",
+    "symbols": {
+      "v_s": {
+        "desc": "constant speed of the speeder",
+        "unit": "m/s"
+      },
+      "t_r": {
+        "desc": "reaction delay before the police car begins accelerating",
+        "unit": "s"
+      },
+      "a_p": {
+        "desc": "magnitude of the constant acceleration of the police car",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "v_s*(t_r + (v_s + sqrt(v_s**2 + 2*a_p*v_s*t_r))/a_p)",
+    "answer_unit": "m",
+    "given": {
+      "v_s": "30.0",
+      "t_r": "2.0",
+      "a_p": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "t_r",
+        "to": "0",
+        "expect": "2*v_s**2/a_p"
+      },
+      {
+        "symbol": "v_s",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 563.6126708984375,
+    "solver_expression": "(v_s + sqrt(v_s**2 + 2*a_p*v_s*t_r))**2 / (2*a_p)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-007",
+    "tier": "plug-and-chug",
+    "topic": "Standing waves on a string under tension",
+    "statement": "A uniform string of length L and mass m_s is fixed at both ends and held taut by a hanging block of mass M_h suspended over a frictionless pulley in a uniform gravitational field of acceleration magnitude g. When the string oscillates in a standing wave of harmonic number n, find the frequency of the standing wave.",
+    "symbols": {
+      "L": {
+        "desc": "length of the vibrating segment of the string",
+        "unit": "m"
+      },
+      "m_s": {
+        "desc": "mass of the vibrating segment of the string",
+        "unit": "kg"
+      },
+      "M_h": {
+        "desc": "mass of the hanging block providing tension",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "n": {
+        "desc": "harmonic number (number of antinodes)",
+        "unit": "1"
+      }
+    },
+    "answer_expression": "(n / (2 * L)) * sqrt(M_h * g * L / m_s)",
+    "answer_unit": "Hz",
+    "given": {
+      "L": "1.2",
+      "m_s": "0.0045",
+      "M_h": "2.5",
+      "g": "9.81",
+      "n": "3"
+    },
+    "limits": [
+      {
+        "symbol": "M_h",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "g",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 101.08782958984375,
+    "solver_expression": "n / (2 * L) * sqrt(M_h * g * L / m_s)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-008",
+    "tier": "multi-step",
+    "topic": "Bernoulli's equation, continuity, and projectile motion from a pressurized tank",
+    "statement": "A cylindrical tank with uniform horizontal cross-sectional area A_1 rests on a flat horizontal floor. The tank contains an incompressible, inviscid fluid of density rho filled to a height H above the floor. The sealed space above the fluid surface is filled with gas maintained at a constant gauge pressure P_g relative to the surrounding atmosphere. A horizontal nozzle of cross-sectional area A_2 (where A_2 < A_1) opens in the side of the tank at a height y_0 above the floor (where y_0 < H), allowing a steady jet of fluid to exit into the atmosphere under uniform gravitational acceleration g. Neglecting air resistance and viscous effects, find the horizontal distance from the nozzle exit to the point where the fluid jet strikes the floor.",
+    "symbols": {
+      "A_1": {
+        "desc": "horizontal cross-sectional area of the tank",
+        "unit": "m^2"
+      },
+      "A_2": {
+        "desc": "cross-sectional area of the nozzle exit",
+        "unit": "m^2"
+      },
+      "H": {
+        "desc": "height of the fluid surface above the floor",
+        "unit": "m"
+      },
+      "y_0": {
+        "desc": "height of the nozzle exit above the floor",
+        "unit": "m"
+      },
+      "P_g": {
+        "desc": "gauge pressure of the gas above the fluid surface",
+        "unit": "Pa"
+      },
+      "rho": {
+        "desc": "density of the fluid",
+        "unit": "kg/m^3"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*sqrt(y_0*(P_g + rho*g*(H - y_0))/(rho*g*(1 - (A_2/A_1)**2)))",
+    "answer_unit": "m",
+    "given": {
+      "A_1": "0.5",
+      "A_2": "0.01",
+      "H": "3.0",
+      "y_0": "1.2",
+      "P_g": "50000",
+      "rho": "1000",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "A_2",
+        "to": "0",
+        "expect": "2*sqrt(y_0*(P_g + rho*g*(H - y_0))/(rho*g))"
+      },
+      {
+        "symbol": "P_g",
+        "to": "0",
+        "expect": "2*sqrt(y_0*(H - y_0)/(1 - (A_2/A_1)**2))"
+      }
+    ],
+    "expected_value": 5.754831314086914,
+    "solver_expression": "2 * sqrt(y_0 * (P_g + rho * g * (H - y_0)) / (rho * g * (1 - (A_2 / A_1)**2)))",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-009",
+    "tier": "interesting",
+    "topic": "standing waves on a string with a submerged hanging mass",
+    "statement": "A uniform string of linear mass density mu is fixed at one end to a rigid wall and extends horizontally a distance L to a small frictionless pulley. The string passes over the pulley and is attached to a solid block of mass M and density rho_b that hangs vertically and is completely submerged in a stationary liquid of density rho_f (with rho_b > rho_f). Assume the mass of the vertical segment of the string is negligible compared to M so that the tension in the horizontal segment is uniform, and treat the wall and the pulley as fixed nodes. Find the fundamental frequency of standing waves on the horizontal segment of the string, given gravitational acceleration g.",
+    "symbols": {
+      "mu": {
+        "desc": "linear mass density of the string",
+        "unit": "kg/m"
+      },
+      "L": {
+        "desc": "length of the horizontal segment of the string between the wall and the pulley",
+        "unit": "m"
+      },
+      "M": {
+        "desc": "mass of the hanging block",
+        "unit": "kg"
+      },
+      "rho_b": {
+        "desc": "density of the hanging block",
+        "unit": "kg/m^3"
+      },
+      "rho_f": {
+        "desc": "density of the liquid in which the block is submerged",
+        "unit": "kg/m^3"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(M * g * (1 - rho_f / rho_b) / mu) / (2 * L)",
+    "answer_unit": "Hz",
+    "given": {
+      "mu": "0.005",
+      "L": "1.2",
+      "M": "2.5",
+      "rho_b": "7800",
+      "rho_f": "1000",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "rho_f",
+        "to": "0",
+        "expect": "sqrt(M * g / mu) / (2 * L)"
+      },
+      {
+        "symbol": "rho_f",
+        "to": "rho_b",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 27.246795654296875,
+    "solver_expression": "sqrt(M*g*(1 - rho_f/rho_b)/mu)/(2*L)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-010",
+    "tier": "plug-and-chug",
+    "topic": "conical pendulum",
+    "statement": "A small bob is attached to one end of a light, inextensible string of length L, while the other end is fixed to a ceiling pivot. The bob moves in a horizontal circle at a constant speed so that the string sweeps out a cone and maintains a constant angle theta with the vertical. Given that the magnitude of the gravitational acceleration is g, determine the period of the bob's circular motion.",
+    "symbols": {
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "constant angle between the string and the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "magnitude of the acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "answer_unit": "s",
+    "given": {
+      "L": "1.2",
+      "theta": "0.4",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "2*pi*sqrt(L/g)"
+      },
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 2.1090173721313477,
+    "solver_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-011",
+    "tier": "multi-step",
+    "topic": "Conical pendulum",
+    "statement": "A conical pendulum consists of a small bob of mass m attached to one end of a light, inextensible string of length L, with the other end fixed to a rigid pivot. In a region with uniform downward gravitational acceleration g, the bob revolves at a constant speed v in a horizontal circle centered vertically below the pivot. Find the magnitude of the tension in the string.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the bob",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "v": {
+        "desc": "constant speed of the bob",
+        "unit": "m/s"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "m * (v**2 / L + sqrt((v**2 / L)**2 + 4 * g**2)) / 2",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.5",
+      "L": "1.2",
+      "v": "2.0",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "m * g"
+      },
+      {
+        "symbol": "g",
+        "to": "0",
+        "expect": "m * v**2 / L"
+      }
+    ],
+    "expected_value": 5.808619499206543,
+    "solver_expression": "m*(v**2/(2*L) + sqrt(v**4/(4*L**2) + g**2))",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-012",
+    "tier": "interesting",
+    "topic": "ballistic pendulum with a massive rod",
+    "statement": "A ballistic pendulum consists of a uniform rigid rod of mass m_r and length L, pivoted frictionlessly at its upper end, with a small target block of mass m_p attached to its lower end. Initially, the pendulum hangs vertically at rest. A bullet of mass m_b, moving horizontally at speed v_0, strikes the target block and becomes embedded in it. As a result, the pendulum swings upward to a maximum angle theta from the vertical (with theta < pi). Assuming uniform gravitational acceleration g and negligible collision duration, find the initial speed v_0 of the bullet.",
+    "symbols": {
+      "m_b": {
+        "desc": "mass of the bullet",
+        "unit": "kg"
+      },
+      "m_p": {
+        "desc": "mass of the target block at the lower end of the rod",
+        "unit": "kg"
+      },
+      "m_r": {
+        "desc": "mass of the uniform rigid rod",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the rod from the pivot to the target block",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "maximum swing angle measured from the downward vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(2*g*L*(1 - cos(theta))*(m_b + m_p + m_r/3)*(m_b + m_p + m_r/2))/m_b",
+    "answer_unit": "m/s",
+    "given": {
+      "m_b": "0.01",
+      "m_p": "1.5",
+      "m_r": "0.6",
+      "L": "1.2",
+      "theta": "0.4",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "m_r",
+        "to": "0",
+        "expect": "(m_b + m_p)*sqrt(2*g*L*(1 - cos(theta)))/m_b"
+      },
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 239.84091186523438,
+    "solver_expression": "sqrt((m_r + 3*m_p + 3*m_b)*(m_r + 2*m_p + 2*m_b)*g*L*(1 - cos(theta))/3)/m_b",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-013",
+    "tier": "plug-and-chug",
+    "topic": "thin lens equation",
+    "statement": "An object is placed at a distance d_o in front of a diverging thin lens whose focal length has magnitude f. Find the magnitude of the distance from the lens to the resulting virtual image.",
+    "symbols": {
+      "d_o": {
+        "desc": "distance from the object to the diverging thin lens",
+        "unit": "m"
+      },
+      "f": {
+        "desc": "magnitude of the focal length of the diverging thin lens",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "f*d_o/(f + d_o)",
+    "answer_unit": "m",
+    "given": {
+      "d_o": "0.50",
+      "f": "0.20"
+    },
+    "limits": [
+      {
+        "symbol": "d_o",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "d_o",
+        "to": "f",
+        "expect": "f/2"
+      }
+    ],
+    "expected_value": 0.1428571343421936,
+    "solver_expression": "d_o*f/(d_o + f)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-015",
+    "tier": "interesting",
+    "topic": "Two-block inclined plane system with kinetic friction",
+    "statement": "A block of mass m1 is placed on a rough inclined plane that makes an angle theta with the horizontal, where the coefficient of kinetic friction between the block and the plane is mu_k. The block is connected by a light, inextensible string passing over a massless, frictionless pulley at the top of the incline to a hanging block of mass m2. The system is released from rest in a uniform gravitational field of acceleration g, and m2 is sufficiently large that m1 accelerates up the incline. Find the speed of the blocks after the hanging block has descended a vertical distance d.",
+    "symbols": {
+      "m1": {
+        "desc": "Mass of the block on the inclined plane",
+        "unit": "kg"
+      },
+      "m2": {
+        "desc": "Mass of the hanging block",
+        "unit": "kg"
+      },
+      "theta": {
+        "desc": "Angle of the inclined plane above the horizontal",
+        "unit": "rad"
+      },
+      "mu_k": {
+        "desc": "Coefficient of kinetic friction between block m1 and the inclined plane",
+        "unit": "1"
+      },
+      "d": {
+        "desc": "Vertical distance descended by the hanging block",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "Magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(2*g*d*(m2 - m1*(sin(theta) + mu_k*cos(theta)))/(m1 + m2))",
+    "answer_unit": "m/s",
+    "given": {
+      "m1": "2.0",
+      "m2": "5.0",
+      "theta": "0.5236",
+      "mu_k": "0.25",
+      "d": "1.5",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "m1",
+        "to": "0",
+        "expect": "sqrt(2*g*d)"
+      },
+      {
+        "symbol": "mu_k",
+        "to": "0",
+        "expect": "sqrt(2*g*d*(m2 - m1*sin(theta))/(m1 + m2))"
+      }
+    ],
+    "expected_value": 3.8725476264953613,
+    "solver_expression": "sqrt(2*g*d*(m2 - m1*(sin(theta) + mu_k*cos(theta)))/(m1 + m2))",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-016",
+    "tier": "plug-and-chug",
+    "topic": "Conical pendulum period",
+    "statement": "A small bob is attached to the end of a light, inextensible string of length L fixed at its upper end. The bob moves in a horizontal circle as a conical pendulum such that the string makes a constant angle theta (less than pi/2) with the vertical, in a uniform gravitational field of magnitude g. Find the period of the bob's circular motion.",
+    "symbols": {
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the string from the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "answer_unit": "s",
+    "given": {
+      "L": "1.5",
+      "theta": "0.5",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "2*pi*sqrt(L/g)"
+      },
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 2.3016271591186523,
+    "solver_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  },
+  {
+    "id": "gen-20261119-0833-022",
+    "tier": "plug-and-chug",
+    "topic": "Conservation of angular momentum",
+    "statement": "A uniform horizontal circular disk of mass M and radius R rotates freely without friction about a fixed vertical axis through its center with initial angular speed omega_i. A small object of mass m is dropped vertically from rest just above the disk and sticks to its surface at a distance r from the rotation axis. Find the magnitude of the final angular speed of the combined disk-and-object system.",
+    "symbols": {
+      "M": {
+        "desc": "mass of the uniform circular disk",
+        "unit": "kg"
+      },
+      "R": {
+        "desc": "radius of the uniform circular disk",
+        "unit": "m"
+      },
+      "omega_i": {
+        "desc": "initial angular speed of the disk",
+        "unit": "rad/s"
+      },
+      "m": {
+        "desc": "mass of the small object dropped onto the disk",
+        "unit": "kg"
+      },
+      "r": {
+        "desc": "radial distance from the rotation axis at which the object sticks",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "(M * R**2 * omega_i) / (M * R**2 + 2 * m * r**2)",
+    "answer_unit": "rad/s",
+    "given": {
+      "M": "120.0",
+      "R": "1.8",
+      "omega_i": "2.4",
+      "m": "35.0",
+      "r": "1.2"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "omega_i"
+      },
+      {
+        "symbol": "r",
+        "to": "0",
+        "expect": "omega_i"
+      }
+    ],
+    "expected_value": 1.9058823585510254,
+    "solver_expression": "(M*R**2*omega_i)/(M*R**2 + 2*m*r**2)",
+    "provenance": {
+      "author": "gemini-4-hydrogen",
+      "solver": "gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    }
+  }
+]
