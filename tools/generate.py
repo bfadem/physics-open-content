@@ -15,11 +15,14 @@ they are NOT promoted into problems/ automatically. Rejected records go to
 candidates/<batch>/rejected.json with reasons, because nobody inspects what a
 pipeline silently discards. A report is written to candidates/<batch>/README.md.
 
-Rate limits are honored, never evaded: on HTTP 429 we wait the server's
-retryDelay and retry a bounded number of times; a per-day quota stops the
-batch cleanly and keeps what was produced.
+Model calls go through engines.Router, which falls over across the free
+engines in tools/engines.json as each one's quota runs out. The solver is
+never the same engine as the author of that record. The batch stops cleanly,
+keeping what it produced, only when every engine for a role is exhausted.
 
-Env: GEMINI_API_KEY (required), COUNT, AUTHOR_MODEL, SOLVER_MODEL, BATCH.
+Env: provider keys (GEMINI_API_KEY, GROQ_API_KEY, ...), COUNT, BATCH, and
+optional AUTHOR_MODEL / SOLVER_MODEL ("provider:model", or a bare Gemini
+model) to put first in that role's chain.
 """
 import datetime
 import json
@@ -28,19 +31,15 @@ import random
 import re
 import sys
 import time
-import urllib.error
-import urllib.request
 
 import sympy
 from sympy import Symbol
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import verify  # noqa: E402
+from engines import QuotaExhausted, Router, Unavailable  # noqa: E402
 
-BASE = "https://generativelanguage.googleapis.com/v1beta"
 PAUSE = 4.0            # seconds between calls; stay well under per-minute caps
-CALL_TIMEOUT = 240
-MAX_429_RETRIES = 3
 
 TOPICS = [
     "projectile motion", "kinematics with constant acceleration",
@@ -111,65 +110,6 @@ Give the magnitude of the requested quantity.
 """
 
 
-class QuotaExhausted(Exception):
-    pass
-
-
-class Unavailable(Exception):
-    """503 / timeout: the model was busy. Not a judgment on content."""
-
-
-def call_model(model, prompt, key):
-    """One generateContent call returning parsed JSON. Honors 429s."""
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.7,
-                             "responseMimeType": "application/json"},
-    }
-    for attempt in range(MAX_429_RETRIES + 1):
-        req = urllib.request.Request(
-            f"{BASE}/models/{model}:generateContent",
-            data=json.dumps(payload).encode(),
-            headers={"x-goog-api-key": key, "Content-Type": "application/json"},
-            method="POST",
-        )
-        try:
-            with urllib.request.urlopen(req, timeout=CALL_TIMEOUT) as resp:
-                data = json.load(resp)
-            break
-        except (TimeoutError, urllib.error.URLError) as e:
-            code = getattr(e, "code", None)   # None: timeout / network error
-            if code is not None and code not in (429, 500, 503):
-                body = e.read().decode("utf-8", "replace")
-                raise RuntimeError(f"HTTP {code} from {model}: {body[:300]}")
-            if code != 429:                   # busy or unreachable: transient
-                if attempt == MAX_429_RETRIES:
-                    raise Unavailable(f"{model}: {e}")
-                wait = 20 * (attempt + 1)
-                print(f"   {model} unavailable ({e}); retrying in {wait}s")
-                time.sleep(wait)
-                continue
-            body = e.read().decode("utf-8", "replace")
-            if "PerDay" in body or "per day" in body.lower():
-                raise QuotaExhausted(f"{model}: daily quota reached")
-            if attempt == MAX_429_RETRIES:
-                raise QuotaExhausted(f"{model}: still rate-limited after "
-                                     f"{MAX_429_RETRIES} waits")
-            m = re.search(r'"retryDelay":\s*"(\d+(?:\.\d+)?)s"', body)
-            wait = float(m.group(1)) + 1 if m else 30 * (attempt + 1)
-            print(f"   429 from {model}; waiting {wait:.0f}s as instructed")
-            time.sleep(wait)
-    usage = data.get("usageMetadata", {})
-    cands = data.get("candidates") or []
-    parts = (cands[0].get("content", {}).get("parts") if cands else None) or []
-    text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
-    if not text.strip():
-        reason = cands[0].get("finishReason") if cands else "no candidates"
-        raise RuntimeError(f"{model} returned no text ({reason})")
-    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
-    return json.loads(text), usage.get("totalTokenCount", 0)
-
-
 def precheck(rec):
     """Structural checks that verify.py assumes have already passed."""
     syms = rec.get("symbols")
@@ -230,10 +170,13 @@ def equivalent(a_text, b_text, names, trials=8):
 
 
 def main():
-    key = os.environ.get("GEMINI_API_KEY") or sys.exit("GEMINI_API_KEY is not set")
     count = int(os.environ.get("COUNT", "30"))
-    author = os.environ.get("AUTHOR_MODEL", "gemini-4-hydrogen")
-    solver = os.environ.get("SOLVER_MODEL", "gemini-3-flash-preview")
+    router = Router(overrides={"author": os.environ.get("AUTHOR_MODEL"),
+                               "solver": os.environ.get("SOLVER_MODEL")})
+    for role, chain in router.describe().items():
+        print(f"{role} chain: {chain or 'NONE'}")
+    if not router.chains["author"] or not router.chains["solver"]:
+        sys.exit("No usable engine for some role: check provider secrets")
     batch = os.environ.get("BATCH") or datetime.datetime.now(
         datetime.timezone.utc).strftime("%Y%m%d-%H%M")
     outdir = os.path.join("candidates", batch)
@@ -242,7 +185,7 @@ def main():
     rng = random.Random(batch)
     jobs = [(rng.choice(TOPICS), TIERS[i % 3]) for i in range(count)]
     accepted, rejected, unavailable = [], [], []
-    tokens, calls, stop_reason = 0, 0, None
+    stop_reason = None
 
     for i, (topic, tier) in enumerate(jobs, 1):
         rid = f"gen-{batch}-{i:03d}"
@@ -250,10 +193,10 @@ def main():
         rec = {"id": rid, "tier": tier}
         stage = "author"
         try:
-            out, t = call_model(author, AUTHOR_PROMPT.format(
+            out, author = router.call("author", AUTHOR_PROMPT.format(
                 tier=tier, topic=topic, reserved=", ".join(sorted(RESERVED)),
-                units=UNIT_VOCAB), key)
-            calls += 1; tokens += t
+                units=UNIT_VOCAB))
+            rec["provenance"] = {"author": author}
             rec.update({k: out.get(k) for k in (
                 "topic", "statement", "symbols", "answer_expression",
                 "answer_unit", "given", "limits")})
@@ -272,9 +215,9 @@ def main():
             time.sleep(PAUSE)
             sym_list = "\n".join(f"- {n}: {m.get('desc', '')} [{m.get('unit', '')}]"
                                  for n, m in rec["symbols"].items())
-            sol, t = call_model(solver, SOLVER_PROMPT.format(
-                statement=rec["statement"], symbols=sym_list), key)
-            calls += 1; tokens += t
+            sol, solver = router.call("solver", SOLVER_PROMPT.format(
+                statement=rec["statement"], symbols=sym_list), avoid={author})
+            rec["provenance"]["solver"] = solver
             rec["solver_expression"] = str(sol.get("answer_expression", ""))
 
             stage = "agreement"
@@ -296,8 +239,7 @@ def main():
             if failed:
                 raise ValueError("; ".join(f"{n}: {d}" for n, d in failed))
 
-            rec["provenance"] = {"author": author, "solver": solver,
-                                 "agreement": detail}
+            rec["provenance"]["agreement"] = detail
             accepted.append(rec)
             print(f"   ACCEPT  {rec['answer_expression']}")
         except Unavailable as e:
@@ -326,18 +268,18 @@ def main():
         by_stage[r["rejected_at"]] = by_stage.get(r["rejected_at"], 0) + 1
     lines = [
         f"# Batch {batch}", "",
-        f"- Author model: `{author}`; blind solver: `{solver}`",
         f"- Requested {count}, attempted {attempted}, "
         f"**accepted {len(accepted)}**, rejected {len(rejected)}, "
         f"skipped (model unavailable) {len(unavailable)}",
-        f"- Model calls: {calls}; total tokens: {tokens}",
         f"- Stopped early: {stop_reason}" if stop_reason else "- Ran to completion",
-        "", "## Rejections by stage", "",
-    ]
+        "", "## Engines", "",
+    ] + router.report_lines() + ["", "## Rejections by stage", ""]
     lines += [f"- {s}: {n}" for s, n in sorted(by_stage.items())] or ["- none"]
     lines += ["", "## Accepted (awaiting human review)", ""]
     lines += [f"- `{r['id']}` [{r['tier']}] {r.get('topic')}: "
-              f"`{r['answer_expression']}`" for r in accepted] or ["- none"]
+              f"`{r['answer_expression']}` "
+              f"({r['provenance']['author']} / {r['provenance']['solver']})"
+              for r in accepted] or ["- none"]
     lines += ["", "## Rejected", ""]
     lines += [f"- `{r['id']}` [{r['rejected_at']}] {r.get('topic') or ''} — "
               f"{r['reason'][:200]}" for r in rejected] or ["- none"]

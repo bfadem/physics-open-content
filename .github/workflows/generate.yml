@@ -7,11 +7,11 @@ on:
         description: "Number of problems to attempt"
         default: "30"
       author_model:
-        description: "Model that writes problems"
-        default: "gemini-4-hydrogen"
+        description: "Optional: engine to try first for writing (provider:model; bare = Gemini). Blank = tools/engines.json order"
+        default: ""
       solver_model:
-        description: "Different model that solves them blind"
-        default: "gemini-3-flash-preview"
+        description: "Optional: engine to try first for blind solving. Blank = tools/engines.json order"
+        default: ""
 
 permissions:
   contents: write
@@ -37,6 +37,9 @@ jobs:
       - name: Generate batch
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           COUNT: ${{ inputs.count }}
           AUTHOR_MODEL: ${{ inputs.author_model }}
           SOLVER_MODEL: ${{ inputs.solver_model }}

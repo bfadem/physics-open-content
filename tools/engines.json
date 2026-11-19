@@ -1,0 +1,43 @@
+{
+  "_note": "Engines are tried in list order per role. A provider is active only if its key_env secret is set. Model ids for OpenAI-compatible providers are checked against the provider's /models listing at startup; unlisted ids are skipped, so stale entries are harmless. One account per provider; limits are honored, never evaded.",
+  "providers": {
+    "gemini": {
+      "kind": "gemini",
+      "base": "https://generativelanguage.googleapis.com/v1beta",
+      "key_env": "GEMINI_API_KEY"
+    },
+    "groq": {
+      "kind": "openai",
+      "base": "https://api.groq.com/openai/v1",
+      "key_env": "GROQ_API_KEY"
+    },
+    "mistral": {
+      "kind": "openai",
+      "base": "https://api.mistral.ai/v1",
+      "key_env": "MISTRAL_API_KEY",
+      "_note": "Free (Experiment) tier requires opting in to training on prompts: acceptable here, since all content is public."
+    },
+    "openrouter": {
+      "kind": "openai",
+      "base": "https://openrouter.ai/api/v1",
+      "key_env": "OPENROUTER_API_KEY",
+      "_note": "Only ':free' model ids are listed here, so this never spends credit."
+    }
+  },
+  "author": [
+    "gemini:gemini-4-hydrogen",
+    "groq:openai/gpt-oss-120b",
+    "mistral:mistral-large-latest",
+    "gemini:gemini-3-flash-preview",
+    "openrouter:openai/gpt-oss-120b:free"
+  ],
+  "solver": [
+    "gemini:gemini-3-flash-preview",
+    "groq:openai/gpt-oss-120b",
+    "mistral:mistral-large-latest",
+    "gemini:gemini-3.5-flash-lite",
+    "gemini:gemini-3.1-flash-lite",
+    "groq:openai/gpt-oss-20b",
+    "openrouter:openai/gpt-oss-120b:free"
+  ]
+}
