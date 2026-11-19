@@ -1,0 +1,8 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "kinetic-energy",
+  "calculus": "graphical",
+  "target_concepts": ["work-constant-force", "work-dot-product", "power", "work-variable-force", "kinetic-energy"],
+  "tiers": {"plug-and-chug": 7, "multi-step": 6, "interesting": 2},
+  "count": 15
+}
