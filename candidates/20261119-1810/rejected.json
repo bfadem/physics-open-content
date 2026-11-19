@@ -1,0 +1,232 @@
+[
+  {
+    "id": "gen-20261119-1810-011",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "work done by a variable force",
+    "statement": "A particle moves along a straight line under the action of a position-dependent force whose magnitude is given by Fx(x) = k * x, where x is the position and k is a positive constant. Find the work done by this force as the particle moves from an initial position x_i to a final position x_f.",
+    "symbols": {
+      "k": {
+        "desc": "force constant",
+        "unit": "N/m"
+      },
+      "x_i": {
+        "desc": "initial position",
+        "unit": "m"
+      },
+      "x_f": {
+        "desc": "final position",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "(1/2) * k * x_f^2 - (1/2) * k * x_i^2",
+    "answer_unit": "J",
+    "given": {
+      "k": 50.0,
+      "x_i": 1.0,
+      "x_f": 3.0
+    },
+    "limits": [
+      {
+        "symbol": "x_i",
+        "to": "0",
+        "expect": "(1/2) * k * x_f^2"
+      }
+    ],
+    "raw_author_output": {
+      "topic": "work done by a variable force",
+      "statement": "A particle moves along a straight line under the action of a position-dependent force whose magnitude is given by Fx(x) = k * x, where x is the position and k is a positive constant. Find the work done by this force as the particle moves from an initial position x_i to a final position x_f.",
+      "symbols": {
+        "k": {
+          "desc": "force constant",
+          "unit": "N/m"
+        },
+        "x_i": {
+          "desc": "initial position",
+          "unit": "m"
+        },
+        "x_f": {
+          "desc": "final position",
+          "unit": "m"
+        }
+      },
+      "answer_expression": "(1/2) * k * x_f^2 - (1/2) * k * x_i^2",
+      "answer_unit": "J",
+      "given": {
+        "k": 50.0,
+        "x_i": 1.0,
+        "x_f": 3.0
+      },
+      "limits": [
+        {
+          "symbol": "x_i",
+          "to": "0",
+          "expect": "(1/2) * k * x_f^2"
+        }
+      ],
+      "solution_profile": {
+        "requires": [
+          "work done by a variable function"
+        ],
+        "intended_path": "work done by a variable force",
+        "trivial_if_availability": [],
+        "representations": [
+          "read an accumulated quantity as the area under a graph"
+        ],
+        "calculus_all_of": [
+          "read an accumulated quantity as the area under a graph"
+        ],
+        "calculus_any_of": []
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['work done by a variable function']"
+  },
+  {
+    "id": "gen-20261119-1810-014",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b"
+    },
+    "topic": "Power delivered by a constant force on a cart accelerating from rest",
+    "statement": "A cart of mass m is initially at rest on a horizontal track. A constant horizontal force of magnitude F pulls the cart. Find the average power delivered by this force from the time the cart starts until it has traveled a displacement of magnitude d.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the cart",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the constant horizontal force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "magnitude of the displacement of the cart",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F*sqrt(F/(2*m*d))*d",
+    "answer_unit": "W",
+    "given": {
+      "m": "2.0",
+      "F": "10.0",
+      "d": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "work-constant-force",
+        "work-dot-product",
+        "power",
+        "kinetic-energy"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 31.6228,
+    "solver_expression": "F * sqrt(2 * F * d / m)",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: 0.629818+0j vs 1.25964+0j"
+  },
+  {
+    "id": "gen-20261119-1810-015",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "Work done by a variable spring force over a displacement",
+    "statement": "A block of mass m is attached to a horizontal spring with spring constant k. The block is pulled from its unstretched position such that the force exerted by the spring varies with displacement x according to Hooke's law. Find the work done by the spring force on the block when the displacement goes from zero to a maximum magnitude x_m.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "x_m": {
+        "desc": "maximum displacement magnitude",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "k*x_m^2/2",
+    "answer_unit": "J",
+    "given": {
+      "m": 1.5,
+      "k": 100.0,
+      "x_m": 0.5
+    },
+    "limits": [
+      {
+        "symbol": "k",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "raw_author_output": {
+      "topic": "Work done by a variable spring force over a displacement",
+      "statement": "A block of mass m is attached to a horizontal spring with spring constant k. The block is pulled from its unstretched position such that the force exerted by the spring varies with displacement x according to Hooke's law. Find the work done by the spring force on the block when the displacement goes from zero to a maximum magnitude x_m.",
+      "symbols": {
+        "m": {
+          "desc": "mass of the block",
+          "unit": "kg"
+        },
+        "k": {
+          "desc": "spring constant",
+          "unit": "N/m"
+        },
+        "x_m": {
+          "desc": "maximum displacement magnitude",
+          "unit": "m"
+        }
+      },
+      "answer_expression": "k*x_m^2/2",
+      "answer_unit": "J",
+      "given": {
+        "m": 1.5,
+        "k": 100.0,
+        "x_m": 0.5
+      },
+      "limits": [
+        {
+          "symbol": "k",
+          "to": "0",
+          "expect": "0"
+        }
+      ],
+      "solution_profile": {
+        "requires": [
+          "spring force and Hooke's law",
+          "work done by a variable force"
+        ],
+        "intended_path": "work done by a variable force",
+        "trivial_if_available": [],
+        "representations": [
+          "read an accumulated quantity as the area under a graph"
+        ],
+        "calculus_all_of": [
+          "read an accumulated quantity as the area under a graph"
+        ],
+        "calculus_any_of": []
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "unknown representation label(s): ['read an accumulated quantity as the area under a graph']"
+  }
+]

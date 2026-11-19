@@ -1,0 +1,711 @@
+[
+  {
+    "id": "gen-20261119-1810-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work done by a constant force",
+    "statement": "A warehouse worker pushes a heavy crate along a straight, level floor by applying a constant horizontal force of magnitude F_p in the direction of motion over a distance d. Find the magnitude of the work done on the crate by the worker.",
+    "symbols": {
+      "F_p": {
+        "desc": "magnitude of the constant horizontal pushing force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "distance over which the crate is pushed",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F_p * d",
+    "answer_unit": "J",
+    "given": {
+      "F_p": "120.0",
+      "d": "4.5"
+    },
+    "limits": [
+      {
+        "symbol": "F_p",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-constant-force"
+      ],
+      "intended_path": "work-constant-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 540.0,
+    "solver_expression": "F_p * d"
+  },
+  {
+    "id": "gen-20261119-1810-002",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work as the dot product of force and displacement",
+    "statement": "A child pulls a wagon along a straight horizontal sidewalk with a constant force of magnitude F_t directed at an acute angle theta above the horizontal displacement of magnitude d. Find the magnitude of the work done on the wagon by the pulling force.",
+    "symbols": {
+      "F_t": {
+        "desc": "magnitude of the constant pulling force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "magnitude of the horizontal displacement",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "acute angle between the pulling force and the displacement",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "F_t * d * cos(theta)",
+    "answer_unit": "J",
+    "given": {
+      "F_t": "45.0",
+      "d": "12.0",
+      "theta": "0.52"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F_t * d"
+      },
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-dot-product"
+      ],
+      "intended_path": "work-dot-product",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 468.622,
+    "solver_expression": "F_t * d * cos(theta)"
+  },
+  {
+    "id": "gen-20261119-1810-003",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work as the dot product of force and displacement",
+    "statement": "A remote-controlled boat moves across calm water under a constant thrust force having positive eastward component F_x and positive northward component F_y, undergoing a displacement with positive eastward component d_x and positive northward component d_y. Find the magnitude of the work done on the boat by this thrust force.",
+    "symbols": {
+      "F_x": {
+        "desc": "eastward component of the constant thrust force",
+        "unit": "N"
+      },
+      "F_y": {
+        "desc": "northward component of the constant thrust force",
+        "unit": "N"
+      },
+      "d_x": {
+        "desc": "eastward component of the displacement",
+        "unit": "m"
+      },
+      "d_y": {
+        "desc": "northward component of the displacement",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F_x * d_x + F_y * d_y",
+    "answer_unit": "J",
+    "given": {
+      "F_x": "30.0",
+      "F_y": "20.0",
+      "d_x": "8.0",
+      "d_y": "5.0"
+    },
+    "limits": [
+      {
+        "symbol": "F_y",
+        "to": "0",
+        "expect": "F_x * d_x"
+      },
+      {
+        "symbol": "d_x",
+        "to": "0",
+        "expect": "F_y * d_y"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-dot-product"
+      ],
+      "intended_path": "work-dot-product",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 340.0,
+    "solver_expression": "F_x*d_x + F_y*d_y"
+  },
+  {
+    "id": "gen-20261119-1810-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "power as the rate of doing work",
+    "statement": "An electric motor performs a positive amount of work W_m on an elevator cable at a steady rate over a time interval t_m. Find the power output of the motor.",
+    "symbols": {
+      "W_m": {
+        "desc": "positive work performed by the motor",
+        "unit": "J"
+      },
+      "t_m": {
+        "desc": "time interval over which the work is performed",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "W_m / t_m",
+    "answer_unit": "W",
+    "given": {
+      "W_m": "24000.0",
+      "t_m": "8.0"
+    },
+    "limits": [
+      {
+        "symbol": "t_m",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "W_m",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "power"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 3000.0,
+    "solver_expression": "W_m/t_m"
+  },
+  {
+    "id": "gen-20261119-1810-005",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "power as the rate of doing work",
+    "statement": "A winch engine delivers a constant power P_eng while doing a positive amount of work W_req on a heavy timber. Find the time interval required for the engine to do this work.",
+    "symbols": {
+      "P_eng": {
+        "desc": "constant power delivered by the winch engine",
+        "unit": "W"
+      },
+      "W_req": {
+        "desc": "positive amount of work to be done by the engine",
+        "unit": "J"
+      }
+    },
+    "answer_expression": "W_req / P_eng",
+    "answer_unit": "s",
+    "given": {
+      "P_eng": "1500.0",
+      "W_req": "9000.0"
+    },
+    "limits": [
+      {
+        "symbol": "P_eng",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "W_req",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "power"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 6.0,
+    "solver_expression": "W_req/P_eng"
+  },
+  {
+    "id": "gen-20261119-1810-006",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work done by a variable force",
+    "statement": "A variable force directed along the direction of motion of a sliding block increases linearly with position from an initial positive magnitude F_1 to a final positive magnitude F_2 as the block moves along a straight track through a distance d. Find the magnitude of the work done on the block by this force.",
+    "symbols": {
+      "F_1": {
+        "desc": "initial magnitude of the variable force",
+        "unit": "N"
+      },
+      "F_2": {
+        "desc": "final magnitude of the variable force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "distance traveled along the straight track",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "(F_1 + F_2) * d / 2",
+    "answer_unit": "J",
+    "given": {
+      "F_1": "10.0",
+      "F_2": "30.0",
+      "d": "5.0"
+    },
+    "limits": [
+      {
+        "symbol": "F_1",
+        "to": "F_2",
+        "expect": "F_2 * d"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-variable-force"
+      ],
+      "intended_path": "work-variable-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [
+        "graphical-area"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 100.0,
+    "solver_expression": "d*(F_1+F_2)/2"
+  },
+  {
+    "id": "gen-20261119-1810-007",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "kinetic energy",
+    "statement": "A cyclist and bicycle have a combined mass m and move along a straight road at speed v. Find the kinetic energy of the cyclist and bicycle.",
+    "symbols": {
+      "m": {
+        "desc": "combined mass of the cyclist and bicycle",
+        "unit": "kg"
+      },
+      "v": {
+        "desc": "speed of the cyclist and bicycle",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "m * v^2 / 2",
+    "answer_unit": "J",
+    "given": {
+      "m": "75.0",
+      "v": "8.0"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "kinetic-energy"
+      ],
+      "intended_path": "kinetic-energy",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 2400.0,
+    "solver_expression": "m*v**2/2"
+  },
+  {
+    "id": "gen-20261119-1810-008",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work done by a constant force",
+    "statement": "A crate of mass m is pulled across a horizontal floor by a constant rope tension force of magnitude F applied at an angle theta above the horizontal. The crate moves through a horizontal displacement of magnitude d. During this motion, a constant kinetic friction force of magnitude f opposes the motion. Find the total work done on the crate by all forces combined during this displacement.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the crate",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the rope tension force",
+        "unit": "N"
+      },
+      "theta": {
+        "desc": "angle of the rope above the horizontal",
+        "unit": "rad"
+      },
+      "d": {
+        "desc": "magnitude of horizontal displacement",
+        "unit": "m"
+      },
+      "f": {
+        "desc": "magnitude of kinetic friction force",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "F * d * cos(theta) - f * d",
+    "answer_unit": "J",
+    "given": {
+      "m": "10.0",
+      "F": "50.0",
+      "theta": "0.5",
+      "d": "4.0",
+      "f": "10.0"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F * d - f * d"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-constant-force",
+        "work-dot-product"
+      ],
+      "intended_path": "work-constant-force",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 135.517,
+    "solver_expression": "F*cos(theta)*d - f*d"
+  },
+  {
+    "id": "gen-20261119-1810-009",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work as the dot product of force and displacement",
+    "statement": "An object undergoes a displacement vector given in components by a horizontal displacement dx and a vertical displacement dy. A constant force vector acts on the object, with a horizontal component Fx and a vertical component Fy. Find the work done by this constant force during the displacement.",
+    "symbols": {
+      "dx": {
+        "desc": "horizontal component of displacement",
+        "unit": "m"
+      },
+      "dy": {
+        "desc": "vertical component of displacement",
+        "unit": "m"
+      },
+      "Fx": {
+        "desc": "horizontal component of force",
+        "unit": "N"
+      },
+      "Fy": {
+        "desc": "vertical component of force",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "Fx * dx + Fy * dy",
+    "answer_unit": "J",
+    "given": {
+      "dx": "3.0",
+      "dy": "4.0",
+      "Fx": "10.0",
+      "Fy": "5.0"
+    },
+    "limits": [
+      {
+        "symbol": "dy",
+        "to": "0",
+        "expect": "Fx * dx"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-dot-product"
+      ],
+      "intended_path": "work-dot-product",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 50.0,
+    "solver_expression": "Abs(Fx*dx + Fy*dy)"
+  },
+  {
+    "id": "gen-20261119-1810-010",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "power as the rate of doing work",
+    "statement": "A motor exerts a constant force of magnitude F to pull a cart of mass m up an inclined plane that makes an angle alpha with the horizontal. The force is directed parallel to the incline. The cart moves up the incline at a constant velocity of magnitude v. Find the power delivered by the motor.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the force exerted by the motor",
+        "unit": "N"
+      },
+      "m": {
+        "desc": "mass of the cart",
+        "unit": "kg"
+      },
+      "alpha": {
+        "desc": "angle of the incline",
+        "unit": "rad"
+      },
+      "v": {
+        "desc": "magnitude of velocity",
+        "unit": "m/s"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "F * v",
+    "answer_unit": "W",
+    "given": {
+      "F": "100.0",
+      "m": "20.0",
+      "alpha": "0.3",
+      "v": "2.0",
+      "g": "9.8"
+    },
+    "limits": [
+      {
+        "symbol": "alpha",
+        "to": "0",
+        "expect": "F * v"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "constant-acceleration",
+        "newton-1st",
+        "inclined-plane",
+        "work-constant-force",
+        "work-dot-product",
+        "power"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 200.0,
+    "solver_expression": "F*v"
+  },
+  {
+    "id": "gen-20261119-1810-012",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "kinetic energy",
+    "statement": "A block of mass m starts from rest and is accelerated along a frictionless horizontal surface by a constant horizontal force of magnitude F over a distance d. Using the impulse-momentum theorem and kinematics, find the final kinetic energy of the block after it has traveled this distance d.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the horizontal force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "distance traveled",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F * d",
+    "answer_unit": "J",
+    "given": {
+      "m": "4.0",
+      "F": "20.0",
+      "d": "5.0"
+    },
+    "limits": [
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "impulse",
+        "impulse-momentum-theorem",
+        "kinetic-energy"
+      ],
+      "intended_path": "kinetic-energy",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 100.0,
+    "solver_expression": "F*d"
+  },
+  {
+    "id": "gen-20261119-1810-013",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "work done by a constant force and kinetic energy",
+    "statement": "A box of mass m is pushed from rest across a horizontal floor by a constant horizontal force of magnitude F over a displacement of magnitude d. A constant kinetic friction force of magnitude f acts on the box during this motion. Find the final kinetic energy of the box after the displacement.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the box",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the push force",
+        "unit": "N"
+      },
+      "f": {
+        "desc": "magnitude of friction force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "magnitude of displacement",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "(F - f) * d",
+    "answer_unit": "J",
+    "given": {
+      "m": "5.0",
+      "F": "30.0",
+      "f": "10.0",
+      "d": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "f",
+        "to": "0",
+        "expect": "F * d"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "newton-2nd",
+        "constant-acceleration",
+        "work-constant-force",
+        "kinetic-energy"
+      ],
+      "intended_path": "kinetic-energy",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 80.0,
+    "solver_expression": "(F - f) * d"
+  }
+]
