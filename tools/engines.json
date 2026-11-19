@@ -29,8 +29,11 @@
     "groq:openai/gpt-oss-120b",
     "mistral:mistral-large-latest",
     "gemini:gemini-3-flash-preview",
-    "openrouter:openai/gpt-oss-120b:free"
+    "openrouter:openai/gpt-oss-120b:free",
+    "gemini:gemini-3.5-flash-lite",
+    "gemini:gemma-4-31b-it"
   ],
+  "_author_note": "The last two authors are last resorts: weaker models, used only after every stronger engine is exhausted. The blind-solve cross-check still applies.",
   "solver": [
     "gemini:gemini-3-flash-preview",
     "groq:openai/gpt-oss-120b",
@@ -38,6 +41,7 @@
     "gemini:gemini-3.5-flash-lite",
     "gemini:gemini-3.1-flash-lite",
     "groq:openai/gpt-oss-20b",
-    "openrouter:openai/gpt-oss-120b:free"
+    "openrouter:openai/gpt-oss-120b:free",
+    "gemini:gemma-4-31b-it"
   ]
 }

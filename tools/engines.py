@@ -21,7 +21,7 @@ import time
 import urllib.error
 import urllib.request
 
-CALL_TIMEOUT = 240
+CALL_TIMEOUT = 300   # gemma-4-31b-it is slow
 MAX_RETRIES = 3
 CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "engines.json")
 
@@ -60,7 +60,14 @@ def _get(url, headers, timeout=30):
 def _parse_json_text(text):
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.S).strip()
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
-    return json.loads(text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        # Models without a JSON mode sometimes wrap the object in prose.
+        start, end = text.find("{"), text.rfind("}")
+        if start == -1 or end <= start:
+            raise
+        return json.loads(text[start:end + 1])
 
 
 class Engine:
@@ -75,10 +82,14 @@ class Engine:
     def _request(self, prompt):
         base = self.spec["base"]
         if self.spec["kind"] == "gemini":
+            gen = {"temperature": 0.7}
+            # Gemma on the Gemini API does not accept JSON mode; the prompt
+            # asks for JSON and _parse_json_text strips any code fences.
+            if not self.model.startswith("gemma"):
+                gen["responseMimeType"] = "application/json"
             return (f"{base}/models/{self.model}:generateContent",
                     {"contents": [{"parts": [{"text": prompt}]}],
-                     "generationConfig": {"temperature": 0.7,
-                                          "responseMimeType": "application/json"}},
+                     "generationConfig": gen},
                     {"x-goog-api-key": self.key, "Content-Type": "application/json"})
         return (f"{base}/chat/completions",
                 {"model": self.model, "temperature": 0.7,
