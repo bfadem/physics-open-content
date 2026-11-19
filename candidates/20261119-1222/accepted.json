@@ -1,0 +1,170 @@
+[
+  {
+    "id": "gen-20261119-1222-003",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Escape speed from a spherical planet",
+    "statement": "A spacecraft of negligible mass is launched from the surface of a spherical planet of mass M and radius R. Using the universal gravitational constant G, determine the minimum launch speed v_esc required for the spacecraft to reach infinity with zero residual speed.",
+    "symbols": {
+      "M": {
+        "desc": "mass of the planet",
+        "unit": "kg"
+      },
+      "R": {
+        "desc": "radius of the planet",
+        "unit": "m"
+      },
+      "G": {
+        "desc": "universal gravitational constant",
+        "unit": "m^3/(kg*s^2)"
+      },
+      "g": {
+        "desc": "surface gravitational acceleration of the planet",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(2*G*M/R)",
+    "answer_unit": "m/s",
+    "given": {
+      "M": "5.972e24",
+      "R": "6.371e6",
+      "G": "6.674e-11",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "M",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "R",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 11185.7,
+    "solver_expression": "sqrt(2*G*M/R)"
+  },
+  {
+    "id": "gen-20261119-1222-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Conservation of momentum in a perfectly inelastic collision",
+    "statement": "A cart of mass m1 moves with speed u1 and collides perfectly inelastically with a second cart of mass m2 moving with speed u2 in the same direction. After the collision the two carts stick together and move with speed v_f. Find v_f in terms of the given symbols.",
+    "symbols": {
+      "m1": {
+        "desc": "mass of first cart",
+        "unit": "kg"
+      },
+      "m2": {
+        "desc": "mass of second cart",
+        "unit": "kg"
+      },
+      "u1": {
+        "desc": "initial speed of first cart",
+        "unit": "m/s"
+      },
+      "u2": {
+        "desc": "initial speed of second cart",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "(m1*u1 + m2*u2)/(m1 + m2)",
+    "answer_unit": "m/s",
+    "given": {
+      "m1": "0.6",
+      "m2": "0.4",
+      "u1": "3.0",
+      "u2": "1.0"
+    },
+    "limits": [
+      {
+        "symbol": "m2",
+        "to": "0",
+        "expect": "u1"
+      },
+      {
+        "symbol": "u2",
+        "to": "0",
+        "expect": "m1*u1/(m1 + m2)"
+      }
+    ],
+    "expected_value": 2.2,
+    "solver_expression": "(m1*u1 + m2*u2)/(m1 + m2)"
+  },
+  {
+    "id": "gen-20261119-1222-005",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "First law for a two\u2011step process of an ideal gas",
+    "statement": "An ideal gas containing n mol is first heated at constant volume from temperature T_i to T_f, then expands isothermally at temperature T_f from volume V_i to V_f. Determine the total heat Q_tot supplied to the gas in terms of the given symbols.",
+    "symbols": {
+      "n": {
+        "desc": "amount of substance",
+        "unit": "mol"
+      },
+      "C_v": {
+        "desc": "molar heat capacity at constant volume",
+        "unit": "J/(mol*K)"
+      },
+      "R_gas": {
+        "desc": "ideal\u2011gas constant",
+        "unit": "J/(mol*K)"
+      },
+      "T_i": {
+        "desc": "initial temperature",
+        "unit": "K"
+      },
+      "T_f": {
+        "desc": "final temperature after heating",
+        "unit": "K"
+      },
+      "V_i": {
+        "desc": "initial volume",
+        "unit": "m^3"
+      },
+      "V_f": {
+        "desc": "final volume after isothermal expansion",
+        "unit": "m^3"
+      }
+    },
+    "answer_expression": "n*C_v*(T_f - T_i) + n*R_gas*T_f*log(V_f/V_i)",
+    "answer_unit": "J",
+    "given": {
+      "n": "2.0",
+      "C_v": "12.5",
+      "R_gas": "8.314",
+      "T_i": "300",
+      "T_f": "400",
+      "V_i": "0.01",
+      "V_f": "0.025"
+    },
+    "limits": [
+      {
+        "symbol": "V_f",
+        "to": "V_i",
+        "expect": "n*C_v*(T_f - T_i)"
+      },
+      {
+        "symbol": "n",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 8594.43,
+    "solver_expression": "n*C_v*(T_f - T_i) + n*R_gas*T_f*log(V_f/V_i)"
+  }
+]

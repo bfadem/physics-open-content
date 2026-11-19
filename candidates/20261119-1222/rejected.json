@@ -1,0 +1,106 @@
+[
+  {
+    "id": "gen-20261119-1222-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3-flash-preview"
+    },
+    "topic": "Conical pendulum angular speed",
+    "statement": "A mass m is attached to a string of length L and rotates in a horizontal circle while the string makes a constant angle theta with the vertical. Determine the angular speed omega of the mass.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the bob",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "theta": {
+        "desc": "angle between string and vertical",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "sqrt(g/(L*cos(theta)))",
+    "answer_unit": "rad/s",
+    "given": {
+      "m": "2.0",
+      "L": "1.5",
+      "g": "9.81",
+      "theta": "0.30"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "sqrt(g/L)"
+      },
+      {
+        "symbol": "L",
+        "to": "infinity",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 2.61644,
+    "solver_expression": "sqrt(g / (L * cos(theta)))",
+    "rejected_at": "verify",
+    "reason": "ValueError: limit L->infinity: unknown identifiers: ['infinity']"
+  },
+  {
+    "id": "gen-20261119-1222-002",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "spring potential energy problem",
+    "statement": "A mass m is attached to the lower end of a vertical spring with spring constant k. The spring is initially at its natural length. The mass is held a distance h above the attachment point and released from rest. Find the maximum compression x_max of the spring relative to its natural length.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the object",
+        "unit": "kg"
+      },
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "h": {
+        "desc": "initial height above the natural length",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "(-m*g+sqrt(m**2*g**2+2*k*m*g*h))/k",
+    "answer_unit": "m",
+    "given": {
+      "m": "2.0",
+      "k": "500",
+      "h": "0.3",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "h",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.119139,
+    "solver_expression": "(m*g + sqrt((m*g)**2 + 2*k*m*g*h))/k",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: 0.489851+0j vs 1.60677+0j"
+  }
+]
