@@ -39,7 +39,7 @@ req = urllib.request.Request(
 )
 
 try:
-    with urllib.request.urlopen(req, timeout=60) as resp:
+    with urllib.request.urlopen(req, timeout=180) as resp:
         data = json.load(resp)
 except urllib.error.HTTPError as e:
     body = e.read().decode("utf-8", "replace")
