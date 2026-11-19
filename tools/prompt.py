@@ -74,21 +74,21 @@ def build_prompt(state, target_concepts, tier, count, concepts=None,
     return f"""You write physics problems for students who know exactly the
 physics listed below and nothing more.
 
-THE STUDENT KNOWS (the complete set of physics tools available):
+The student knows (the complete set of physics tools available):
 {_bullets(covered)}
 
-NOT YET AVAILABLE (must not appear in any problem statement or symbol
+Not yet available (must not appear in any problem statement or symbol
 description, and must not be needed to solve any problem):
 {_bullets(forbidden)}
 
-MATHEMATICS AVAILABLE (the complete set of mathematical operations; anything
+Mathematics available (the complete set of mathematical operations; anything
 else, such as calculus not listed here, is unavailable):
 {_bullets(flags)}
 
-DIAGRAMS AND GRAPHS THE STUDENT CAN DRAW OR READ:
+Diagrams and graphs the student can draw or read:
 {_bullets(reps)}
 
-TASK: write {count} different {tier} problem(s) that exercise:
+Task: write {count} different {tier} problem(s) that exercise:
 {_bullets(targets)}
 A {tier} problem: {TIER_GUIDE[tier]}.
 Do not write a problem that a listed tool solves more simply than the
@@ -107,7 +107,7 @@ Reply with JSON only, an object with one key "problems" holding a list of
   "given": {{"<identifier>": "<positive number>"}},
   "limits": [{{"symbol": "<identifier>", "to": "<value or identifier>", "expect": "<expression>"}}],
   "solution_profile": {{
-    "requires": ["<every physics idea needed to solve it, copied exactly from THE STUDENT KNOWS>"],
+    "requires": ["<every physics idea needed to solve it, copied exactly from what the student knows>"],
     "intended_path": "<the one idea it is meant to exercise, copied exactly>",
     "trivial_if_available": ["<any listed idea that would give a simpler route; normally empty>"],
     "representations": ["<diagrams or graphs the student must draw or read, copied exactly; may be empty>"],

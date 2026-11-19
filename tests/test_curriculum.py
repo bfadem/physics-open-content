@@ -131,6 +131,11 @@ class ValidatorTests(unittest.TestCase):
                        {"power": {"any_of": ["telepathy"]}}))
         self.assertTrue(any("calculus_hint" in e for e in vc.validate(self.root)))
 
+    def test_source_acronym_rejected_without_naming_it(self):
+        self._edit("sequences/impulse-first.json",
+                   lambda s: s.update(description="ordering as in the ABCD guide"))
+        self.assertTrue(any(e.startswith("R1") for e in vc.validate(self.root)))
+
     def test_r1_denylist_rejected(self):
         self._edit("sequences/impulse-first.json",
                    lambda s: s.update(description="follows chapter 9"))

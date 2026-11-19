@@ -2,6 +2,11 @@
 """Enforce spec rule R1 mechanically: curriculum files carry concept IDs and
 ordering only -- no section/unit/chapter numbering or source identifiers.
 
+Source identifiers are caught by a general rule rather than by name: any
+all-caps acronym of four or more letters is rejected (concept vocabulary
+uses only short ones such as KE, PE, SHM). JSON and ASCII are exempt because
+the prompt must name those formats.
+
 Scans every file NAME and file CONTENT under curriculum/. Exits non-zero on
 any match. DENYLIST is also imported by the prompt golden-file test, so the
 same patterns are asserted absent from every prompt sent to a provider.
@@ -16,7 +21,7 @@ DENYLIST = [
     r"[Cc]hapter \d",
     r"[Mm]odule \d",
     r"[Aa]ctivity",
-    r"WPAG",
+    r"\b(?!(?:JSON|ASCII)\b)[A-Z]{4,}\b",
     r"PHY-?\d",
 ]
 PATTERNS = [re.compile(p) for p in DENYLIST]

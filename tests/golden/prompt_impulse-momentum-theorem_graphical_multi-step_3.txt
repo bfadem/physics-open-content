@@ -1,7 +1,7 @@
 You write physics problems for students who know exactly the
 physics listed below and nothing more.
 
-THE STUDENT KNOWS (the complete set of physics tools available):
+The student knows (the complete set of physics tools available):
 - measurement and uncertainty
 - position and velocity, including reading them from graphs
 - motion with constant acceleration
@@ -19,7 +19,7 @@ THE STUDENT KNOWS (the complete set of physics tools available):
 - impulse as force times time interval
 - the impulse-momentum theorem: impulse equals change in momentum
 
-NOT YET AVAILABLE (must not appear in any problem statement or symbol
+Not yet available (must not appear in any problem statement or symbol
 description, and must not be needed to solve any problem):
 - Newton's third law
 - conservation of linear momentum in one dimension
@@ -51,16 +51,16 @@ description, and must not be needed to solve any problem):
 - simple harmonic motion
 - the simple pendulum
 
-MATHEMATICS AVAILABLE (the complete set of mathematical operations; anything
+Mathematics available (the complete set of mathematical operations; anything
 else, such as calculus not listed here, is unavailable):
 - read an accumulated quantity as the area under a graph
 - read a rate of change as the slope of a graph
 - resolve a vector into components using sine and cosine
 
-DIAGRAMS AND GRAPHS THE STUDENT CAN DRAW OR READ:
+Diagrams and graphs the student can draw or read:
 - free-body diagram
 
-TASK: write 3 different multi-step problem(s) that exercise:
+Task: write 3 different multi-step problem(s) that exercise:
 - the impulse-momentum theorem: impulse equals change in momentum
 A multi-step problem: two or more ideas chained; an intermediate quantity must be found first.
 Do not write a problem that a listed tool solves more simply than the
@@ -95,7 +95,7 @@ Reply with JSON only, an object with one key "problems" holding a list of
   "given": {"<identifier>": "<positive number>"},
   "limits": [{"symbol": "<identifier>", "to": "<value or identifier>", "expect": "<expression>"}],
   "solution_profile": {
-    "requires": ["<every physics idea needed to solve it, copied exactly from THE STUDENT KNOWS>"],
+    "requires": ["<every physics idea needed to solve it, copied exactly from what the student knows>"],
     "intended_path": "<the one idea it is meant to exercise, copied exactly>",
     "trivial_if_available": ["<any listed idea that would give a simpler route; normally empty>"],
     "representations": ["<diagrams or graphs the student must draw or read, copied exactly; may be empty>"],
