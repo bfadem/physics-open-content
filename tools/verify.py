@@ -14,9 +14,16 @@ import sys
 
 import sympy
 from sympy import Symbol, simplify
-from sympy.parsing.sympy_parser import parse_expr, standard_transformations
+from sympy.parsing.sympy_parser import (
+    convert_xor, parse_expr, standard_transformations,
+)
 from sympy.physics import units as u
-from sympy.physics.units.systems.si import SI
+from sympy.physics.units import Dimension
+from sympy.physics.units.systems.si import SI, dimsys_SI
+
+# '^' means XOR in Python; convert_xor makes it exponentiation, which is how
+# both unit strings and model-emitted expressions tend to write it.
+TRANSFORMS = standard_transformations + (convert_xor,)
 
 ALLOWED_NAMES = {
     "sin", "cos", "tan", "asin", "acos", "atan",
@@ -29,7 +36,7 @@ UNIT_NS = {
     "m": u.meter, "s": u.second, "kg": u.kilogram, "N": u.newton,
     "J": u.joule, "W": u.watt, "Pa": u.pascal, "C": u.coulomb,
     "V": u.volt, "A": u.ampere, "K": u.kelvin, "Hz": u.hertz,
-    "mol": u.mol, "ohm": u.ohm,
+    "mol": u.mole, "ohm": u.ohm,
     # Angles are dimensionless in SI; treating them so keeps trig functions
     # from tripping the dimensional checker.
     "rad": sympy.S.One, "1": sympy.S.One,
@@ -48,26 +55,30 @@ def safe_parse(text, symbols):
     for name in ALLOWED_NAMES:
         if hasattr(sympy, name):
             local[name] = getattr(sympy, name)
-    return parse_expr(
-        text, local_dict=local,
-        transformations=standard_transformations, evaluate=True,
-    )
+    return parse_expr(text, local_dict=local,
+                      transformations=TRANSFORMS, evaluate=True)
 
 
 def parse_unit(text):
-    if not SAFE_CHARS.fullmatch(str(text)):
+    text = str(text)
+    if not SAFE_CHARS.fullmatch(text):
         raise ValueError(f"bad unit string: {text!r}")
-    unknown = set(IDENT.findall(str(text))) - set(UNIT_NS)
+    unknown = set(IDENT.findall(text)) - set(UNIT_NS)
     if unknown:
         raise ValueError(f"unknown units: {sorted(unknown)}")
-    return parse_expr(str(text), local_dict=dict(UNIT_NS),
-                      transformations=standard_transformations)
+    return parse_expr(text, local_dict=dict(UNIT_NS),
+                      transformations=TRANSFORMS)
 
 
-def dimensionless_ratio(expr_units, target_units):
-    """True when the two carry the same dimensions."""
-    ratio = SI.get_dimensional_expr(expr_units) / SI.get_dimensional_expr(target_units)
-    return simplify(ratio) == 1
+def base_dims(expr_with_units):
+    """Reduce to base SI dimensional dependencies.
+
+    Comparing dimensional expressions directly fails for derived units:
+    newtons stay symbolic as 'force' instead of expanding to kg*m/s^2.
+    """
+    dim = Dimension(SI.get_dimensional_expr(expr_with_units))
+    deps = dimsys_SI.get_dimensional_dependencies(dim)
+    return {str(k): v for k, v in dict(deps).items() if v != 0}
 
 
 def check(record):
@@ -96,14 +107,16 @@ def check(record):
 
     # 3. dimensions
     try:
-        subs = {}
-        for name, meta in syms.items():
-            unit = parse_unit(meta.get("unit", "1"))
-            subs[Symbol(name, positive=True)] = unit
-        target = parse_unit(record["answer_unit"])
-        ok = dimensionless_ratio(expr.subs(subs), target)
-        out.append(("dimensions", ok,
-                    f"expected {record['answer_unit']}"))
+        subs = {Symbol(n, positive=True): parse_unit(meta.get("unit", "1"))
+                for n, meta in syms.items()}
+        got = base_dims(expr.subs(subs))
+        want = base_dims(parse_unit(record["answer_unit"]))
+        ok = got == want
+        detail = (f"expected {record['answer_unit']} = {want or 'dimensionless'}"
+                  if ok else f"got {got or 'dimensionless'}, "
+                             f"expected {want or 'dimensionless'} "
+                             f"({record['answer_unit']})")
+        out.append(("dimensions", ok, detail))
     except Exception as e:
         out.append(("dimensions", False, str(e)))
 
