@@ -41,6 +41,7 @@ UNIT_NS = {
     "J": u.joule, "W": u.watt, "Pa": u.pascal, "C": u.coulomb,
     "V": u.volt, "A": u.ampere, "K": u.kelvin, "Hz": u.hertz,
     "mol": u.mole, "ohm": u.ohm,
+    "F": u.farad, "H": u.henry, "T": u.tesla, "Wb": u.weber,
     # Angles are dimensionless in SI; treating them so keeps trig functions
     # from tripping the dimensional checker.
     "rad": sympy.S.One, "1": sympy.S.One,

@@ -121,6 +121,13 @@ def precheck(rec):
         if name in RESERVED:
             return f"reserved identifier {name!r}"
     given = rec.get("given") or {}
+    # Models often declare the unknown itself (e.g. v, T) as a symbol. A
+    # symbol with no given value that the answer does not use is that
+    # unknown: drop it rather than reject correct physics.
+    used = set(re.findall(r"[A-Za-z_][A-Za-z_0-9]*",
+                          str(rec.get("answer_expression", ""))))
+    for name in [n for n in syms if n not in given and n not in used]:
+        del syms[name]
     missing = set(syms) - set(given)
     if missing:
         return f"no given value for {sorted(missing)}"
@@ -228,9 +235,15 @@ def main():
 
             stage = "dedupe"
             for prev in accepted:
-                if set(prev["symbols"]) == set(rec["symbols"]) and equivalent(
-                        prev["answer_expression"], rec["answer_expression"],
-                        list(rec["symbols"]))[0]:
+                # Compare on symbols the answers USE: declared-but-unused
+                # extras must not hide a duplicate.
+                names = sorted(set(prev["symbols"]) | set(rec["symbols"]))
+                ua = {x.name for x in verify.safe_parse(
+                    prev["answer_expression"], names).free_symbols}
+                ub = {x.name for x in verify.safe_parse(
+                    rec["answer_expression"], names).free_symbols}
+                if ua == ub and equivalent(prev["answer_expression"],
+                                           rec["answer_expression"], sorted(ua))[0]:
                     raise ValueError(f"duplicate of {prev['id']}")
 
             stage = "verify"
