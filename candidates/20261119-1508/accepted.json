@@ -1,0 +1,517 @@
+[
+  {
+    "id": "gen-20261119-1508-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "final speed from impulse starting from rest",
+    "statement": "A space probe of mass m is initially at rest in deep space far from any planets or stars. Its thrusters deliver an impulse of magnitude J_0. Find the final speed of the probe.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the space probe",
+        "unit": "kg"
+      },
+      "J_0": {
+        "desc": "magnitude of the impulse delivered by the thrusters",
+        "unit": "N*s"
+      }
+    },
+    "answer_expression": "J_0/m",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "450",
+      "J_0": "900"
+    },
+    "limits": [
+      {
+        "symbol": "J_0",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "m",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 2.0,
+    "solver_expression": "J_0 / m"
+  },
+  {
+    "id": "gen-20261119-1508-002",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "average force during a rebound impact",
+    "statement": "A rubber ball of mass m travels horizontally with speed v_i directly toward a rigid vertical wall. The ball strikes the wall and rebounds horizontally in the opposite direction with speed v_f. The contact between the ball and the wall lasts for a time interval dt. Find the magnitude of the average force exerted on the ball by the wall during the contact.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the rubber ball",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "initial speed of the ball before striking the wall",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "final speed of the ball after rebounding",
+        "unit": "m/s"
+      },
+      "dt": {
+        "desc": "duration of contact between the ball and the wall",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "m*(v_i + v_f)/dt",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.15",
+      "v_i": "12",
+      "v_f": "9.0",
+      "dt": "0.008"
+    },
+    "limits": [
+      {
+        "symbol": "dt",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "v_f",
+        "to": "0",
+        "expect": "m*v_i/dt"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 393.75,
+    "solver_expression": "m * (v_i + v_f) / dt"
+  },
+  {
+    "id": "gen-20261119-1508-003",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "time interval for a given momentum change",
+    "statement": "A cargo cart moves along a straight horizontal track with an initial momentum of magnitude p_i. A constant horizontal net force of magnitude F acts on the cart in the direction of its motion until the magnitude of the cart's momentum reaches p_f, where p_f is greater than p_i. Find the time interval over which the force acts.",
+    "symbols": {
+      "p_i": {
+        "desc": "initial momentum magnitude of the cart",
+        "unit": "kg*m/s"
+      },
+      "p_f": {
+        "desc": "final momentum magnitude of the cart",
+        "unit": "kg*m/s"
+      },
+      "F": {
+        "desc": "magnitude of the constant horizontal net force",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "(p_f - p_i)/F",
+    "answer_unit": "s",
+    "given": {
+      "p_i": "120",
+      "p_f": "360",
+      "F": "40"
+    },
+    "limits": [
+      {
+        "symbol": "p_f",
+        "to": "p_i",
+        "expect": "0"
+      },
+      {
+        "symbol": "F",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 6.0,
+    "solver_expression": "(p_f - p_i) / F"
+  },
+  {
+    "id": "gen-20261119-1508-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "mass from impulse and change in speed",
+    "statement": "A space probe moves in a straight line in deep space with initial speed v_i. An engine burn delivers an impulse of magnitude J_0 in the direction of the probe's motion, increasing its speed to v_f, where v_f is greater than v_i. Find the mass of the probe.",
+    "symbols": {
+      "J_0": {
+        "desc": "magnitude of the impulse delivered by the engine burn",
+        "unit": "N*s"
+      },
+      "v_i": {
+        "desc": "initial speed of the probe",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "final speed of the probe",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "J_0/(v_f - v_i)",
+    "answer_unit": "kg",
+    "given": {
+      "J_0": "2400",
+      "v_i": "15",
+      "v_f": "27"
+    },
+    "limits": [
+      {
+        "symbol": "v_i",
+        "to": "0",
+        "expect": "J_0/v_f"
+      },
+      {
+        "symbol": "J_0",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 200.0,
+    "solver_expression": "J_0 / (v_f - v_i)"
+  },
+  {
+    "id": "gen-20261119-1508-005",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "magnitude of impulse for a right-angle turn",
+    "statement": "A hockey puck of mass m slides on a frictionless horizontal ice surface with speed v_i toward the east. A hockey stick briefly strikes the puck, causing it to move across the ice with speed v_f toward the north. Find the magnitude of the impulse delivered to the puck by the stick.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the hockey puck",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "initial speed of the puck moving east",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "final speed of the puck moving north",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "m*sqrt(v_i^2 + v_f^2)",
+    "answer_unit": "N*s",
+    "given": {
+      "m": "0.17",
+      "v_i": "8.0",
+      "v_f": "6.0"
+    },
+    "limits": [
+      {
+        "symbol": "v_i",
+        "to": "0",
+        "expect": "m*v_f"
+      },
+      {
+        "symbol": "v_f",
+        "to": "0",
+        "expect": "m*v_i"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 1.7,
+    "solver_expression": "m*sqrt(v_i**2+v_f**2)"
+  },
+  {
+    "id": "gen-20261119-1508-006",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "initial speed before a braking impulse",
+    "statement": "An aircraft of mass m rolls along a horizontal runway and engages an arresting cable that exerts an average horizontal net force of magnitude F_avg opposite to the aircraft's motion for a time interval dt, reducing the aircraft's speed to v_f without reversing its direction. Find the speed of the aircraft just before engaging the cable.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the aircraft",
+        "unit": "kg"
+      },
+      "F_avg": {
+        "desc": "magnitude of the average horizontal net braking force",
+        "unit": "N"
+      },
+      "dt": {
+        "desc": "time interval over which the braking force acts",
+        "unit": "s"
+      },
+      "v_f": {
+        "desc": "final speed of the aircraft after braking",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "v_f + F_avg*dt/m",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "18000",
+      "F_avg": "270000",
+      "dt": "2.5",
+      "v_f": "15"
+    },
+    "limits": [
+      {
+        "symbol": "F_avg",
+        "to": "0",
+        "expect": "v_f"
+      },
+      {
+        "symbol": "m",
+        "to": "oo",
+        "expect": "v_f"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 52.5,
+    "solver_expression": "v_f+F_avg*dt/m"
+  },
+  {
+    "id": "gen-20261119-1508-009",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "two-dimensional impulse and projectile launch from a table",
+    "statement": "A puck of mass m slides across a frictionless horizontal tabletop of height h above a horizontal floor with an initial speed v_0. A mallet strikes the puck for a brief contact duration t_c, exerting a time-varying horizontal force of average magnitude F_a directed at an acute angle theta relative to the puck's initial velocity. After the strike, the puck reaches the edge of the tabletop and falls freely under a uniform gravitational acceleration of magnitude g until it hits the floor. Find the horizontal distance between the point where the puck leaves the tabletop and the point where it lands on the floor.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the puck",
+        "unit": "kg"
+      },
+      "v_0": {
+        "desc": "initial speed of the puck before the strike",
+        "unit": "m/s"
+      },
+      "F_a": {
+        "desc": "average magnitude of the horizontal force during the strike",
+        "unit": "N"
+      },
+      "t_c": {
+        "desc": "contact duration of the strike",
+        "unit": "s"
+      },
+      "theta": {
+        "desc": "acute angle between the average force and the initial velocity",
+        "unit": "rad"
+      },
+      "h": {
+        "desc": "height of the tabletop above the floor",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(2*h/g)*sqrt(v_0^2 + 2*v_0*F_a*t_c*cos(theta)/m + F_a^2*t_c^2/m^2)",
+    "answer_unit": "m",
+    "given": {
+      "m": "0.17",
+      "v_0": "3.0",
+      "F_a": "45.0",
+      "t_c": "0.02",
+      "theta": "0.6",
+      "h": "0.9",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "F_a",
+        "to": "0",
+        "expect": "v_0*sqrt(2*h/g)"
+      },
+      {
+        "symbol": "v_0",
+        "to": "0",
+        "expect": "F_a*t_c*sqrt(2*h/g)/m"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse",
+        "impulse-momentum-theorem",
+        "projectile-motion",
+        "free-fall",
+        "constant-acceleration"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 3.40653,
+    "solver_expression": "sqrt(2*h/g)*sqrt(v_0**2 + 2*v_0*F_a*t_c*cos(theta)/m + (F_a*t_c/m)**2)"
+  },
+  {
+    "id": "gen-20261119-1508-010",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "minimum stopping time with force limit",
+    "statement": "A block of mass m moves in a straight line with speed v_i. It must be brought to speed v_f (v_f < v_i) by applying a constant force of magnitude not exceeding F_max in the opposite direction of motion. Using only the impulse-momentum theorem, find the minimum time interval dt required to achieve this speed change.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "initial speed of the block",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "final speed of the block after the impulse",
+        "unit": "m/s"
+      },
+      "F_max": {
+        "desc": "maximum allowable magnitude of the applied force",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "m*(v_i - v_f)/F_max",
+    "answer_unit": "s",
+    "given": {
+      "m": "2",
+      "v_i": "10",
+      "v_f": "2",
+      "F_max": "150"
+    },
+    "limits": [
+      {
+        "symbol": "F_max",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "v_i",
+        "to": "v_f",
+        "expect": "0"
+      },
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 0.106667,
+    "solver_expression": "m*(v_i - v_f)/F_max"
+  }
+]

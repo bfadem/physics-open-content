@@ -1,0 +1,163 @@
+[
+  {
+    "id": "gen-20261119-1508-007",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "vertical bounce and average normal force",
+    "statement": "A rubber ball of mass m is released from rest from a height h_1 above a horizontal floor and falls straight down under gravity. Upon striking the floor, the ball remains in contact with the floor for a time interval t_c, during which the upward normal force exerted by the floor varies with time, and then rebounds straight up to a maximum height h_2. In a uniform gravitational field of acceleration magnitude g, find the magnitude of the average normal force exerted by the floor on the ball during the contact interval t_c.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the rubber ball",
+        "unit": "kg"
+      },
+      "h_1": {
+        "desc": "initial drop height above the floor",
+        "unit": "m"
+      },
+      "h_2": {
+        "desc": "maximum rebound height above the floor",
+        "unit": "m"
+      },
+      "t_c": {
+        "desc": "duration of contact with the floor",
+        "unit": "s"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "m*g + m*(sqrt(2*g*h_1) + sqrt(2*g*h_2))/t_c",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.15",
+      "h_1": "2.0",
+      "h_2": "1.2",
+      "t_c": "0.015",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "t_c",
+        "to": "oo",
+        "expect": "m*g"
+      },
+      {
+        "symbol": "h_2",
+        "to": "0",
+        "expect": "m*g + m*sqrt(2*g*h_1)/t_c"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "free-fall",
+        "constant-acceleration",
+        "newton-2nd",
+        "normal-force",
+        "momentum-definition",
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 112.635,
+    "solver_expression": "m*(sqrt(2*g*h2)+sqrt(2*g*h1))/t_c + m*g",
+    "rejected_at": "agreement",
+    "reason": "ValueError: unknown identifiers: ['h1', 'h2']"
+  },
+  {
+    "id": "gen-20261119-1508-008",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "time-varying force pulse followed by kinetic friction",
+    "statement": "A block of mass m is initially at rest on a frictionless horizontal track. A horizontal pushing force is applied to the block; the magnitude of this force starts at zero, increases linearly with time to a peak value F_m over a time interval t_1, and then decreases linearly back to zero over a subsequent time interval t_2. Immediately after the force drops back to zero, the block enters a rough horizontal section of the track where the coefficient of kinetic friction between the block and the surface is mu_k. In a uniform gravitational field of acceleration magnitude g, find the distance the block slides along the rough section before coming to rest.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "F_m": {
+        "desc": "peak magnitude of the horizontal pushing force",
+        "unit": "N"
+      },
+      "t_1": {
+        "desc": "time interval during which the force increases linearly",
+        "unit": "s"
+      },
+      "t_2": {
+        "desc": "time interval during which the force decreases linearly",
+        "unit": "s"
+      },
+      "mu_k": {
+        "desc": "coefficient of kinetic friction on the rough section",
+        "unit": "1"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "F_m^2*(t_1 + t_2)^2/(8*mu_k*g*m^2)",
+    "answer_unit": "m",
+    "given": {
+      "m": "2.0",
+      "F_m": "12.0",
+      "t_1": "0.5",
+      "t_2": "1.5",
+      "mu_k": "0.25",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "F_m",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "mu_k",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "impulse",
+        "momentum-definition",
+        "impulse-momentum-theorem",
+        "normal-force",
+        "friction-static-kinetic",
+        "newton-2nd",
+        "constant-acceleration"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [
+        "graphical-area"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 7.33945,
+    "solver_expression": "F_m**2*(t1 + t2)**2/(8*mu_k*g*m**2)",
+    "rejected_at": "agreement",
+    "reason": "ValueError: unknown identifiers: ['t1', 't2']"
+  }
+]
