@@ -115,6 +115,10 @@ class QuotaExhausted(Exception):
     pass
 
 
+class Unavailable(Exception):
+    """503 / timeout: the model was busy. Not a judgment on content."""
+
+
 def call_model(model, prompt, key):
     """One generateContent call returning parsed JSON. Honors 429s."""
     payload = {
@@ -133,10 +137,19 @@ def call_model(model, prompt, key):
             with urllib.request.urlopen(req, timeout=CALL_TIMEOUT) as resp:
                 data = json.load(resp)
             break
-        except urllib.error.HTTPError as e:
+        except (TimeoutError, urllib.error.URLError) as e:
+            code = getattr(e, "code", None)   # None: timeout / network error
+            if code is not None and code not in (429, 500, 503):
+                body = e.read().decode("utf-8", "replace")
+                raise RuntimeError(f"HTTP {code} from {model}: {body[:300]}")
+            if code != 429:                   # busy or unreachable: transient
+                if attempt == MAX_429_RETRIES:
+                    raise Unavailable(f"{model}: {e}")
+                wait = 20 * (attempt + 1)
+                print(f"   {model} unavailable ({e}); retrying in {wait}s")
+                time.sleep(wait)
+                continue
             body = e.read().decode("utf-8", "replace")
-            if e.code != 429:
-                raise RuntimeError(f"HTTP {e.code} from {model}: {body[:300]}")
             if "PerDay" in body or "per day" in body.lower():
                 raise QuotaExhausted(f"{model}: daily quota reached")
             if attempt == MAX_429_RETRIES:
@@ -182,12 +195,12 @@ def instantiate(rec):
     """SymPy, not the model, computes the numeric answer."""
     names = list(rec["symbols"])
     expr = verify.safe_parse(rec["answer_expression"], names)
-    subs = {Symbol(k, positive=True): verify.safe_parse(v, [])
+    subs = {Symbol(k, positive=True): verify.parse_value(v)
             for k, v in rec["given"].items()}
     val = complex(expr.subs(subs).evalf())
     if abs(val.imag) > 1e-9 * max(1, abs(val.real)) or not val.real > 0:
         raise ValueError(f"given values make the answer non-positive/complex: {val}")
-    return float(sympy.Float(val.real, 6))
+    return float(f"{val.real:.6g}")
 
 
 def equivalent(a_text, b_text, names, trials=8):
@@ -228,7 +241,7 @@ def main():
 
     rng = random.Random(batch)
     jobs = [(rng.choice(TOPICS), TIERS[i % 3]) for i in range(count)]
-    accepted, rejected = [], []
+    accepted, rejected, unavailable = [], [], []
     tokens, calls, stop_reason = 0, 0, None
 
     for i, (topic, tier) in enumerate(jobs, 1):
@@ -270,6 +283,13 @@ def main():
             if not ok:
                 raise ValueError(f"author and blind solver disagree: {detail}")
 
+            stage = "dedupe"
+            for prev in accepted:
+                if set(prev["symbols"]) == set(rec["symbols"]) and equivalent(
+                        prev["answer_expression"], rec["answer_expression"],
+                        list(rec["symbols"]))[0]:
+                    raise ValueError(f"duplicate of {prev['id']}")
+
             stage = "verify"
             results = verify.check(rec)
             failed = [(n, d) for n, good, d in results if not good]
@@ -280,6 +300,10 @@ def main():
                                  "agreement": detail}
             accepted.append(rec)
             print(f"   ACCEPT  {rec['answer_expression']}")
+        except Unavailable as e:
+            unavailable.append({"id": rid, "topic": topic, "stage": stage,
+                                "reason": str(e)[:300]})
+            print(f"   SKIP    [{stage}] model unavailable")
         except QuotaExhausted as e:
             stop_reason = str(e)
             print(f"   STOP    {e}")
@@ -296,7 +320,7 @@ def main():
             json.dump(data, f, indent=2)
             f.write("\n")
 
-    attempted = len(accepted) + len(rejected)
+    attempted = len(accepted) + len(rejected) + len(unavailable)
     by_stage = {}
     for r in rejected:
         by_stage[r["rejected_at"]] = by_stage.get(r["rejected_at"], 0) + 1
@@ -304,7 +328,8 @@ def main():
         f"# Batch {batch}", "",
         f"- Author model: `{author}`; blind solver: `{solver}`",
         f"- Requested {count}, attempted {attempted}, "
-        f"**accepted {len(accepted)}**, rejected {len(rejected)}",
+        f"**accepted {len(accepted)}**, rejected {len(rejected)}, "
+        f"skipped (model unavailable) {len(unavailable)}",
         f"- Model calls: {calls}; total tokens: {tokens}",
         f"- Stopped early: {stop_reason}" if stop_reason else "- Ran to completion",
         "", "## Rejections by stage", "",

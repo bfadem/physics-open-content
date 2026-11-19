@@ -5,16 +5,33 @@
     "tier": "multi-step",
     "statement": "A rocket in free space ejects exhaust at speed u relative to itself. Its mass drops from m0 to mf. Find the change in its speed.",
     "symbols": {
-      "u": {"desc": "exhaust speed relative to rocket", "unit": "m/s"},
-      "m0": {"desc": "initial mass", "unit": "kg"},
-      "mf": {"desc": "final mass", "unit": "kg"}
+      "u": {
+        "desc": "exhaust speed relative to rocket",
+        "unit": "m/s"
+      },
+      "m0": {
+        "desc": "initial mass",
+        "unit": "kg"
+      },
+      "mf": {
+        "desc": "final mass",
+        "unit": "kg"
+      }
     },
     "answer_expression": "u*log(m0/mf)",
     "answer_unit": "m/s",
-    "given": {"u": "2500", "m0": "1000", "mf": "400"},
+    "given": {
+      "u": "2500",
+      "m0": "1000",
+      "mf": "400"
+    },
     "expected_value": 2290.73,
     "limits": [
-      {"symbol": "mf", "to": "m0", "expect": "0"}
+      {
+        "symbol": "mf",
+        "to": "m0",
+        "expect": "0"
+      }
     ]
   },
   {
@@ -23,17 +40,138 @@
     "tier": "multi-step",
     "statement": "A block of mass m sits on a vertical spring of stiffness k compressed by x, then is released. Find its speed when the spring reaches its natural length.",
     "symbols": {
-      "k": {"desc": "spring constant", "unit": "N/m"},
-      "x": {"desc": "initial compression", "unit": "m"},
-      "m": {"desc": "block mass", "unit": "kg"},
-      "g": {"desc": "gravitational acceleration", "unit": "m/s^2"}
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "x": {
+        "desc": "initial compression",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "block mass",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
     },
     "answer_expression": "sqrt(k*x^2/m - 2*g*x)",
     "answer_unit": "m/s",
-    "given": {"k": "800", "x": "0.10", "m": "0.20", "g": "9.81"},
+    "given": {
+      "k": "800",
+      "x": "0.10",
+      "m": "0.20",
+      "g": "9.81"
+    },
     "expected_value": 6.16749,
     "limits": [
-      {"symbol": "g", "to": "0", "expect": "x*sqrt(k/m)"}
+      {
+        "symbol": "g",
+        "to": "0",
+        "expect": "x*sqrt(k/m)"
+      }
+    ]
+  },
+  {
+    "id": "mech-005",
+    "topic": "hinge force on a cable-supported beam (guard: limits equal only on the physical domain, Abs(sin) and sqrt of a square)",
+    "tier": "multi-step",
+    "statement": "A uniform horizontal beam of mass m_b and length L is hinged to a wall at its left end. A cable from its right end to the wall above the hinge makes angle theta (0 < theta < pi/2) with the beam. A block of mass m_w hangs from the beam at distance d (d < L) from the hinge. Find the magnitude of the force the hinge exerts on the beam.",
+    "symbols": {
+      "m_b": {
+        "desc": "beam mass",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "beam length",
+        "unit": "m"
+      },
+      "m_w": {
+        "desc": "hanging mass",
+        "unit": "kg"
+      },
+      "d": {
+        "desc": "distance of hanging mass from hinge",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "cable angle above the beam",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "g*sqrt((cos(theta)/sin(theta)*(m_b/2 + m_w*d/L))^2 + (m_b/2 + m_w*(1 - d/L))^2)",
+    "answer_unit": "N",
+    "given": {
+      "m_b": "12.0",
+      "L": "3.0",
+      "m_w": "20.0",
+      "d": "2.0",
+      "theta": "0.6",
+      "g": "9.81"
+    },
+    "expected_value": 303.8,
+    "limits": [
+      {
+        "symbol": "m_w",
+        "to": "0",
+        "expect": "m_b*g/(2*sin(theta))"
+      },
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "g*(m_b/2 + m_w*(1 - d/L))"
+      }
+    ]
+  },
+  {
+    "id": "em-001",
+    "topic": "charging capacitor (guard: given values in scientific notation)",
+    "tier": "plug-and-chug",
+    "statement": "An uncharged capacitor C_0 is connected in series with resistor R and an ideal battery of emf V_0 at t = 0. Find the charge on the capacitor at time t.",
+    "symbols": {
+      "C_0": {
+        "desc": "capacitance",
+        "unit": "C/V"
+      },
+      "R": {
+        "desc": "resistance",
+        "unit": "ohm"
+      },
+      "V_0": {
+        "desc": "battery emf",
+        "unit": "V"
+      },
+      "t": {
+        "desc": "time since switch closed",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "C_0*V_0*(1 - exp(-t/(R*C_0)))",
+    "answer_unit": "C",
+    "given": {
+      "C_0": "1e-05",
+      "R": "1000",
+      "V_0": "12",
+      "t": "1.5e-2"
+    },
+    "expected_value": 9.32244e-05,
+    "limits": [
+      {
+        "symbol": "R",
+        "to": "0",
+        "expect": "C_0*V_0"
+      },
+      {
+        "symbol": "t",
+        "to": "0",
+        "expect": "0"
+      }
     ]
   }
 ]

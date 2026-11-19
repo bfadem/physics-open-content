@@ -54,3 +54,16 @@
   "error": {
     "code": 503,
     "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try agai
+
+## Post-batch review (2026-11-19)
+
+- All 4 content rejections were **false rejections of correct physics**,
+  hand-checked: 004, 019, 020 used scientific notation in `given` (the
+  identifier whitelist read `8.99e9` as containing `e9`); 002's limits were
+  equal only on the stated domain (`Abs(sin(theta))`, `sqrt` of a square).
+  The harness is fixed; 002 and 019 are now guard records `mech-005`,
+  `em-001`. These four were never blind-solved, so they are not promoted.
+- The 6 `author` rejections were 503/timeouts, not content. They are now
+  retried and reported as "skipped", not "rejected".
+- Hand-checked accepted: 003, 011, 012, 015 — all correct.
+- 010 and 016 are the same problem; the generator now dedupes.

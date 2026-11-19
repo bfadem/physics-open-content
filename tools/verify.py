@@ -12,6 +12,7 @@ could "succeed" by failing for the wrong reason.
 """
 import glob
 import json
+import random
 import re
 import sys
 
@@ -60,6 +61,41 @@ def safe_parse(text, symbols):
             local[name] = getattr(sympy, name)
     return parse_expr(text, local_dict=local,
                       transformations=TRANSFORMS, evaluate=True)
+
+
+NUMBER = re.compile(r"[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?")
+
+
+def parse_value(text):
+    """A given value: a plain/scientific-notation number, or a constant
+    expression such as pi/6. Scientific notation must be handled here: the
+    identifier whitelist would otherwise read '8.99e9' as containing 'e9'.
+    """
+    text = str(text).strip()
+    if NUMBER.fullmatch(text):
+        return sympy.Float(text, 15)
+    return safe_parse(text, [])
+
+
+def near_given_points(record, n=5, spread=0.1):
+    """Points close to the record's given values. These sit inside the
+    physical domain the problem implies (d < L, 0 < theta < pi/2, ...), which
+    random points do not."""
+    rng = random.Random(record.get("id", ""))
+    base = {k: float(parse_value(v)) for k, v in record.get("given", {}).items()}
+    return [{Symbol(k, positive=True): v * rng.uniform(1 - spread, 1 + spread)
+             for k, v in base.items()} for _ in range(n)]
+
+
+def agree_near_given(a, b, record):
+    """Numeric equality near the given values. Used when simplify() cannot
+    prove a - b == 0 because equality only holds on the physical domain
+    (e.g. Abs(sin(theta)) vs sin(theta), sqrt(x**2) vs x)."""
+    for pt in near_given_points(record):
+        va, vb = complex(a.subs(pt).evalf()), complex(b.subs(pt).evalf())
+        if abs(va - vb) > 1e-9 * max(abs(va), abs(vb), 1e-30):
+            return False
+    return True
 
 
 def parse_unit(text):
@@ -184,13 +220,18 @@ def check(record):
                               safe_parse(lim["to"], names))
             want = safe_parse(lim["expect"], names)
             ok = simplify(got - want) == 0
-            out.append((label, ok, f"got {got}, expected {want}"))
+            how = "symbolically"
+            if not ok and record.get("given"):
+                ok = agree_near_given(got, want, record)
+                how = "numerically, near the given values"
+            out.append((label, ok, f"got {got}, expected {want}"
+                                   + (f" (equal {how})" if ok else "")))
         except Exception as e:
             out.append((label, False, str(e)))
 
     # 5. numeric
     try:
-        subs = {Symbol(k, positive=True): safe_parse(v, [])
+        subs = {Symbol(k, positive=True): parse_value(v)
                 for k, v in record["given"].items()}
         got = float(expr.subs(subs).evalf())
         want = float(record["expected_value"])
