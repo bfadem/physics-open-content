@@ -1,0 +1,279 @@
+[
+  {
+    "id": "gen-20261119-1802-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Work done by a constant horizontal force",
+    "statement": "A constant horizontal force F_const pulls an object over a straight displacement d in the same direction as the force. Find the magnitude of the work done on the object.",
+    "symbols": {
+      "F_const": {
+        "desc": "magnitude of the constant horizontal force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "magnitude of the displacement",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F_const*d",
+    "answer_unit": "J",
+    "given": {
+      "F_const": "50",
+      "d": "3"
+    },
+    "limits": [
+      {
+        "symbol": "F_const",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-constant-force"
+      ],
+      "intended_path": "work-constant-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 150.0,
+    "solver_expression": "F_const * d"
+  },
+  {
+    "id": "gen-20261119-1802-003",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Power from constant force and constant speed",
+    "statement": "A constant horizontal force F pushes an object that moves with constant speed v. Determine the magnitude of the instantaneous power supplied by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the constant horizontal force",
+        "unit": "N"
+      },
+      "v": {
+        "desc": "constant speed of the object",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "F*v",
+    "answer_unit": "W",
+    "given": {
+      "F": "120",
+      "v": "2.5"
+    },
+    "limits": [
+      {
+        "symbol": "F",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "power"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 300.0,
+    "solver_expression": "F*v"
+  },
+  {
+    "id": "gen-20261119-1802-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Work done by a linearly increasing force",
+    "statement": "A force varies linearly with position according to F(x) = k*x, acting from x = 0 to x = x_max. Compute the total work done on the object.",
+    "symbols": {
+      "k": {
+        "desc": "force constant (slope of F versus x)",
+        "unit": "N/m"
+      },
+      "x_max": {
+        "desc": "final position where the force stops acting",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "0.5*k*x_max**2",
+    "answer_unit": "J",
+    "given": {
+      "k": "15",
+      "x_max": "2"
+    },
+    "limits": [
+      {
+        "symbol": "k",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "x_max",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-variable-force"
+      ],
+      "intended_path": "work-variable-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [
+        "graphical-area"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 30.0,
+    "solver_expression": "k*x_max**2/2"
+  },
+  {
+    "id": "gen-20261119-1802-005",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Kinetic energy of a moving mass",
+    "statement": "A particle of mass m moves with speed v. Find its kinetic energy.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the particle",
+        "unit": "kg"
+      },
+      "v": {
+        "desc": "speed of the particle",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "0.5*m*v**2",
+    "answer_unit": "J",
+    "given": {
+      "m": "3",
+      "v": "6"
+    },
+    "limits": [
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "kinetic-energy"
+      ],
+      "intended_path": "kinetic-energy",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 54.0,
+    "solver_expression": "1/2 * m * v**2"
+  },
+  {
+    "id": "gen-20261119-1802-014",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Kinetic energy from constant angled pull",
+    "statement": "A block of mass m rests on a frictionless horizontal surface. A constant force of magnitude F is applied at an angle theta above the horizontal, pulling the block a horizontal distance d. The block starts from rest. Find the kinetic energy of the block after it has moved the distance d.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the applied constant force",
+        "unit": "N"
+      },
+      "theta": {
+        "desc": "angle of the force above the horizontal",
+        "unit": "rad"
+      },
+      "d": {
+        "desc": "horizontal displacement of the block",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F*cos(theta)*d",
+    "answer_unit": "J",
+    "given": {
+      "F": "12.0",
+      "theta": "0.25",
+      "d": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F*d"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "work-dot-product",
+        "kinetic-energy"
+      ],
+      "intended_path": "work-dot-product",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 46.5078,
+    "solver_expression": "F * d * cos(theta)"
+  }
+]

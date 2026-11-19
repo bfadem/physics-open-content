@@ -1,0 +1,639 @@
+[
+  {
+    "id": "gen-20261119-1802-002",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3-flash-preview"
+    },
+    "topic": "Work as dot product with an angle",
+    "statement": "A constant force F acts at an angle theta above the horizontal while an object moves a horizontal distance d. Find the magnitude of the work done by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the constant force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "horizontal displacement magnitude",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between force direction and displacement direction",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "F*d*cos(theta)",
+    "answer_unit": "J",
+    "given": {
+      "F": "80",
+      "d": "4",
+      "theta": "0.5235987756"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F*d"
+      },
+      {
+        "symbol": "theta",
+        "to": "1.5707963268",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "work-dot-product"
+      ],
+      "intended_path": "work-dot-product",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 277.128,
+    "solver_expression": "F * d * cos(theta)",
+    "rejected_at": "verify",
+    "reason": "ValueError: limit theta->1.5707963268: got -5.10341196725696e-12*F*d, expected 0"
+  },
+  {
+    "id": "gen-20261119-1802-006",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Constant force work and power",
+    "statement": "A constant force of magnitude F is applied to an object, moving it a straight\u2011line distance d. The force makes an angle theta with the direction of displacement. The motion takes a time interval t. Find the average power P delivered by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the constant force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "magnitude of the displacement",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between force direction and displacement",
+        "unit": "rad"
+      },
+      "t": {
+        "desc": "time interval of the motion",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "F*d*cos(theta)/t",
+    "answer_unit": "W",
+    "given": {
+      "F": "120",
+      "d": "5",
+      "theta": "0.5235987756",
+      "t": "4"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F*d/t"
+      },
+      {
+        "symbol": "theta",
+        "to": "1.5707963268",
+        "expect": "0"
+      }
+    ],
+    "raw_author_output": {
+      "topic": "Constant force work and power",
+      "statement": "A constant force of magnitude F is applied to an object, moving it a straight\u2011line distance d. The force makes an angle theta with the direction of displacement. The motion takes a time interval t. Find the average power P delivered by the force.",
+      "symbols": {
+        "F": {
+          "desc": "magnitude of the constant force",
+          "unit": "N"
+        },
+        "d": {
+          "desc": "magnitude of the displacement",
+          "unit": "m"
+        },
+        "theta": {
+          "desc": "angle between force direction and displacement",
+          "unit": "rad"
+        },
+        "t": {
+          "desc": "time interval of the motion",
+          "unit": "s"
+        }
+      },
+      "answer_expression": "F*d*cos(theta)/t",
+      "answer_unit": "W",
+      "given": {
+        "F": "120",
+        "d": "5",
+        "theta": "0.5235987756",
+        "t": "4"
+      },
+      "limits": [
+        {
+          "symbol": "theta",
+          "to": "0",
+          "expect": "F*d/t"
+        },
+        {
+          "symbol": "theta",
+          "to": "1.5707963268",
+          "expect": "0"
+        }
+      ],
+      "solution_profile": {
+        "requires": [
+          "work done by a constant force",
+          "work as the dot product of force and displacement",
+          "power as the rate of doing work",
+          "resolve a vector into components using sine and cosine"
+        ],
+        "intended_path": "work as the dot product of force and displacement",
+        "trivial_if_available": [],
+        "representations": [
+          "free-body diagram"
+        ],
+        "calculus_all_of": [],
+        "calculus_any_of": []
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['resolve a vector into components using sine and cosine']"
+  },
+  {
+    "id": "gen-20261119-1802-007",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Variable force work and kinetic\u2011energy ratio",
+    "statement": "A block of mass m is pushed along a horizontal surface by a force that varies with distance x as F(x)=k\u00b7x, where k is a constant. The block starts from rest at x=0 and moves to x=L, reaching a speed v. Compute the dimensionless ratio R = (kinetic energy of the block)/(work done by the variable force).",
+    "symbols": {
+      "k": {
+        "desc": "force constant in F(x)=k\u00b7x",
+        "unit": "N/m"
+      },
+      "L": {
+        "desc": "final displacement",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "v": {
+        "desc": "speed of the block at x=L",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": null,
+    "answer_unit": null,
+    "given": null,
+    "limits": [],
+    "raw_author_output": {
+      "topic": "Variable force work and kinetic\u2011energy ratio",
+      "statement": "A block of mass m is pushed along a horizontal surface by a force that varies with distance x as F(x)=k\u00b7x, where k is a constant. The block starts from rest at x=0 and moves to x=L, reaching a speed v. Compute the dimensionless ratio R = (kinetic energy of the block)/(work done by the variable force).",
+      "symbols": {
+        "k": {
+          "desc": "force constant in F(x)=k\u00b7x",
+          "unit": "N/m"
+        },
+        "L": {
+          "desc": "final displacement",
+          "unit": "m"
+        },
+        "m": {
+          "desc": "mass of the block",
+          "unit": "kg"
+        },
+        "v": {
+          "desc": "speed of the block at x=L",
+          "unit": "m/s"
+        }
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  },
+  {
+    "id": "gen-20261119-1802-008",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Work by a constant force at an angle",
+    "statement": "A constant force F is applied at an angle theta above the horizontal to move an object along a straight horizontal displacement dx. Find the magnitude of the work done by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the constant force",
+        "unit": "N"
+      },
+      "theta": {
+        "desc": "angle of the force above the horizontal",
+        "unit": "rad"
+      },
+      "dx": {
+        "desc": "horizontal displacement of the object",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "F*dx*cos(theta)",
+    "answer_unit": "J",
+    "given": {
+      "F": "100",
+      "theta": "0.5235987756",
+      "dx": "5"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "F*dx"
+      },
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "0"
+      }
+    ],
+    "raw_author_output": {
+      "topic": "Work by a constant force at an angle",
+      "statement": "A constant force F is applied at an angle theta above the horizontal to move an object along a straight horizontal displacement dx. Find the magnitude of the work done by the force.",
+      "symbols": {
+        "F": {
+          "desc": "magnitude of the constant force",
+          "unit": "N"
+        },
+        "theta": {
+          "desc": "angle of the force above the horizontal",
+          "unit": "rad"
+        },
+        "dx": {
+          "desc": "horizontal displacement of the object",
+          "unit": "m"
+        }
+      },
+      "answer_expression": "F*dx*cos(theta)",
+      "answer_unit": "J",
+      "given": {
+        "F": "100",
+        "theta": "0.5235987756",
+        "dx": "5"
+      },
+      "limits": [
+        {
+          "symbol": "theta",
+          "to": "0",
+          "expect": "F*dx"
+        },
+        {
+          "symbol": "theta",
+          "to": "pi/2",
+          "expect": "0"
+        }
+      ],
+      "solution_profile": {
+        "requires": [
+          "work as the dot product of force and displacement",
+          "resolve a vector into components using sine and cosine"
+        ],
+        "intended_path": "work as the dot product of force and displacement",
+        "trivial_if_available": [],
+        "representations": [],
+        "calculus_all_of": [],
+        "calculus_any_of": []
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "unknown concept label(s): ['resolve a vector into components using sine and cosine']"
+  },
+  {
+    "id": "gen-20261119-1802-009",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b"
+    },
+    "topic": "Power from a constant force moving at constant speed",
+    "statement": "A constant horizontal force F moves an object at constant speed v. Find the power delivered by the force.",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the constant horizontal force",
+        "unit": "N"
+      },
+      "v": {
+        "desc": "constant speed of the object",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "F*v",
+    "answer_unit": "W",
+    "given": {
+      "F": "50",
+      "v": "2"
+    },
+    "limits": [
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "F",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "power",
+        "work-dot-product"
+      ],
+      "intended_path": "power",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 100.0,
+    "solver_expression": "F * v",
+    "rejected_at": "dedupe",
+    "reason": "ValueError: duplicate of gen-20261119-1802-003"
+  },
+  {
+    "id": "gen-20261119-1802-010",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Work done by a linearly increasing force",
+    "statement": "A force that varies with displacement as F(x)=k*x acts on an object from x=0 to x=xf. Find the total work done by this force.",
+    "symbols": {
+      "k": {
+        "desc": "force constant (slope of F versus x)",
+        "unit": "N/m"
+      },
+      "xf": {
+        "desc": "final displacement",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "0.5*k*xf**2",
+    "answer_unit": "J",
+    "given": {
+      "k": "200",
+      "xf": "0.3"
+    },
+    "limits": [
+      {
+        "symbol": "xf",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "raw_author_output": {
+      "topic": "Work done by a linearly increasing force",
+      "statement": "A force that varies with displacement as F(x)=k*x acts on an object from x=0 to x=xf. Find the total work done by this force.",
+      "symbols": {
+        "k": {
+          "desc": "force constant (slope of F versus x)",
+          "unit": "N/m"
+        },
+        "xf": {
+          "desc": "final displacement",
+          "unit": "m"
+        }
+      },
+      "answer_expression": "0.5*k*xf**2",
+      "answer_unit": "J",
+      "given": {
+        "k": "200",
+        "xf": "0.3"
+      },
+      "limits": [
+        {
+          "symbol": "xf",
+          "to": "0",
+          "expect": "0"
+        }
+      ]
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  },
+  {
+    "id": "gen-20261119-1802-011",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Average power from a constant horizontal force",
+    "statement": "A block of mass m starts from rest on a frictionless horizontal surface. A constant horizontal force F is applied to the block, moving it a straight\u2011line distance d. Find the average power delivered by the force during the motion.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      }
+    },
+    "answer_expression": null,
+    "answer_unit": null,
+    "given": null,
+    "limits": [],
+    "raw_author_output": {
+      "topic": "Average power from a constant horizontal force",
+      "statement": "A block of mass m starts from rest on a frictionless horizontal surface. A constant horizontal force F is applied to the block, moving it a straight\u2011line distance d. Find the average power delivered by the force during the motion.",
+      "symbols": {
+        "m": {
+          "desc": "mass of the block",
+          "unit": "kg"
+        }
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  },
+  {
+    "id": "gen-20261119-1802-012",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b"
+    },
+    "topic": "Block pulled by a constant horizontal force",
+    "statement": "A block of mass m starts with speed v0 and is pulled horizontally by a constant force F_const over a straight distance d. The motion takes a time t. Find the kinetic energy of the block after it has moved the distance d.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "F_const": {
+        "desc": "magnitude of the constant horizontal pulling force",
+        "unit": "N"
+      },
+      "d": {
+        "desc": "horizontal displacement of the block",
+        "unit": "m"
+      },
+      "t": {
+        "desc": "time taken to travel the distance d",
+        "unit": "s"
+      },
+      "v0": {
+        "desc": "initial speed of the block",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "0.5*m*v0**2 + F_const*d",
+    "answer_unit": "J",
+    "given": {
+      "m": "2.0",
+      "F_const": "10.0",
+      "d": "5.0",
+      "t": "4.0",
+      "v0": "1.0"
+    },
+    "limits": [
+      {
+        "symbol": "F_const",
+        "to": "0",
+        "expect": "0.5*m*v0**2"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "0.5*m*v0**2"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "kinetic-energy",
+      "requires": [
+        "newton-2nd",
+        "constant-acceleration",
+        "work-constant-force",
+        "work-dot-product",
+        "power",
+        "kinetic-energy"
+      ],
+      "intended_path": "work-constant-force",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 51.0,
+    "solver_expression": "1/2*m*(v0 + F_const*d/(m*v0))**2 - 1/2*m*v0**2",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: 1.18338+0j vs 1.16254+0j"
+  },
+  {
+    "id": "gen-20261119-1802-013",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Cart pulled by a linearly increasing force",
+    "statement": "A cart of mass m is pulled along a straight track by a force that increases linearly with displacement: F(x)=k_var\u00b7x, where x is measured from the starting point. The cart moves from x=0 to x=L in a time interval t and reaches a speed v at x=L. Compute the kinetic energy of the cart at x=L.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the cart",
+        "unit": "kg"
+      },
+      "k_var": {
+        "desc": "force constant (slope of F versus x)",
+        "unit": "N/m"
+      },
+      "L": {
+        "desc": "final displacement of the cart",
+        "unit": "m"
+      },
+      "t": {
+        "desc": "time taken to travel the distance L",
+        "unit": "s"
+      },
+      "v": {
+        "desc": "speed of the cart at x = L",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": null,
+    "answer_unit": null,
+    "given": null,
+    "limits": [],
+    "raw_author_output": {
+      "topic": "Cart pulled by a linearly increasing force",
+      "statement": "A cart of mass m is pulled along a straight track by a force that increases linearly with displacement: F(x)=k_var\u00b7x, where x is measured from the starting point. The cart moves from x=0 to x=L in a time interval t and reaches a speed v at x=L. Compute the kinetic energy of the cart at x=L.",
+      "symbols": {
+        "m": {
+          "desc": "mass of the cart",
+          "unit": "kg"
+        },
+        "k_var": {
+          "desc": "force constant (slope of F versus x)",
+          "unit": "N/m"
+        },
+        "L": {
+          "desc": "final displacement of the cart",
+          "unit": "m"
+        },
+        "t": {
+          "desc": "time taken to travel the distance L",
+          "unit": "s"
+        },
+        "v": {
+          "desc": "speed of the cart at x = L",
+          "unit": "m/s"
+        }
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  },
+  {
+    "id": "gen-20261119-1802-015",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Work done by a linearly increasing spring force",
+    "statement": "A cart is attached to a horizontal spring of spring constant k. Starting from the spring\u2019s natural length, the cart is pulled quasistatically so that the spring stretches a distance L. The external agent applies a force that exactly balances the spring force at each instant. Find the total work done by the external agent during the stretch.",
+    "symbols": {
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "L": {
+        "desc": "final stretch of the spring",
+        "unit": "m"
+      }
+    },
+    "answer_expression": null,
+    "answer_unit": null,
+    "given": null,
+    "limits": [],
+    "raw_author_output": {
+      "topic": "Work done by a linearly increasing spring force",
+      "statement": "A cart is attached to a horizontal spring of spring constant k. Starting from the spring\u2019s natural length, the cart is pulled quasistatically so that the spring stretches a distance L. The external agent applies a force that exactly balances the spring force at each instant. Find the total work done by the external agent during the stretch.",
+      "symbols": {
+        "k": {
+          "desc": "spring constant",
+          "unit": "N/m"
+        },
+        "L": {
+          "desc": "final stretch of the spring",
+          "unit": "m"
+        }
+      }
+    },
+    "rejected_at": "curriculum-map",
+    "reason": "problem has no curriculum block"
+  }
+]
