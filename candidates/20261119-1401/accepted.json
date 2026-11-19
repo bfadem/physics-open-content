@@ -1,0 +1,170 @@
+[
+  {
+    "id": "gen-20261119-1401-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "magnetic force on a moving charge",
+    "statement": "A charge q moves with speed v at an angle \\theta relative to a uniform magnetic field of magnitude B. Find the magnitude of the magnetic force F on the charge.",
+    "symbols": {
+      "q": {
+        "desc": "magnitude of electric charge",
+        "unit": "C"
+      },
+      "v": {
+        "desc": "speed of the charge",
+        "unit": "m/s"
+      },
+      "B": {
+        "desc": "magnetic flux density",
+        "unit": "T"
+      },
+      "theta": {
+        "desc": "angle between velocity and magnetic field",
+        "unit": "rad"
+      },
+      "mu0": {
+        "desc": "vacuum magnetic permeability",
+        "unit": "N/A^2"
+      },
+      "g": {
+        "desc": "standard gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "q*v*B*sin(theta)",
+    "answer_unit": "N",
+    "given": {
+      "q": "1.6e-19",
+      "v": "2000000.0",
+      "B": "0.5",
+      "theta": "0.5235987756",
+      "mu0": "1.2566370614e-06",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 8e-14,
+    "solver_expression": "q*v*B*sin(theta)"
+  },
+  {
+    "id": "gen-20261119-1401-002",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Faraday's law and motional emf for a sliding rectangular loop",
+    "statement": "A rectangular conducting loop of width w and height h moves with constant speed v perpendicular to a uniform magnetic field B (directed into the page). At the instant when the leading edge has entered a distance x (0 \u2264 x \u2264 w) into the field region, find the magnitude of the induced emf epsilon in the loop.",
+    "symbols": {
+      "v": {
+        "desc": "speed of the loop",
+        "unit": "m/s"
+      },
+      "B": {
+        "desc": "magnetic field magnitude",
+        "unit": "T"
+      },
+      "w": {
+        "desc": "width of the loop (direction of motion)",
+        "unit": "m"
+      },
+      "h": {
+        "desc": "height of the loop (side parallel to field)",
+        "unit": "m"
+      },
+      "x": {
+        "desc": "distance the leading edge has entered the field region",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "B*h*v",
+    "answer_unit": "V",
+    "given": {
+      "v": "2.0",
+      "B": "0.5",
+      "w": "0.2",
+      "h": "0.1",
+      "x": "0.05"
+    },
+    "limits": [
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "B",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.1,
+    "solver_expression": "B*h*v"
+  },
+  {
+    "id": "gen-20261119-1401-003",
+    "tier": "interesting",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "period of a conical pendulum",
+    "statement": "A mass m is attached to a massless string of length L and swings in a horizontal circle making a constant angle theta with the vertical under gravity g. Find the period T of the motion.",
+    "symbols": {
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "mass of the bob",
+        "unit": "kg"
+      },
+      "theta": {
+        "desc": "angle between string and vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "answer_unit": "s",
+    "given": {
+      "L": "1.2",
+      "theta": "0.30",
+      "g": "9.81",
+      "m": "0.5"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "2*pi*sqrt(L/g)"
+      },
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 2.1479,
+    "solver_expression": "2*pi*sqrt(L*cos(theta)/g)"
+  }
+]

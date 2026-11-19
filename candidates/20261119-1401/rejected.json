@@ -1,0 +1,106 @@
+[
+  {
+    "id": "gen-20261119-1401-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b"
+    },
+    "topic": "Conical pendulum period",
+    "statement": "A point mass m attached to a massless string of length L swings in a horizontal circle while the string makes a constant angle theta with the vertical. Determine the period T_period of the circular motion in terms of L, g, and theta.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the bob",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "theta": {
+        "desc": "angle between string and vertical",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "answer_unit": "s",
+    "given": {
+      "m": "0.5",
+      "L": "1.0",
+      "g": "9.81",
+      "theta": "0.2"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "2*pi*sqrt(L/g)"
+      },
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 1.98597,
+    "solver_expression": "2*pi*sqrt(L*cos(theta)/g)",
+    "rejected_at": "dedupe",
+    "reason": "ValueError: duplicate of gen-20261119-1401-003"
+  },
+  {
+    "id": "gen-20261119-1401-005",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b",
+      "solver": "groq:qwen/qwen3.8-27b"
+    },
+    "topic": "Maximum speed of a mass\u2011spring oscillator",
+    "statement": "A block of mass m attached to an ideal spring of constant k oscillates on a frictionless horizontal surface with amplitude A. Assuming simple harmonic motion, determine the maximum speed of the block.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "A": {
+        "desc": "oscillation amplitude",
+        "unit": "m"
+      },
+      "omega": {
+        "desc": "angular frequency of the motion",
+        "unit": "rad/s"
+      }
+    },
+    "answer_expression": "A*omega",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "0.5",
+      "k": "200",
+      "A": "0.1",
+      "omega": "20"
+    },
+    "limits": [
+      {
+        "symbol": "A",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "oo"
+      }
+    ],
+    "expected_value": 2.0,
+    "solver_expression": "A * sqrt(k / m)",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: 0.359883+0j vs 0.67388+0j"
+  }
+]
