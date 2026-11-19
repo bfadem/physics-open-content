@@ -1,0 +1,11 @@
+# Never commit credentials — keys live in GitHub repo secrets only
+.env
+*.env
+.env.*
+*_env.sh
+*.key
+*.pem
+secrets/
+__pycache__/
+.venv/
+out/
