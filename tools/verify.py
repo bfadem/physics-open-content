@@ -5,13 +5,20 @@ Runs five checks against each problem record. Model output is never trusted:
 expressions are whitelisted before parsing, and all arithmetic is done by
 SymPy rather than by the model.
 
+Checks 1-5 (parse, non-trivial, dimensions, limits, numeric) need only the
+record. Checks 6-8 (curriculum, lexical, pedagogy) need a curriculum State,
+supplied with --request; without it they are skipped and the run is reported
+as PARTIAL, never as a pass.
+
 Records flagged "known_bad": true are harness self-tests and MUST fail.
 If such a record also lists "expect_fail": [check names], exactly those
 checks must fail and every other check must pass -- otherwise a self-test
 could "succeed" by failing for the wrong reason.
 """
+import argparse
 import glob
 import json
+import os
 import random
 import re
 import sys
@@ -24,6 +31,11 @@ from sympy.parsing.sympy_parser import (
 from sympy.physics import units as u
 from sympy.physics.units import Dimension
 from sympy.physics.units.systems.si import SI, dimsys_SI
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import curriculum as cur  # noqa: E402
+
+CURRICULUM_CHECKS = ("curriculum", "lexical", "pedagogy")
 
 # '^' means XOR in Python; convert_xor makes it exponentiation, which is how
 # both unit strings and model-emitted expressions tend to write it.
@@ -169,8 +181,85 @@ def base_dims(expr):
     raise ValueError(f"cannot determine dimensions of {expr!r}")
 
 
-def check(record):
-    """Run every check. Returns a list of (name, ok, detail)."""
+def marker_regex(marker):
+    """Case-insensitive match on word boundaries. Boundaries are defined
+    by alphanumerics, so markers that start or end with punctuation
+    (e.g. "K.E.", "1/2 m v^2") still work, and "inelastic collision" does
+    not contain a match for "elastic collision"."""
+    return re.compile(r"(?<![A-Za-z0-9_])" + re.escape(marker)
+                      + r"(?![A-Za-z0-9_])", re.IGNORECASE)
+
+
+def curriculum_checks(record, state, concepts=None):
+    """Checks 6-8. Returns [(name, ok, detail)] for curriculum, lexical,
+    pedagogy."""
+    concepts = concepts or cur.load_concepts()
+    meta = record.get("curriculum")
+    if not isinstance(meta, dict):
+        msg = "record has no curriculum block"
+        return [(n, False, msg) for n in CURRICULUM_CHECKS]
+    out = []
+
+    # 6. curriculum -- structural admissibility
+    why = []
+    if meta.get("sequence") not in (None, state.sequence_name) or \
+            meta.get("cursor") not in (None, state.cursor):
+        why.append(f"record was generated for {meta.get('sequence')}@"
+                   f"{meta.get('cursor')}, not the requested state")
+    requires = set(meta.get("requires") or [])
+    unknown = requires - set(concepts)
+    if unknown:
+        why.append(f"unknown concepts {sorted(unknown)}")
+    if requires & state.forbidden:
+        why.append(f"requires not-yet-covered {sorted(requires & state.forbidden)}")
+    elif requires - state.covered - unknown:
+        why.append(f"requires concepts outside this sequence "
+                   f"{sorted(requires - state.covered - unknown)}")
+    ip = meta.get("intended_path")
+    if ip not in requires:
+        why.append(f"intended_path {ip!r} not in requires")
+    elif ip not in state.covered:
+        why.append(f"intended_path {ip!r} not covered")
+    reps = set(meta.get("representations") or [])
+    if reps - state.representations:
+        why.append(f"representations not yet available "
+                   f"{sorted(reps - state.representations)}")
+    all_of = set(meta.get("calculus_all_of") or [])
+    if all_of - state.calculus:
+        why.append(f"needs calculus {sorted(all_of - state.calculus)}")
+    any_of = set(meta.get("calculus_any_of") or [])
+    if any_of and not (any_of & state.calculus):
+        why.append(f"needs one of calculus {sorted(any_of)}")
+    out.append(("curriculum", not why,
+                "; ".join(why) if why else
+                f"{len(requires)} required concepts all covered"))
+
+    # 7. lexical -- forbidden vocabulary in the wording
+    texts = [("statement", record.get("statement", ""))] + [
+        (f"symbols.{k}.desc", (v or {}).get("desc", ""))
+        for k, v in (record.get("symbols") or {}).items()]
+    hits = []
+    for cid in sorted(state.forbidden):
+        for marker in concepts.get(cid, {}).get("lexical_markers", []):
+            rx = marker_regex(marker)
+            for where, text in texts:
+                if rx.search(str(text)):
+                    hits.append(f"{marker!r} ({cid}) in {where}")
+    out.append(("lexical", not hits,
+                "; ".join(hits[:5]) if hits else
+                f"no markers of {len(state.forbidden)} forbidden concepts"))
+
+    # 8. pedagogy -- a covered shortcut defeats the problem's purpose
+    trivial = set(meta.get("trivial_if_available") or []) & state.covered
+    out.append(("pedagogy", not trivial,
+                f"shortcut already available: {sorted(trivial)}" if trivial
+                else "no covered shortcut"))
+    return out
+
+
+def check(record, state=None):
+    """Run every check. Returns a list of (name, ok, detail).
+    Checks 6-8 run only when a curriculum State is supplied."""
     out = []
     syms = record.get("symbols", {})
     names = list(syms)
@@ -244,29 +333,60 @@ def check(record):
     except Exception as e:
         out.append(("numeric", False, str(e)))
 
+    if state is not None:
+        out += curriculum_checks(record, state)
     return out
 
 
 def main():
-    files = sorted(glob.glob("problems/*.json"))
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("files", nargs="*", help="record files (default problems/*.json)")
+    ap.add_argument("--request", help="request file whose State checks 6-8 use")
+    ap.add_argument("--ids", help="comma-separated record ids to check (default all)")
+    args = ap.parse_args()
+
+    files = args.files or sorted(glob.glob("problems/*.json"))
     if not files:
         sys.exit("No problem files found under problems/")
+    state = None
+    if args.request:
+        _req, state = cur.load_request(args.request)
+        print(f"State from {args.request}: {len(state.covered)} covered, "
+              f"{len(state.forbidden)} forbidden, calculus {sorted(state.calculus)}")
 
     records = []
     for path in files:
         with open(path) as f:
             data = json.load(f)
         records.extend(data if isinstance(data, list) else [data])
+    if args.ids:
+        wanted = set(args.ids.split(","))
+        records = [r for r in records if r.get("id") in wanted]
+        missing = wanted - {r.get("id") for r in records}
+        if missing:
+            sys.exit(f"--ids not found: {sorted(missing)}")
 
     harness_ok = True
     real_failures = 0
+    not_exercised = []
 
     for rec in records:
-        results = check(rec)
+        results = check(rec, state)
         passed = all(ok for _, ok, _ in results)
         known_bad = rec.get("known_bad", False)
+        expect_fail = rec.get("expect_fail")
+
+        # A self-test aimed at checks 6-8 cannot be exercised without a State.
+        if state is None and known_bad and expect_fail and \
+                set(expect_fail) <= set(CURRICULUM_CHECKS):
+            not_exercised.append(rec.get("id"))
+            print(f"\n{rec.get('id', '?')} — {rec.get('topic', '?')} "
+                  f"-> NOT EXERCISED (targets {expect_fail}; needs --request)")
+            continue
 
         verdict = "PASS" if passed else "FAIL"
+        if state is None and passed:
+            verdict = "PASS (checks 1-5 only)"
         tag = "  [known_bad]" if known_bad else ""
         print(f"\n{rec.get('id', '?')} — {rec.get('topic', '?')} "
               f"[{rec.get('tier', '?')}] -> {verdict}{tag}")
@@ -274,7 +394,6 @@ def main():
             print(f"   {'ok  ' if ok else 'FAIL'}  {name:22s} {detail}")
 
         failed = sorted(name for name, ok, _ in results if not ok)
-        expect_fail = rec.get("expect_fail")
         if known_bad and passed:
             print("   !! harness did not catch a known-bad record")
             harness_ok = False
@@ -296,7 +415,12 @@ def main():
                  "or failed for the wrong reason.")
     if real_failures:
         sys.exit(f"{real_failures} record(s) failed verification.")
-    print("All good.")
+    if state is None:
+        print("PARTIAL: checks 1-5 only. Curriculum checks 6-8 were skipped "
+              f"(no --request); {len(not_exercised)} curriculum self-test(s) "
+              "not exercised. This is not a curriculum pass.")
+    else:
+        print("All good: checks 1-8.")
 
 
 if __name__ == "__main__":

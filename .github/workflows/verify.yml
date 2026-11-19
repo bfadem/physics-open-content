@@ -36,5 +36,8 @@ jobs:
       - name: Unit tests
         run: python3 -m unittest discover -s tests -v
 
-      - name: Verify problem records
+      - name: Verify problem records (checks 1-5; curriculum checks reported partial)
         run: python3 tools/verify.py
+
+      - name: Curriculum self-tests and guards (checks 1-8, one State per fixture)
+        run: bash tests/run_curriculum_fixtures.sh

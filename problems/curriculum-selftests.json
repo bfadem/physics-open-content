@@ -1,0 +1,215 @@
+[
+  {
+    "id": "ct-selftest-001",
+    "topic": "head-on bounce-apart collision (deliberately ahead of the cursor)",
+    "tier": "multi-step",
+    "known_bad": true,
+    "expect_fail": [
+      "curriculum"
+    ],
+    "statement": "Glider A of mass m_A moving at speed v_0 strikes glider B of mass m_B, initially at rest, head-on. The gliders bounce apart, separating with the same relative speed at which they approached. Find the speed of glider B after they separate.",
+    "symbols": {
+      "m_A": {
+        "desc": "mass of glider A",
+        "unit": "kg"
+      },
+      "m_B": {
+        "desc": "mass of glider B",
+        "unit": "kg"
+      },
+      "v_0": {
+        "desc": "initial speed of glider A",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "2*m_A*v_0/(m_A + m_B)",
+    "answer_unit": "m/s",
+    "given": {
+      "m_A": "0.5",
+      "m_B": "0.3",
+      "v_0": "2"
+    },
+    "expected_value": 2.5,
+    "limits": [
+      {
+        "symbol": "m_B",
+        "to": "0",
+        "expect": "2*v_0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "momentum-conservation-1d",
+        "kinetic-energy",
+        "elastic-collision-1d"
+      ],
+      "intended_path": "elastic-collision-1d",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    }
+  },
+  {
+    "id": "ct-selftest-002",
+    "topic": "latching carts, wording leaks kinetic energy (declared requires are clean)",
+    "tier": "plug-and-chug",
+    "known_bad": true,
+    "expect_fail": [
+      "lexical"
+    ],
+    "statement": "A cart of mass m_1 moving at speed v_1 runs into a stationary cart of mass m_2, and the two latch together and move off as one. Find the kinetic energy lost in the collision.",
+    "symbols": {
+      "m_1": {
+        "desc": "mass of the moving cart",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the stationary cart",
+        "unit": "kg"
+      },
+      "v_1": {
+        "desc": "initial speed of the moving cart",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "m_1*m_2*v_1^2/(2*(m_1 + m_2))",
+    "answer_unit": "J",
+    "given": {
+      "m_1": "2",
+      "m_2": "3",
+      "v_1": "4"
+    },
+    "expected_value": 9.6,
+    "limits": [
+      {
+        "symbol": "m_2",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "momentum-conservation-1d",
+      "requires": [
+        "momentum-definition",
+        "momentum-conservation-1d"
+      ],
+      "intended_path": "momentum-conservation-1d",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    }
+  },
+  {
+    "id": "ct-selftest-003",
+    "topic": "straight frictionless ramp asked as an energy problem",
+    "tier": "plug-and-chug",
+    "known_bad": true,
+    "expect_fail": [
+      "pedagogy"
+    ],
+    "statement": "A block is released from rest at the top of a frictionless straight ramp of length d inclined at angle theta above the horizontal. Use conservation of mechanical energy to find its speed at the bottom.",
+    "symbols": {
+      "d": {
+        "desc": "length of the ramp",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the ramp above horizontal",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(2*g*d*sin(theta))",
+    "answer_unit": "m/s",
+    "given": {
+      "d": "2",
+      "theta": "0.5",
+      "g": "9.81"
+    },
+    "expected_value": 4.33736,
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "mechanical-energy-conservation",
+      "requires": [
+        "kinetic-energy",
+        "gravitational-pe",
+        "mechanical-energy-conservation",
+        "inclined-plane"
+      ],
+      "intended_path": "mechanical-energy-conservation",
+      "trivial_if_available": [
+        "newton-2nd",
+        "constant-acceleration"
+      ],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    }
+  },
+  {
+    "id": "ct-selftest-004",
+    "topic": "spring-stretching work without graphical area or integration",
+    "tier": "plug-and-chug",
+    "known_bad": true,
+    "expect_fail": [
+      "curriculum"
+    ],
+    "statement": "A spring with spring constant k is slowly stretched from its relaxed length by a distance x. Find the work done stretching the spring.",
+    "symbols": {
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "x": {
+        "desc": "stretch from relaxed length",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "k*x^2/2",
+    "answer_unit": "J",
+    "given": {
+      "k": "200",
+      "x": "0.1"
+    },
+    "expected_value": 1.0,
+    "limits": [
+      {
+        "symbol": "x",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "work-variable-force",
+      "requires": [
+        "spring-force-hookes-law",
+        "work-variable-force"
+      ],
+      "intended_path": "work-variable-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": [
+        "graphical-area",
+        "integral-analytic"
+      ]
+    }
+  }
+]

@@ -173,5 +173,148 @@
         "expect": "0"
       }
     ]
+  },
+  {
+    "id": "ct-guard-001",
+    "topic": "impulse from a bat (guard: legal at the impulse-momentum cursor)",
+    "tier": "plug-and-chug",
+    "statement": "A ball of mass m moving horizontally at speed v_i is struck by a bat and leaves in the opposite direction at speed v_f. Find the magnitude of the impulse the bat delivers to the ball.",
+    "symbols": {
+      "m": {
+        "desc": "ball mass",
+        "unit": "kg"
+      },
+      "v_i": {
+        "desc": "incoming speed",
+        "unit": "m/s"
+      },
+      "v_f": {
+        "desc": "outgoing speed",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "m*(v_f + v_i)",
+    "answer_unit": "kg*m/s",
+    "given": {
+      "m": "0.145",
+      "v_i": "40",
+      "v_f": "38"
+    },
+    "expected_value": 11.31,
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "impulse-momentum-theorem",
+      "requires": [
+        "momentum-definition",
+        "impulse",
+        "impulse-momentum-theorem"
+      ],
+      "intended_path": "impulse-momentum-theorem",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    }
+  },
+  {
+    "id": "ct-guard-002",
+    "topic": "spring-stretching work by graphical area (guard: calculus_any_of is a disjunction)",
+    "tier": "plug-and-chug",
+    "statement": "A spring with spring constant k is slowly stretched from its relaxed length by a distance x. Using the area under the force versus stretch graph, find the work done stretching the spring.",
+    "symbols": {
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "x": {
+        "desc": "stretch from relaxed length",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "k*x^2/2",
+    "answer_unit": "J",
+    "given": {
+      "k": "200",
+      "x": "0.1"
+    },
+    "expected_value": 1.0,
+    "limits": [
+      {
+        "symbol": "x",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "work-variable-force",
+      "requires": [
+        "spring-force-hookes-law",
+        "work-variable-force"
+      ],
+      "intended_path": "work-variable-force",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": [
+        "graphical-area",
+        "integral-analytic"
+      ]
+    }
+  },
+  {
+    "id": "ct-guard-003",
+    "topic": "coupling carts with 'energy' in ordinary prose (guard: lexical scan not over-broad)",
+    "tier": "plug-and-chug",
+    "statement": "A cart of mass m_1 rolling at speed v_1 runs into a stationary cart of mass m_2. A Velcro bumper absorbs energy as the carts couple, and they move off together. Find their common speed just after coupling.",
+    "symbols": {
+      "m_1": {
+        "desc": "mass of the rolling cart",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the stationary cart",
+        "unit": "kg"
+      },
+      "v_1": {
+        "desc": "initial speed of the rolling cart",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "m_1*v_1/(m_1 + m_2)",
+    "answer_unit": "m/s",
+    "given": {
+      "m_1": "2",
+      "m_2": "3",
+      "v_1": "4"
+    },
+    "expected_value": 1.6,
+    "limits": [
+      {
+        "symbol": "m_2",
+        "to": "0",
+        "expect": "v_1"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "momentum-conservation-1d",
+      "requires": [
+        "momentum-definition",
+        "momentum-conservation-1d"
+      ],
+      "intended_path": "momentum-conservation-1d",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    }
   }
 ]

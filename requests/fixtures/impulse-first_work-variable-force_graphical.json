@@ -1,0 +1,8 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "work-variable-force",
+  "calculus": "graphical",
+  "target_concepts": [
+    "work-variable-force"
+  ]
+}

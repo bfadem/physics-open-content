@@ -1,0 +1,6 @@
+# request fixture                                                  record ids (all 8 checks)
+requests/fixtures/impulse-first_impulse-momentum-theorem_graphical.json      ct-selftest-001,ct-guard-001
+requests/fixtures/impulse-first_momentum-conservation-1d_graphical.json      ct-selftest-002,ct-guard-003
+requests/fixtures/impulse-first_mechanical-energy-conservation_graphical.json ct-selftest-003
+requests/fixtures/impulse-first_work-variable-force_algebra-trig.json        ct-selftest-004
+requests/fixtures/impulse-first_work-variable-force_graphical.json           ct-guard-002

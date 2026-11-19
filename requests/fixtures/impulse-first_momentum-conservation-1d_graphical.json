@@ -1,0 +1,8 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "momentum-conservation-1d",
+  "calculus": "graphical",
+  "target_concepts": [
+    "momentum-conservation-1d"
+  ]
+}

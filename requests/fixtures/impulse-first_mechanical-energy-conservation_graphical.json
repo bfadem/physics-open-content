@@ -1,0 +1,8 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "mechanical-energy-conservation",
+  "calculus": "graphical",
+  "target_concepts": [
+    "mechanical-energy-conservation"
+  ]
+}
