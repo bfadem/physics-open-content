@@ -163,6 +163,10 @@ class Engine:
                 print(f"   429 from {self.label}; waiting {wait:.0f}s as instructed")
                 time.sleep(wait)
                 continue
+            if status == 400 and ("json_validate_failed" in body
+                                  or "Failed to generate JSON" in body):
+                # This call's output was malformed; the engine is fine.
+                raise Unavailable(f"{self.label}: malformed JSON output")
             raise Disabled(f"{self.label}: HTTP {status}: {body[:200]}")
         text, tokens = self._extract(json.loads(body))
         self.calls += 1

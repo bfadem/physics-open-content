@@ -119,6 +119,15 @@ class LabelMappingTest(unittest.TestCase):
         self.assertEqual(out["calculus_all_of"], ["trig-decomposition"])
         self.assertEqual(out["representations"], ["free-body-diagram"])
 
+    def test_calculus_label_under_representations_is_rerouted(self):
+        # Real model output (batch 20261119-1810).
+        meta = {"requires": ["work done by a variable force"],
+                "intended_path": "work done by a variable force",
+                "representations": ["read an accumulated quantity as the area under a graph"]}
+        out = P.map_curriculum_fields(meta, self.state)
+        self.assertEqual(out["representations"], [])
+        self.assertEqual(out["calculus_all_of"], ["graphical-area"])
+
     def test_unknown_label_rejected(self):
         with self.assertRaises(ValueError):
             P.map_curriculum_fields({"requires": ["quantum tunnelling"],
