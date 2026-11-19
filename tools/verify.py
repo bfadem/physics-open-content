@@ -243,7 +243,7 @@ def curriculum_checks(record, state, concepts=None):
         for marker in concepts.get(cid, {}).get("lexical_markers", []):
             rx = marker_regex(marker)
             for where, text in texts:
-                if rx.search(str(text)):
+                if rx.search(cur.normalize_text(text)):
                     hits.append(f"{marker!r} ({cid}) in {where}")
     out.append(("lexical", not hits,
                 "; ".join(hits[:5]) if hits else

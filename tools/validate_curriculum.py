@@ -59,12 +59,14 @@ def validate(root=None):
         for r in meta["requires"]:
             if r not in concepts:
                 errors.append(f"concept {cid}: requires unknown concept {r!r}")
-    seen = {}
-    for cid, meta in concepts.items():
-        lab = cur._norm(meta["label"])
-        if lab in seen:
-            errors.append(f"duplicate label {meta['label']!r}: {seen[lab]}, {cid}")
-        seen[lab] = cid
+    # Labels (and their tolerated variants) map model output back to IDs,
+    # so no variant may belong to two concepts / flags / representations.
+    for kind, pairs in (
+            ("concept", [(k, v["label"]) for k, v in concepts.items()]),
+            ("calculus flag", list(cal["flags"].items())),
+            ("representation", [(k, v["label"]) for k, v in reps.items()])):
+        for alias, a, b in cur.alias_clashes(pairs):
+            errors.append(f"{kind} label variant {alias!r} is shared by {a} and {b}")
 
     cycle = find_cycle(concepts)                                       # 2
     if cycle:

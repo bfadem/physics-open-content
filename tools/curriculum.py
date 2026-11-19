@@ -8,6 +8,7 @@ sequence. Only explicit sets derived from a State ever reach a provider
 """
 import json
 import os
+import re
 from dataclasses import dataclass
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir,
@@ -102,23 +103,68 @@ def load_request(path):
 
 # -- label <-> ID mapping: the model only ever sees labels (R3) -------------
 
+def label_aliases(label):
+    """Deterministic variants a model plausibly echoes back: without a
+    leading article, the head before a colon, without a parenthetical."""
+    out = {_norm(label)}
+    for v in list(out):
+        out.add(re.sub(r"\s*\([^)]*\)", "", v).strip())
+    for v in list(out):
+        if ":" in v:
+            out.add(v.split(":", 1)[0].strip())
+    for v in list(out):
+        out.add(re.sub(r"^(the|a|an) ", "", v))
+    return {a for a in out if a}
+
+
+def alias_clashes(pairs):
+    """[(id, label)] -> [(alias, id_a, id_b)] for variants shared by two IDs."""
+    seen, out = {}, []
+    for cid, label in pairs:
+        for a in label_aliases(label):
+            if a in seen and seen[a] != cid:
+                out.append((a, seen[a], cid))
+            seen.setdefault(a, cid)
+    return out
+
+
+def _alias_map(pairs):
+    """[(id, label)] -> {alias: id}; clashing aliases are dropped (and
+    reported by validate_curriculum)."""
+    pairs = list(pairs)
+    clash = {a for a, _x, _y in alias_clashes(pairs)}
+    return {a: cid for cid, label in pairs for a in label_aliases(label)
+            if a not in clash}
+
+
 def concept_label_map(concepts=None):
     concepts = concepts or load_concepts()
-    return {_norm(v["label"]): k for k, v in concepts.items()}
+    return _alias_map((k, v["label"]) for k, v in concepts.items())
 
 
 def calculus_label_map(cal=None):
     cal = cal or load_calculus()
-    return {_norm(v): k for k, v in cal["flags"].items()}
+    return _alias_map(cal["flags"].items())
 
 
 def representation_label_map(reps=None):
     reps = reps or load_representations()
-    return {_norm(v["label"]): k for k, v in reps.items()}
+    return _alias_map((k, v["label"]) for k, v in reps.items())
+
+
+_DASHES = dict.fromkeys(map(ord, "‐‑‒–—―−"), "-")
+_OTHER = {0x2018: "'", 0x2019: "'", 0x201C: '"', 0x201D: '"',
+          0x00A0: " ", 0x202F: " "}
+
+
+def normalize_text(s):
+    """Unicode dashes, quotes and spaces to ASCII, so look-alike characters
+    can neither break label matching nor slip past the lexical scan."""
+    return str(s).translate(_DASHES).translate(_OTHER)
 
 
 def _norm(s):
-    return " ".join(str(s).lower().replace("’", "'").split())
+    return " ".join(normalize_text(s).lower().split())
 
 
 def labels_to_ids(labels, label_map, kind):

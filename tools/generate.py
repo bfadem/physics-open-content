@@ -294,8 +294,11 @@ def main():
     stop_reason = None
     n_rec = 0
 
-    for ci, (tier, n, prompt_text, label) in enumerate(
-            plan_calls(count, batch, request, state), 1):
+    calls = plan_calls(count, batch, request, state)
+    ci = 0
+    while calls:
+        tier, n, prompt_text, label = calls.pop(0)
+        ci += 1
         print(f"\n[call {ci}] {tier}: {label}")
         try:
             out, author = router.call("author", prompt_text)
@@ -322,8 +325,14 @@ def main():
             else [out]
         if not isinstance(items, list):
             items = []
-        if request is not None and len(items) != n:
+        if request is not None and len(items) < n:
             print(f"   note: asked for {n}, got {len(items)}")
+            retries = label.count("(re-ask")
+            if retries < 2 and items:
+                short = n - len(items)
+                calls.insert(0, (tier, short, P.build_prompt(
+                    state, request["target_concepts"], tier, short),
+                    f"{short} x {tier} (re-ask {retries + 1})"))
         for item in items[:n]:
             n_rec += 1
             rid = f"gen-{batch}-{n_rec:03d}"
@@ -337,11 +346,13 @@ def main():
             print(f"  {rid} {rec['topic']}")
             try:
                 if request is not None:
+                    profile = item.get("solution_profile") or item.get("curriculum")
+                    if not isinstance(profile, dict) and "requires" in item:
+                        profile = item          # fields flattened to top level
                     try:
-                        rec["curriculum"] = P.map_curriculum_fields(
-                            item.get("solution_profile") or item.get("curriculum"),
-                            state)
+                        rec["curriculum"] = P.map_curriculum_fields(profile, state)
                     except ValueError as e:
+                        rec["raw_author_output"] = item
                         raise Rejected("curriculum-map", str(e))
                 finish(rec, router, author, accepted, state)
                 accepted.append(rec)

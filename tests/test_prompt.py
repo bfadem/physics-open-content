@@ -87,6 +87,26 @@ class LabelMappingTest(unittest.TestCase):
         self.assertEqual(out["sequence"], "impulse-first")
         self.assertEqual(out["cursor"], "work-variable-force")
 
+    def test_tolerated_variants(self):
+        # Real model output from the first gated batch: article dropped,
+        # head-before-colon only, and a non-breaking hyphen (U+2011).
+        cmap = cur.concept_label_map()
+        for lab in ["impulse-momentum theorem: impulse equals change in momentum",
+                    "impulse-momentum theorem", "The impulse\u2011momentum theorem",
+                    "rotational inertia", "Newton\u2019s second law"]:
+            self.assertEqual(len(cur.labels_to_ids([lab], cmap, "concept")), 1, lab)
+
+    def test_unicode_cannot_evade_lexical_scan(self):
+        import verify
+        state = cur.expand("impulse-first", "impulse", "graphical")
+        rec = {"statement": "By Newton\u2019s third law and the impulse\u2011momentum "
+                            "theorem, find J.", "symbols": {},
+               "curriculum": {"requires": [], "intended_path": None}}
+        lex = [r for r in verify.curriculum_checks(rec, state) if r[0] == "lexical"][0]
+        self.assertFalse(lex[1])
+        self.assertIn("newton-3rd", lex[2])
+        self.assertIn("impulse-momentum-theorem", lex[2])
+
     def test_unknown_label_rejected(self):
         with self.assertRaises(ValueError):
             P.map_curriculum_fields({"requires": ["quantum tunnelling"],
