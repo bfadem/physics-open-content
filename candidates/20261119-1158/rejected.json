@@ -1,0 +1,674 @@
+[
+  {
+    "id": "gen-20261119-1158-003",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "Electric field of a finite line charge",
+    "statement": "A thin rod of finite length L has a uniform positive total charge q distributed along it. Find the magnitude of the electric field E_mag produced by this rod at a point located along the perpendicular bisector of the rod, at a distance y from its center. Let k_e be the Coulomb constant.",
+    "symbols": {
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "q": {
+        "desc": "total charge of the rod",
+        "unit": "C"
+      },
+      "y": {
+        "desc": "perpendicular distance from the center of the rod",
+        "unit": "m"
+      },
+      "k_e": {
+        "desc": "Coulomb constant",
+        "unit": "N*m^2/C^2"
+      },
+      "E_mag": {
+        "desc": "magnitude of the electric field",
+        "unit": "N/C"
+      }
+    },
+    "answer_expression": "2*k_e*q/(y*sqrt(4*y^2 + L^2))",
+    "answer_unit": "N/C",
+    "given": {
+      "L": "0.1",
+      "q": "1e-9",
+      "y": "0.2",
+      "k_e": "8.99e9"
+    },
+    "limits": [
+      {
+        "symbol": "y",
+        "to": "oo",
+        "expect": "k_e*q/y^2"
+      },
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "k_e*q/y^2"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['E_mag']"
+  },
+  {
+    "id": "gen-20261119-1158-005",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "conical pendulum",
+    "statement": "A small sphere of mass m is attached to a light, inextensible string of length L. The sphere moves in a horizontal circle at a constant speed, with the string maintaining a constant angle theta with the vertical. Express the magnitude of the angular velocity omega of the sphere in terms of m, L, theta, and the magnitude of the gravitational acceleration g.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the sphere",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the string with the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "magnitude of the gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "omega": {
+        "desc": "angular velocity of the sphere",
+        "unit": "rad/s"
+      }
+    },
+    "answer_expression": "sqrt(g / (L * cos(theta)))",
+    "answer_unit": "rad/s",
+    "given": {
+      "m": 0.5,
+      "L": 1.5,
+      "theta": 0.5235987755982988,
+      "g": 9.81
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "sqrt(g/L)"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['omega']"
+  },
+  {
+    "id": "gen-20261119-1158-006",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "Magnetic force on a moving charge in crossed fields",
+    "statement": "A particle with mass m and positive charge q enters a region of uniform magnetic field B directed perpendicular to its initial velocity. Simultaneously, a uniform electric field E is applied in the same direction as the magnetic field. Find the magnitude of the total electromagnetic force acting on the particle immediately after it enters the region, given that its initial speed is v.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the particle",
+        "unit": "kg"
+      },
+      "q": {
+        "desc": "charge of the particle",
+        "unit": "C"
+      },
+      "B": {
+        "desc": "magnitude of the magnetic field",
+        "unit": "V*s/m^2"
+      },
+      "E": {
+        "desc": "magnitude of the electric field",
+        "unit": "V/m"
+      },
+      "v": {
+        "desc": "initial speed of the particle",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "sqrt((q*E)^2 + (q*v*B)^2)",
+    "answer_unit": "N",
+    "given": {
+      "m": 1e-09,
+      "q": 1e-06,
+      "B": 0.5,
+      "E": 100.0,
+      "v": 200.0
+    },
+    "limits": [
+      {
+        "symbol": "B",
+        "to": "0",
+        "expect": "q*E"
+      },
+      {
+        "symbol": "E",
+        "to": "0",
+        "expect": "q*v*B"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: reserved identifier 'E'"
+  },
+  {
+    "id": "gen-20261119-1158-010",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "orbital motion and gravitation",
+    "statement": "Calculate the orbital speed v of a small satellite of mass m moving in a circular orbit at a distance r from the center of a planet of mass M. Here, G_N represents the universal gravitational constant.",
+    "symbols": {
+      "v": {
+        "desc": "orbital speed",
+        "unit": "m/s"
+      },
+      "m": {
+        "desc": "mass of the satellite",
+        "unit": "kg"
+      },
+      "M": {
+        "desc": "mass of the planet",
+        "unit": "kg"
+      },
+      "r": {
+        "desc": "orbital radius",
+        "unit": "m"
+      },
+      "G_N": {
+        "desc": "universal gravitational constant",
+        "unit": "N*m^2/kg^2"
+      }
+    },
+    "answer_expression": "sqrt(G_N*M/r)",
+    "answer_unit": "m/s",
+    "given": {
+      "m": 500.0,
+      "M": 6e+24,
+      "r": 7000000.0,
+      "G_N": 6.674e-11
+    },
+    "limits": [
+      {
+        "symbol": "M",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['v']"
+  },
+  {
+    "id": "gen-20261119-1158-011",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "RC circuit discharging",
+    "statement": "An uncharged capacitor of capacitance C is connected in series with a resistor of resistance R and a dc voltage source of potential difference V_0. The switch is closed at time t = 0 to charge the capacitor fully. After a long time, the switch is flipped to disconnect the voltage source and allow the capacitor to discharge through the resistor. Find the magnitude of the charge remaining on the capacitor at a given time t after the discharge begins.",
+    "symbols": {
+      "C": {
+        "desc": "capacitance",
+        "unit": "F"
+      },
+      "R": {
+        "desc": "resistance",
+        "unit": "ohm"
+      },
+      "V_0": {
+        "desc": "source voltage",
+        "unit": "V"
+      },
+      "t": {
+        "desc": "time elapsed during discharge",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "C*V_0*exp(-t/(R*C))",
+    "answer_unit": "C",
+    "given": {
+      "C": "1e-06",
+      "R": "1000",
+      "V_0": "12",
+      "t": "0.001"
+    },
+    "limits": [
+      {
+        "symbol": "t",
+        "to": "0",
+        "expect": "C*V_0"
+      },
+      {
+        "symbol": "t",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 4.41455e-06,
+    "solver_expression": "C*V_0*exp(-t/(R*C))",
+    "rejected_at": "verify",
+    "reason": "ValueError: dimensions: unknown units: ['F']"
+  },
+  {
+    "id": "gen-20261119-1158-012",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "Orbital motion of a satellite in a circular orbit",
+    "statement": "A small satellite of mass m orbits a central planet of mass M in a circular orbit of radius r. Derive the magnitude of the orbital speed v of the satellite. Here, G_N represents the universal gravitational constant.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the satellite",
+        "unit": "kg"
+      },
+      "M": {
+        "desc": "mass of the central planet",
+        "unit": "kg"
+      },
+      "r": {
+        "desc": "radius of the circular orbit",
+        "unit": "m"
+      },
+      "G_N": {
+        "desc": "universal gravitational constant",
+        "unit": "N*m^2/kg^2"
+      },
+      "v": {
+        "desc": "orbital speed of the satellite",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "sqrt(G_N*M/r)",
+    "answer_unit": "m/s",
+    "given": {
+      "m": 500.0,
+      "M": 6e+24,
+      "r": 7000000.0,
+      "G_N": 6.674e-11
+    },
+    "limits": [
+      {
+        "symbol": "r",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['v']"
+  },
+  {
+    "id": "gen-20261119-1158-013",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "Torque and static equilibrium on a uniform beam",
+    "statement": "A uniform horizontal beam of mass m and length L is pivoted freely at one end to a vertical wall. A cable attached to the far end of the beam makes an angle theta with the horizontal and holds the beam in static equilibrium. Find the magnitude of the tension T in the cable, given that gravitational acceleration is g.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the beam",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the beam",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the cable with the horizontal",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "T": {
+        "desc": "tension in the cable",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "m*g / (2*sin(theta))",
+    "answer_unit": "N",
+    "given": {
+      "m": 10.0,
+      "L": 4.0,
+      "theta": 0.78539816339,
+      "g": 9.81
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "m*g/2"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['T']"
+  },
+  {
+    "id": "gen-20261119-1158-014",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "RC circuit discharging time",
+    "statement": "An uncharged capacitor of capacitance C is connected in series with a resistor of resistance R and a dc voltage source of emf V_0. After the switch has been closed for a very long time, the switch is flipped at time t = 0 to disconnect the voltage source, allowing the capacitor to discharge through the resistor. Find the time t_1 at which the magnitude of the current through the resistor equals a fraction f of its initial value just after the switch is flipped.",
+    "symbols": {
+      "C": {
+        "desc": "capacitance",
+        "unit": "F"
+      },
+      "R": {
+        "desc": "resistance",
+        "unit": "ohm"
+      },
+      "V_0": {
+        "desc": "source electromotive force",
+        "unit": "V"
+      },
+      "f": {
+        "desc": "fraction of initial current",
+        "unit": "1"
+      }
+    },
+    "answer_expression": "R*C*log(1/f)",
+    "answer_unit": "s",
+    "given": {
+      "C": "1e-06",
+      "R": "1000.0",
+      "V_0": "12.0",
+      "f": "0.36787944117"
+    },
+    "limits": [
+      {
+        "symbol": "f",
+        "to": "1",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.001,
+    "solver_expression": "-R*C*log(f)",
+    "rejected_at": "verify",
+    "reason": "ValueError: dimensions: unknown units: ['F']"
+  },
+  {
+    "id": "gen-20261119-1158-019",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "physical pendulum",
+    "statement": "A thin uniform rod of mass m and length L is pivoted about a frictionless hinge at one of its ends and allowed to oscillate as a physical pendulum in a uniform gravitational field of acceleration g. Find the period of small oscillations T.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the rod",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "T": {
+        "desc": "period of small oscillations",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "2*pi*sqrt((1/3)*L/g)",
+    "answer_unit": "s",
+    "given": {
+      "m": "2.0",
+      "L": "1.5",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "L",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['T']"
+  },
+  {
+    "id": "gen-20261119-1158-021",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "Doppler effect for a moving source and observer",
+    "statement": "An ambulance emits a siren of frequency f_source while traveling at speed v_source directly toward a stationary wall and also directly toward a cyclist moving at speed v_cyclist in the same direction as the ambulance. The sound reflects off the wall and travels back toward the cyclist. Find the beat frequency f_beat heard by the cyclist, combining the direct sound from the ambulance and the sound reflected from the wall, given the speed of sound in air v_sound.",
+    "symbols": {
+      "f_source": {
+        "desc": "frequency of the siren",
+        "unit": "Hz"
+      },
+      "v_source": {
+        "desc": "speed of the ambulance",
+        "unit": "m/s"
+      },
+      "v_cyclist": {
+        "desc": "speed of the cyclist",
+        "unit": "m/s"
+      },
+      "v_sound": {
+        "desc": "speed of sound in air",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "f_source * (v_sound + v_cyclist) / (v_sound - v_source) - f_source * (v_sound - v_cyclist) * (v_sound + v_source) / ((v_sound + v_source) * (v_sound - v_source))",
+    "answer_unit": "Hz",
+    "given": {
+      "f_source": "500.0",
+      "v_source": "20.0",
+      "v_cyclist": "5.0",
+      "v_sound": "340.0"
+    },
+    "limits": [
+      {
+        "symbol": "v_cyclist",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 15.625,
+    "solver_expression": "Abs(f_source * (v_sound / (v_sound - v_cyclist)) * ((v_sound + v_source) / (v_sound - v_source) - 1))",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: -2.8555+0j vs 11.8366+0j"
+  },
+  {
+    "id": "gen-20261119-1158-025",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "Snell's law refraction",
+    "statement": "A light ray travels through a first medium with refractive index n_1 and enters a second medium with refractive index n_2. If the angle of incidence measured from the normal is theta_1, what is the magnitude of the angle of refraction theta_2?",
+    "symbols": {
+      "n_1": {
+        "desc": "refractive index of the first medium",
+        "unit": "1"
+      },
+      "n_2": {
+        "desc": "refractive index of the second medium",
+        "unit": "1"
+      },
+      "theta_1": {
+        "desc": "angle of incidence",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "asin(n_1 * sin(theta_1) / n_2)",
+    "answer_unit": "rad",
+    "given": {
+      "n_1": "1.0",
+      "n_2": "1.5",
+      "theta_1": "0.5235987755982988"
+    },
+    "limits": [
+      {
+        "symbol": "theta_1",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.339837,
+    "solver_expression": "asin(n_1 * sin(theta_1) / n_2)",
+    "rejected_at": "dedupe",
+    "reason": "ValueError: duplicate of gen-20261119-1158-016"
+  },
+  {
+    "id": "gen-20261119-1158-026",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "conical pendulum",
+    "statement": "A small sphere of mass m is attached to a light, inextensible string of length L. The sphere moves in a horizontal circle at a constant speed, with the string maintaining a constant angle theta with the vertical. Express the magnitude of the tension T in the string in terms of m, L, theta, and the acceleration due to gravity g.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the sphere",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the string with the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      },
+      "T": {
+        "desc": "magnitude of the tension in the string",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "m*g/cos(theta)",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.5",
+      "L": "1.2",
+      "theta": "0.52359877559",
+      "g": "9.81",
+      "T": "5.66367"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "m*g"
+      }
+    ],
+    "expected_value": 5.66381,
+    "solver_expression": "m*g/cos(theta)",
+    "rejected_at": "dedupe",
+    "reason": "ValueError: duplicate of gen-20261119-1158-009"
+  },
+  {
+    "id": "gen-20261119-1158-027",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite"
+    },
+    "topic": "conical pendulum with rotating suspension axis",
+    "statement": "A small sphere of mass m is suspended by a light inextensible string of length L. The suspension point is fixed to a vertical axle that rotates at a constant angular speed omega. The sphere moves in a horizontal circle of radius R, maintaining a constant angle theta between the string and the downward vertical. Express the tension force T in the string in terms of the given parameters.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the sphere",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "omega": {
+        "desc": "angular speed of the rotating axle",
+        "unit": "rad/s"
+      },
+      "theta": {
+        "desc": "angle of the string with the downward vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "m*g/cos(theta)",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.5",
+      "L": "1.2",
+      "omega": "3.0",
+      "theta": "0.785398",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "m*g"
+      }
+    ],
+    "expected_value": 6.93672,
+    "solver_expression": "m * (g * cos(theta) + L * omega**2 * sin(theta)**2)",
+    "rejected_at": "agreement",
+    "reason": "ValueError: author and blind solver disagree: differ at a test point: 1.13143+0j vs 1.02083+0j"
+  },
+  {
+    "id": "gen-20261119-1158-028",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite"
+    },
+    "topic": "capacitors and stored energy",
+    "statement": "A parallel-plate capacitor with capacitance C is charged to a potential difference V. Determine the total stored electrostatic energy U in the capacitor, in terms of C and V.",
+    "symbols": {
+      "C": {
+        "desc": "capacitance",
+        "unit": "C/V"
+      },
+      "V": {
+        "desc": "potential difference",
+        "unit": "V"
+      },
+      "U": {
+        "desc": "stored electrostatic energy",
+        "unit": "J"
+      }
+    },
+    "answer_expression": "1/2*C*V^2",
+    "answer_unit": "J",
+    "given": {
+      "C": "0.000005",
+      "V": "12.0"
+    },
+    "limits": [
+      {
+        "symbol": "V",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "rejected_at": "precheck",
+    "reason": "ValueError: no given value for ['U']"
+  }
+]

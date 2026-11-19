@@ -1,0 +1,783 @@
+[
+  {
+    "id": "gen-20261119-1158-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Moment of inertia of a solid cylinder",
+    "statement": "A uniform solid cylinder has a mass M_cyl and a radius R_cyl. Calculate the magnitude of the moment of inertia of this cylinder about its central longitudinal axis of symmetry.",
+    "symbols": {
+      "M_cyl": {
+        "desc": "mass of the cylinder",
+        "unit": "kg"
+      },
+      "R_cyl": {
+        "desc": "radius of the cylinder",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "0.5 * M_cyl * R_cyl**2",
+    "answer_unit": "kg*m^2",
+    "given": {
+      "M_cyl": "2.5",
+      "R_cyl": "0.4"
+    },
+    "limits": [
+      {
+        "symbol": "M_cyl",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "R_cyl",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.2,
+    "solver_expression": "1/2*M_cyl*R_cyl**2"
+  },
+  {
+    "id": "gen-20261119-1158-002",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3-flash-preview",
+      "solver": "gemini:gemini-3.5-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Volume of an ideal gas in a piston-cylinder system",
+    "statement": "A vertical cylinder with a cross-sectional area area_p contains n_mol moles of an ideal gas. The cylinder is sealed at the top by a frictionless piston of mass m_p. The system is in equilibrium under an external atmospheric pressure P_ext and the acceleration due to gravity g. Given the universal gas constant R_gas, calculate the magnitude of the final volume of the gas when it is maintained at a temperature T_f.",
+    "symbols": {
+      "n_mol": {
+        "desc": "number of moles of the gas",
+        "unit": "mol"
+      },
+      "R_gas": {
+        "desc": "universal gas constant",
+        "unit": "J/(mol*K)"
+      },
+      "T_f": {
+        "desc": "final temperature of the gas",
+        "unit": "K"
+      },
+      "P_ext": {
+        "desc": "external atmospheric pressure",
+        "unit": "Pa"
+      },
+      "m_p": {
+        "desc": "mass of the piston",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      },
+      "area_p": {
+        "desc": "cross-sectional area of the piston",
+        "unit": "m^2"
+      }
+    },
+    "answer_expression": "(n_mol * R_gas * T_f) / (P_ext + (m_p * g / area_p))",
+    "answer_unit": "m^3",
+    "given": {
+      "n_mol": "0.5",
+      "R_gas": "8.314",
+      "T_f": "300.0",
+      "P_ext": "101325.0",
+      "m_p": "5.0",
+      "g": "9.81",
+      "area_p": "0.01"
+    },
+    "limits": [
+      {
+        "symbol": "T_f",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "m_p",
+        "to": "0",
+        "expect": "n_mol * R_gas * T_f / P_ext"
+      }
+    ],
+    "expected_value": 0.0117396,
+    "solver_expression": "n_mol*R_gas*T_f / (P_ext + m_p*g/area_p)"
+  },
+  {
+    "id": "gen-20261119-1158-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Doppler effect for a moving source",
+    "statement": "An ambulance emits a sound of frequency frequency_source while traveling at a speed speed_source directly toward a stationary observer. Given the speed of sound in air speed_sound, determine the observed frequency frequency_observed heard by the observer.",
+    "symbols": {
+      "frequency_source": {
+        "desc": "frequency of the sound emitted by the source",
+        "unit": "Hz"
+      },
+      "speed_source": {
+        "desc": "speed of the moving source",
+        "unit": "m/s"
+      },
+      "speed_sound": {
+        "desc": "speed of sound in air",
+        "unit": "m/s"
+      },
+      "frequency_observed": {
+        "desc": "frequency heard by the stationary observer",
+        "unit": "Hz"
+      }
+    },
+    "answer_expression": "frequency_source * speed_sound / (speed_sound - speed_source)",
+    "answer_unit": "Hz",
+    "given": {
+      "frequency_source": "500.0",
+      "speed_source": "30.0",
+      "speed_sound": "343.0",
+      "frequency_observed": "548.0"
+    },
+    "limits": [
+      {
+        "symbol": "speed_source",
+        "to": "0",
+        "expect": "frequency_source"
+      }
+    ],
+    "expected_value": 547.923,
+    "solver_expression": "frequency_source * speed_sound / (speed_sound - speed_source)"
+  },
+  {
+    "id": "gen-20261119-1158-007",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Doppler effect for sound",
+    "statement": "An ambulance travels with speed v_s along a straight road, emitting a sound wave of frequency f_0. A stationary observer standing by the road hears the sound with a frequency f. The speed of sound in air is v_c. Determine the frequency f heard by the observer as the ambulance approaches.",
+    "symbols": {
+      "v_s": {
+        "desc": "Speed of the source",
+        "unit": "m/s"
+      },
+      "f_0": {
+        "desc": "Emitted frequency",
+        "unit": "Hz"
+      },
+      "v_c": {
+        "desc": "Speed of sound in air",
+        "unit": "m/s"
+      }
+    },
+    "answer_expression": "f_0*v_c/(v_c - v_s)",
+    "answer_unit": "Hz",
+    "given": {
+      "v_s": "30.0",
+      "f_0": "500.0",
+      "v_c": "343.0"
+    },
+    "limits": [
+      {
+        "symbol": "v_s",
+        "to": "0",
+        "expect": "f_0"
+      }
+    ],
+    "expected_value": 547.923,
+    "solver_expression": "f_0 * v_c / (v_c - v_s)"
+  },
+  {
+    "id": "gen-20261119-1158-008",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "simple harmonic motion of a block on a spring",
+    "statement": "A block of mass m is attached to a horizontal ideal spring of spring constant k. The block is pulled from its equilibrium position by a maximum displacement amplitude A and released from rest, initiating simple harmonic motion on a frictionless surface. Determine the maximum speed of the block during its motion.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "A": {
+        "desc": "maximum displacement amplitude",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "A*sqrt(k/m)",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "2.0",
+      "k": "200.0",
+      "A": "0.05"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.5,
+    "solver_expression": "A*sqrt(k/m)"
+  },
+  {
+    "id": "gen-20261119-1158-009",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Uniform circular motion on a conical pendulum",
+    "statement": "A small sphere of mass m is attached to a massless string of length L. The sphere moves in a horizontal circle at a constant speed, maintaining a constant angle theta between the string and the vertical. Find the tension force T in the string, given the gravitational acceleration g.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the sphere",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle of the string with the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      },
+      "T": {
+        "desc": "tension force in the string",
+        "unit": "N"
+      }
+    },
+    "answer_expression": "m*g/cos(theta)",
+    "answer_unit": "N",
+    "given": {
+      "m": "0.5",
+      "L": "1.2",
+      "theta": "0.5235987756",
+      "g": "9.81",
+      "T": "5.66353"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "m*g"
+      }
+    ],
+    "expected_value": 5.66381,
+    "solver_expression": "m*g/cos(theta)"
+  },
+  {
+    "id": "gen-20261119-1158-015",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "DC circuits with resistors",
+    "statement": "An introductory physics student builds a circuit with a DC voltage source of voltage V_source connected in series with a network of three resistors: resistor R_1 is in series with a parallel combination of resistor R_2 and resistor R_3. Determine the total electrical power P_total dissipated by the entire resistor network. The symbols are: V_source is the voltage of the source, R_1 is the resistance of the first resistor, R_2 is the resistance of the second resistor, and R_3 is the resistance of the third resistor.",
+    "symbols": {
+      "V_source": {
+        "desc": "voltage of the DC source",
+        "unit": "V"
+      },
+      "R_1": {
+        "desc": "resistance of the first resistor",
+        "unit": "ohm"
+      },
+      "R_2": {
+        "desc": "resistance of the second resistor",
+        "unit": "ohm"
+      },
+      "R_3": {
+        "desc": "resistance of the third resistor",
+        "unit": "ohm"
+      }
+    },
+    "answer_expression": "V_source^2 / (R_1 + (R_2 * R_3) / (R_2 + R_3))",
+    "answer_unit": "W",
+    "given": {
+      "V_source": "1.2e+01",
+      "R_1": "1.0e+01",
+      "R_2": "2.0e+01",
+      "R_3": "2.0e+01"
+    },
+    "limits": [
+      {
+        "symbol": "R_1",
+        "to": "0",
+        "expect": "V_source^2 * (R_2 + R_3) / (R_2 * R_3)"
+      }
+    ],
+    "expected_value": 7.2,
+    "solver_expression": "V_source**2 / (R_1 + (R_2 * R_3) / (R_2 + R_3))"
+  },
+  {
+    "id": "gen-20261119-1158-016",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Snell's law refraction angle",
+    "statement": "A light ray travels through a medium with refractive index n_1 and enters a second medium with refractive index n_2. If the angle of incidence measured from the normal is theta_1, determine the angle of refraction theta_2. Here, n_1 is the refractive index of the first medium (dimensionless), n_2 is the refractive index of the second medium (dimensionless), theta_1 is the angle of incidence (rad), and theta_2 is the angle of refraction (rad).",
+    "symbols": {
+      "n_1": {
+        "desc": "refractive index of the first medium",
+        "unit": "1"
+      },
+      "n_2": {
+        "desc": "refractive index of the second medium",
+        "unit": "1"
+      },
+      "theta_1": {
+        "desc": "angle of incidence",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "asin(n_1*sin(theta_1)/n_2)",
+    "answer_unit": "rad",
+    "given": {
+      "n_1": "1.0",
+      "n_2": "1.5",
+      "theta_1": "0.785398"
+    },
+    "limits": [
+      {
+        "symbol": "theta_1",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.490883,
+    "solver_expression": "asin(n_1 * sin(theta_1) / n_2)"
+  },
+  {
+    "id": "gen-20261119-1158-017",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Rolling without slipping down an inclined plane",
+    "statement": "A solid cylinder of mass m and radius r is released from rest and rolls without slipping down an inclined plane that makes an angle theta with the horizontal. The cylinder travels a distance L along the incline. Determine the magnitude of the linear speed v of the center of mass of the cylinder after it has traveled the distance L. The symbols are: m for the mass of the cylinder, r for the radius of the cylinder, theta for the inclination angle, L for the distance traveled along the incline, and g for the acceleration due to gravity.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the cylinder",
+        "unit": "kg"
+      },
+      "r": {
+        "desc": "radius of the cylinder",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "inclination angle",
+        "unit": "rad"
+      },
+      "L": {
+        "desc": "distance traveled along the incline",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "sqrt(4*g*L*sin(theta)/3)",
+    "answer_unit": "m/s",
+    "given": {
+      "m": "2.0",
+      "r": "0.1",
+      "theta": "0.78539816339",
+      "L": "5.0",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 6.80035,
+    "solver_expression": "sqrt(4/3 * g * L * sin(theta))"
+  },
+  {
+    "id": "gen-20261119-1158-018",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "fluid statics and buoyancy",
+    "statement": "A uniform solid cylinder of length L, cross-sectional area A, and mass M is held vertically and partially submerged in a liquid of density rho_L. The cylinder is released from rest in equilibrium. Determine the depth of immersion d_sub of the cylinder's bottom below the liquid surface. Assume the gravitational acceleration is g.",
+    "symbols": {
+      "L": {
+        "desc": "length of the cylinder",
+        "unit": "m"
+      },
+      "A": {
+        "desc": "cross-sectional area of the cylinder",
+        "unit": "m^2"
+      },
+      "M": {
+        "desc": "mass of the cylinder",
+        "unit": "kg"
+      },
+      "rho_L": {
+        "desc": "density of the liquid",
+        "unit": "kg/m^3"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "M / (rho_L * A)",
+    "answer_unit": "m",
+    "given": {
+      "L": "0.5",
+      "A": "0.01",
+      "M": "2.0",
+      "rho_L": "1000.0",
+      "g": "9.8"
+    },
+    "limits": [
+      {
+        "symbol": "rho_L",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 0.2,
+    "solver_expression": "M/(A*rho_L)"
+  },
+  {
+    "id": "gen-20261119-1158-020",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Coulomb's law force between three point charges in a line",
+    "statement": "Three point charges are fixed along a straight line in vacuum. A charge of magnitude q_1 is at the origin, a second charge of magnitude q_2 is at position x_a along the positive x-axis, and a third charge of magnitude q_3 is at position x_b further along the positive x-axis, where x_b > x_a. All three charges are positive. Find the magnitude of the net electrostatic force experienced by the middle charge due to the other two charges, in terms of Coulomb's constant k_e.",
+    "symbols": {
+      "q_1": {
+        "desc": "Magnitude of the first point charge",
+        "unit": "C"
+      },
+      "q_2": {
+        "desc": "Magnitude of the middle point charge",
+        "unit": "C"
+      },
+      "q_3": {
+        "desc": "Magnitude of the third point charge",
+        "unit": "C"
+      },
+      "x_a": {
+        "desc": "Position of the second charge along the x-axis",
+        "unit": "m"
+      },
+      "x_b": {
+        "desc": "Position of the third charge along the x-axis",
+        "unit": "m"
+      },
+      "k_e": {
+        "desc": "Coulomb's constant",
+        "unit": "N*m^2/C^2"
+      }
+    },
+    "answer_expression": "k_e*q_2*Abs(q_3/(x_b - x_a)^2 - q_1/x_a^2)",
+    "answer_unit": "N",
+    "given": {
+      "q_1": "1e-06",
+      "q_2": "2e-06",
+      "q_3": "3e-06",
+      "x_a": "0.1",
+      "x_b": "0.3",
+      "k_e": "8987551792.3"
+    },
+    "limits": [
+      {
+        "symbol": "q_1",
+        "to": "0",
+        "expect": "k_e*q_2*q_3/(x_b - x_a)^2"
+      },
+      {
+        "symbol": "q_3",
+        "to": "0",
+        "expect": "k_e*q_1*q_2/x_a^2"
+      }
+    ],
+    "expected_value": 0.449378,
+    "solver_expression": "Abs(k_e * q_2 * (q_3 / (x_b - x_a)**2 - q_1 / x_a**2))"
+  },
+  {
+    "id": "gen-20261119-1158-022",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "conical pendulum",
+    "statement": "A mass m is attached to a massless string of length L. The mass moves in a horizontal circle at a constant speed, with the string making a constant angle theta with the vertical. Determine the tension T in the string. Here g is the magnitude of the acceleration due to gravity.",
+    "symbols": {
+      "m": {
+        "desc": "mass",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "string length",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle with the vertical",
+        "unit": "rad"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "m * g / cos(theta)",
+    "answer_unit": "N",
+    "given": {
+      "m": "1.5",
+      "L": "2.0",
+      "theta": "0.5",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "m * g"
+      }
+    ],
+    "expected_value": 16.7677,
+    "solver_expression": "m*g/cos(theta)"
+  },
+  {
+    "id": "gen-20261119-1158-023",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Fluid flow through a horizontal pipe with a constriction using Bernoulli's equation and continuity",
+    "statement": "An incompressible fluid of density rho flows steadily through a horizontal pipe. The pipe has a larger cross-sectional area A1 at the inlet and a smaller cross-sectional area A2 at a constriction. The fluid speed at the inlet is v1. Using Bernoulli's equation and the equation of continuity, find the pressure difference delta_P between the inlet and the constriction. Name the symbols as follows: rho for fluid density, A1 for inlet area, A2 for constriction area, v1 for inlet speed, and delta_P for the pressure difference.",
+    "symbols": {
+      "rho": {
+        "desc": "fluid density",
+        "unit": "kg/m^3"
+      },
+      "A1": {
+        "desc": "inlet cross-sectional area",
+        "unit": "m^2"
+      },
+      "A2": {
+        "desc": "constriction cross-sectional area",
+        "unit": "m^2"
+      },
+      "v1": {
+        "desc": "inlet fluid speed",
+        "unit": "m/s"
+      },
+      "delta_P": {
+        "desc": "pressure difference between inlet and constriction",
+        "unit": "Pa"
+      }
+    },
+    "answer_expression": "0.5*rho*v1^2*((A1/A2)^2 - 1)",
+    "answer_unit": "Pa",
+    "given": {
+      "rho": "1000",
+      "A1": "0.02",
+      "A2": "0.005",
+      "v1": "2.0",
+      "delta_P": "7500.0"
+    },
+    "limits": [
+      {
+        "symbol": "A2",
+        "to": "A1",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 30000.0,
+    "solver_expression": "0.5 * rho * v1**2 * ((A1 / A2)**2 - 1)"
+  },
+  {
+    "id": "gen-20261119-1158-024",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Standing waves on a vertical string with a hanging mass",
+    "statement": "A uniform string of total mass m and length L is fixed at the top and hangs vertically, supporting a heavy block of mass M at its lower end. A transverse wave pulse is sent up the string, setting up standing waves. Find the frequency f of the n-th harmonic standing wave, given that the mass per unit length varies along the string due to tension, but you may use the effective tension near the bottom dominated by the hanging mass, or consider the exact wave equation. For simplicity, assume the wave speed is determined by the tension at the lower end due to the suspended mass M, where the linear mass density of the string is given by mu = m/L. Express the frequency f of the n-th harmonic in terms of n, L, m, M, and the acceleration due to gravity g.",
+    "symbols": {
+      "n": {
+        "desc": "harmonic number",
+        "unit": "1"
+      },
+      "L": {
+        "desc": "length of the string",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "total mass of the string",
+        "unit": "kg"
+      },
+      "M": {
+        "desc": "mass of the hanging block",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "acceleration due to gravity",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "n/(2*L)*sqrt(M*g*L/m)",
+    "answer_unit": "Hz",
+    "given": {
+      "n": "2",
+      "L": "2.0",
+      "m": "0.1",
+      "M": "5.0",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "M",
+        "to": "oo",
+        "expect": "oo"
+      },
+      {
+        "symbol": "m",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 15.6605,
+    "solver_expression": "n/(2*L)*sqrt(M*g*L/m)"
+  },
+  {
+    "id": "gen-20261119-1158-029",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "First law of thermodynamics for an ideal gas undergoing an isothermal expansion",
+    "statement": "An moles of a monatomic ideal gas undergo a reversible isothermal expansion from an initial volume V_initial to a final volume V_final at a constant absolute temperature T. Determine the magnitude of the heat added to the gas during this process. Use R for the universal gas constant.",
+    "symbols": {
+      "n_moles": {
+        "desc": "amount of substance",
+        "unit": "mol"
+      },
+      "R": {
+        "desc": "universal gas constant",
+        "unit": "J/(mol*K)"
+      },
+      "T": {
+        "desc": "absolute temperature",
+        "unit": "K"
+      },
+      "V_initial": {
+        "desc": "initial volume",
+        "unit": "m^3"
+      },
+      "V_final": {
+        "desc": "final volume",
+        "unit": "m^3"
+      }
+    },
+    "answer_expression": "n_moles*R*T*log(V_final/V_initial)",
+    "answer_unit": "J",
+    "given": {
+      "n_moles": "2.0",
+      "R": "8.314",
+      "T": "300.0",
+      "V_initial": "0.01",
+      "V_final": "0.05"
+    },
+    "limits": [
+      {
+        "symbol": "V_final",
+        "to": "V_initial",
+        "expect": "0"
+      }
+    ],
+    "expected_value": 8028.52,
+    "solver_expression": "n_moles * R * T * log(V_final / V_initial)"
+  },
+  {
+    "id": "gen-20261119-1158-030",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-3.5-flash-lite",
+      "solver": "gemini:gemini-3.1-flash-lite",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "thin lens imaging and object translation",
+    "statement": "A thin converging lens of focal length f is fixed in place. An object starts at a distance u from the lens. The object is then moved further away from the lens by a small distance delta_u along the optical axis. Find the magnitude of the displacement delta_v of the real image formed by the lens, where f is the focal length of the lens, u is the initial object distance, and delta_u is the small change in object distance.",
+    "symbols": {
+      "f": {
+        "desc": "focal length of the lens",
+        "unit": "m"
+      },
+      "u": {
+        "desc": "initial object distance from the lens",
+        "unit": "m"
+      },
+      "delta_u": {
+        "desc": "small change in object distance",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "delta_u*f^2/(u - f)^2",
+    "answer_unit": "m",
+    "given": {
+      "f": "0.1",
+      "u": "0.3",
+      "delta_u": "0.001"
+    },
+    "limits": [
+      {
+        "symbol": "u",
+        "to": "2*f",
+        "expect": "delta_u"
+      }
+    ],
+    "expected_value": 0.00025,
+    "solver_expression": "Abs(f**2 * delta_u / (u - f)**2)"
+  }
+]
