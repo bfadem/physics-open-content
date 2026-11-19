@@ -160,6 +160,19 @@ def instantiate(rec):
     return float(f"{val.real:.6g}")
 
 
+def align_identifiers(text, names):
+    """Map identifiers in a solver's answer onto the declared symbols when
+    they differ only by underscores (h1 vs h_1) and exactly one declared
+    symbol matches. Anything else is left alone, so it still fails parsing."""
+    def fix(m):
+        ident = m.group(0)
+        if ident in names or ident in verify.ALLOWED_NAMES:
+            return ident
+        hits = [n for n in names if n.replace("_", "") == ident.replace("_", "")]
+        return hits[0] if len(hits) == 1 else ident
+    return re.sub(r"[A-Za-z_][A-Za-z_0-9]*", fix, str(text))
+
+
 def equivalent(a_text, b_text, names, trials=8):
     """Numerical equivalence at random positive points (robust where
     simplify() is not, e.g. trig identities)."""
@@ -219,7 +232,8 @@ def finish(rec, router, author, accepted, state):
         sol, solver = router.call("solver", SOLVER_PROMPT.format(
             statement=rec["statement"], symbols=sym_list), avoid={author})
         rec["provenance"]["solver"] = solver
-        rec["solver_expression"] = str(sol.get("answer_expression", ""))
+        rec["solver_expression"] = align_identifiers(
+            sol.get("answer_expression", ""), list(rec["symbols"]))
 
         stage = "agreement"
         ok, detail = equivalent(rec["answer_expression"],
