@@ -88,6 +88,7 @@ Rules:
 - Units must be products/quotients/powers of: {units}. Use ^ for powers,
   e.g. "m/s^2", "N*m^2/C^2". Angles: "rad". Dimensionless: "1".
 - Allowed functions: sin cos tan asin acos atan sqrt exp log Abs, constant pi.
+  Write infinity as oo.
 - Every symbol must be positive. Ask for a magnitude, not a signed quantity.
 - "given" must assign a value to every symbol, such that the answer is a
   real positive number. Angles in radians.

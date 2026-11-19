@@ -216,9 +216,11 @@ def check(record):
     for lim in record.get("limits", []):
         label = f"limit {lim['symbol']}->{lim['to']}"
         try:
+            # Models write infinity in several ways; SymPy spells it oo.
+            to = re.sub(r"\b(infinity|Infinity|inf|Inf)\b", "oo", str(lim["to"]))
             got = sympy.limit(expr,
                               safe_parse(lim["symbol"], names),
-                              safe_parse(lim["to"], names))
+                              safe_parse(to, names))
             want = safe_parse(lim["expect"], names)
             ok = simplify(got - want) == 0
             how = "symbolically"
