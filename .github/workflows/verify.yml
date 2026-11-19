@@ -4,7 +4,10 @@ on:
   push:
     paths:
       - "problems/**"
-      - "tools/verify.py"
+      - "curriculum/**"
+      - "requests/**"
+      - "tests/**"
+      - "tools/**"
       - ".github/workflows/verify.yml"
   workflow_dispatch:
 
@@ -23,6 +26,15 @@ jobs:
 
       - name: Install SymPy
         run: pip install --quiet sympy
+
+      - name: Rule R1 (no numbering or source identifiers in curriculum/)
+        run: python3 tools/check_rules.py
+
+      - name: Validate curriculum registry
+        run: python3 tools/validate_curriculum.py
+
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -v
 
       - name: Verify problem records
         run: python3 tools/verify.py

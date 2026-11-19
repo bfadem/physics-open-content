@@ -1,0 +1,63 @@
+{
+  "name": "impulse-first",
+  "description": "Momentum and collisions are developed from Newton's laws before any energy concept; elastic collisions are deferred until kinetic and potential energy exist.",
+  "order": [
+    "measurement-uncertainty",
+    "position-velocity-graphical",
+    "constant-acceleration",
+    "newton-1st",
+    "newton-2nd",
+    "free-fall",
+    "projectile-motion",
+    "universal-gravitation",
+    "normal-force",
+    "tension",
+    "friction-static-kinetic",
+    "inclined-plane",
+    "uniform-circular-dynamics",
+    "momentum-definition",
+    "impulse",
+    "impulse-momentum-theorem",
+    "newton-3rd",
+    "momentum-conservation-1d",
+    "inelastic-collision-1d",
+    "center-of-mass",
+    "momentum-conservation-2d",
+    "inelastic-collision-2d",
+    "work-constant-force",
+    "work-dot-product",
+    "power",
+    "spring-force-hookes-law",
+    "work-variable-force",
+    "kinetic-energy",
+    "work-energy-theorem",
+    "conservative-vs-nonconservative",
+    "gravitational-pe",
+    "mechanical-energy-conservation",
+    "elastic-pe",
+    "elastic-collision-1d",
+    "thermal-energy-loss",
+    "extended-work-energy",
+    "angular-kinematics",
+    "torque",
+    "rotational-inertia",
+    "newton-2nd-rotational",
+    "cross-product",
+    "angular-momentum",
+    "angular-momentum-conservation",
+    "simple-harmonic-motion",
+    "pendulum"
+  ],
+  "representations_at": {
+    "free-body-diagram": "newton-2nd",
+    "momentum-vector-diagram": "momentum-conservation-2d"
+  },
+  "calculus_hint": {
+    "work-variable-force": {
+      "any_of": [
+        "graphical-area",
+        "integral-analytic"
+      ]
+    }
+  }
+}

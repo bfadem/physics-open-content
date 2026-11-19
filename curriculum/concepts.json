@@ -1,0 +1,531 @@
+{
+  "measurement-uncertainty": {
+    "label": "measurement and uncertainty",
+    "requires": [],
+    "lexical_markers": [
+      "uncertainty",
+      "significant figures",
+      "percent error"
+    ]
+  },
+  "position-velocity-graphical": {
+    "label": "position and velocity, including reading them from graphs",
+    "requires": [],
+    "lexical_markers": [
+      "position-versus-time",
+      "position versus time",
+      "slope of the position"
+    ]
+  },
+  "constant-acceleration": {
+    "label": "motion with constant acceleration",
+    "requires": [
+      "position-velocity-graphical"
+    ],
+    "lexical_markers": [
+      "constant acceleration",
+      "uniformly accelerated",
+      "kinematic equations"
+    ]
+  },
+  "newton-1st": {
+    "label": "Newton's first law",
+    "requires": [],
+    "lexical_markers": [
+      "newton's first law",
+      "law of inertia"
+    ]
+  },
+  "newton-2nd": {
+    "label": "Newton's second law",
+    "requires": [
+      "newton-1st"
+    ],
+    "lexical_markers": [
+      "newton's second law",
+      "F = ma",
+      "F=ma",
+      "net force"
+    ]
+  },
+  "free-fall": {
+    "label": "free fall",
+    "requires": [
+      "constant-acceleration"
+    ],
+    "lexical_markers": [
+      "free fall",
+      "free-fall",
+      "freely falling"
+    ]
+  },
+  "projectile-motion": {
+    "label": "projectile motion",
+    "requires": [
+      "free-fall"
+    ],
+    "lexical_markers": [
+      "projectile",
+      "launched at an angle",
+      "trajectory"
+    ]
+  },
+  "universal-gravitation": {
+    "label": "Newton's law of universal gravitation",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "universal gravitation",
+      "gravitational constant",
+      "inverse-square"
+    ]
+  },
+  "normal-force": {
+    "label": "the normal force",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "normal force"
+    ]
+  },
+  "tension": {
+    "label": "tension in strings and ropes",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "tension"
+    ]
+  },
+  "friction-static-kinetic": {
+    "label": "static and kinetic friction",
+    "requires": [
+      "normal-force"
+    ],
+    "lexical_markers": [
+      "friction",
+      "coefficient of static",
+      "coefficient of kinetic"
+    ]
+  },
+  "inclined-plane": {
+    "label": "motion on an inclined plane",
+    "requires": [
+      "normal-force"
+    ],
+    "lexical_markers": [
+      "inclined plane",
+      "incline",
+      "ramp"
+    ]
+  },
+  "uniform-circular-dynamics": {
+    "label": "forces in uniform circular motion",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "centripetal",
+      "circular motion",
+      "uniform circular"
+    ]
+  },
+  "momentum-definition": {
+    "label": "momentum as mass times velocity",
+    "requires": [],
+    "lexical_markers": [
+      "momentum",
+      "p = mv",
+      "p=mv"
+    ]
+  },
+  "impulse": {
+    "label": "impulse as force times time interval",
+    "requires": [
+      "momentum-definition"
+    ],
+    "lexical_markers": [
+      "impulse",
+      "F delta t",
+      "F Δt"
+    ]
+  },
+  "impulse-momentum-theorem": {
+    "label": "the impulse-momentum theorem: impulse equals change in momentum",
+    "requires": [
+      "impulse",
+      "momentum-definition"
+    ],
+    "lexical_markers": [
+      "impulse-momentum theorem",
+      "impulse momentum theorem",
+      "change in momentum"
+    ]
+  },
+  "newton-3rd": {
+    "label": "Newton's third law",
+    "requires": [
+      "newton-1st"
+    ],
+    "lexical_markers": [
+      "newton's third law",
+      "third law",
+      "action-reaction",
+      "action and reaction",
+      "equal and opposite"
+    ]
+  },
+  "momentum-conservation-1d": {
+    "label": "conservation of linear momentum in one dimension",
+    "requires": [
+      "momentum-definition",
+      "newton-3rd"
+    ],
+    "lexical_markers": [
+      "conservation of momentum",
+      "momentum is conserved",
+      "total momentum",
+      "conserve momentum",
+      "momentum conservation",
+      "conservation of linear momentum"
+    ]
+  },
+  "inelastic-collision-1d": {
+    "label": "perfectly inelastic collisions in one dimension",
+    "requires": [
+      "momentum-conservation-1d"
+    ],
+    "lexical_markers": [
+      "inelastic",
+      "perfectly inelastic",
+      "completely inelastic",
+      "inelastic collision"
+    ]
+  },
+  "center-of-mass": {
+    "label": "center of mass and its motion",
+    "requires": [],
+    "lexical_markers": [
+      "center of mass",
+      "centre of mass",
+      "center-of-mass"
+    ]
+  },
+  "momentum-conservation-2d": {
+    "label": "conservation of linear momentum in two dimensions",
+    "requires": [
+      "momentum-conservation-1d"
+    ],
+    "lexical_markers": [
+      "glancing collision",
+      "two-dimensional collision",
+      "collision in two dimensions",
+      "components of momentum",
+      "x-component of momentum",
+      "y-component of momentum"
+    ]
+  },
+  "inelastic-collision-2d": {
+    "label": "perfectly inelastic collisions in two dimensions",
+    "requires": [
+      "momentum-conservation-2d",
+      "inelastic-collision-1d"
+    ],
+    "lexical_markers": [
+      "inelastic collision in two dimensions",
+      "two-dimensional inelastic collision"
+    ]
+  },
+  "work-constant-force": {
+    "label": "work done by a constant force",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "work done",
+      "work is done",
+      "net work",
+      "W = Fd",
+      "W = F d"
+    ]
+  },
+  "work-dot-product": {
+    "label": "work as the dot product of force and displacement",
+    "requires": [
+      "work-constant-force"
+    ],
+    "lexical_markers": [
+      "dot product",
+      "scalar product"
+    ]
+  },
+  "power": {
+    "label": "power as the rate of doing work",
+    "requires": [
+      "work-constant-force"
+    ],
+    "lexical_markers": [
+      "power",
+      "watt",
+      "watts",
+      "horsepower",
+      "rate of doing work"
+    ]
+  },
+  "spring-force-hookes-law": {
+    "label": "spring force and Hooke's law",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "hooke's law",
+      "spring constant",
+      "spring force",
+      "force constant"
+    ]
+  },
+  "work-variable-force": {
+    "label": "work done by a variable force",
+    "requires": [
+      "work-constant-force"
+    ],
+    "lexical_markers": [
+      "variable force",
+      "work done by a spring",
+      "work done stretching",
+      "work done compressing",
+      "area under the force",
+      "force versus position",
+      "force-versus-position"
+    ]
+  },
+  "kinetic-energy": {
+    "label": "kinetic energy",
+    "requires": [],
+    "lexical_markers": [
+      "kinetic energy",
+      "KE",
+      "K.E.",
+      "1/2 m v^2",
+      "(1/2)mv^2",
+      "1/2mv^2",
+      "½mv²"
+    ]
+  },
+  "work-energy-theorem": {
+    "label": "the work-energy theorem: net work equals change in kinetic energy",
+    "requires": [
+      "work-constant-force",
+      "kinetic-energy"
+    ],
+    "lexical_markers": [
+      "work-energy theorem",
+      "work energy theorem",
+      "change in kinetic energy"
+    ]
+  },
+  "conservative-vs-nonconservative": {
+    "label": "conservative and nonconservative forces",
+    "requires": [
+      "work-constant-force"
+    ],
+    "lexical_markers": [
+      "conservative force",
+      "conservative forces",
+      "nonconservative",
+      "non-conservative",
+      "path independent",
+      "path-independent"
+    ]
+  },
+  "gravitational-pe": {
+    "label": "gravitational potential energy",
+    "requires": [],
+    "lexical_markers": [
+      "gravitational potential energy",
+      "potential energy",
+      "GPE",
+      "PE",
+      "mgh"
+    ]
+  },
+  "mechanical-energy-conservation": {
+    "label": "conservation of mechanical energy",
+    "requires": [
+      "kinetic-energy",
+      "gravitational-pe"
+    ],
+    "lexical_markers": [
+      "mechanical energy",
+      "conservation of energy",
+      "energy is conserved",
+      "total energy",
+      "energy conservation",
+      "conserve energy",
+      "conserves energy"
+    ]
+  },
+  "elastic-pe": {
+    "label": "elastic potential energy stored in a spring",
+    "requires": [
+      "spring-force-hookes-law"
+    ],
+    "lexical_markers": [
+      "elastic potential energy",
+      "spring potential energy",
+      "energy stored in the spring",
+      "energy stored in a spring",
+      "1/2 k x^2",
+      "(1/2)kx^2",
+      "½kx²"
+    ]
+  },
+  "elastic-collision-1d": {
+    "label": "elastic collisions in one dimension",
+    "requires": [
+      "momentum-conservation-1d",
+      "kinetic-energy"
+    ],
+    "lexical_markers": [
+      "elastic collision",
+      "perfectly elastic",
+      "elastically",
+      "kinetic energy is conserved"
+    ]
+  },
+  "thermal-energy-loss": {
+    "label": "thermal energy produced by friction",
+    "requires": [
+      "kinetic-energy",
+      "friction-static-kinetic"
+    ],
+    "lexical_markers": [
+      "thermal energy",
+      "internal energy",
+      "heat generated",
+      "converted to heat",
+      "energy dissipated",
+      "dissipated",
+      "lost to friction",
+      "energy lost"
+    ]
+  },
+  "extended-work-energy": {
+    "label": "the work-energy principle including nonconservative work",
+    "requires": [
+      "work-energy-theorem",
+      "mechanical-energy-conservation",
+      "thermal-energy-loss"
+    ],
+    "lexical_markers": [
+      "work done by friction",
+      "work done by nonconservative",
+      "nonconservative work",
+      "W_nc"
+    ]
+  },
+  "angular-kinematics": {
+    "label": "angular position, velocity and acceleration",
+    "requires": [
+      "constant-acceleration"
+    ],
+    "lexical_markers": [
+      "angular velocity",
+      "angular acceleration",
+      "angular displacement",
+      "angular speed"
+    ]
+  },
+  "torque": {
+    "label": "torque",
+    "requires": [
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "torque",
+      "lever arm",
+      "moment arm"
+    ]
+  },
+  "rotational-inertia": {
+    "label": "rotational inertia (moment of inertia)",
+    "requires": [
+      "angular-kinematics"
+    ],
+    "lexical_markers": [
+      "moment of inertia",
+      "rotational inertia"
+    ]
+  },
+  "newton-2nd-rotational": {
+    "label": "Newton's second law for rotation: net torque equals rotational inertia times angular acceleration",
+    "requires": [
+      "torque",
+      "rotational-inertia"
+    ],
+    "lexical_markers": [
+      "rotational form of newton's second law",
+      "tau = I alpha",
+      "τ = Iα",
+      "net torque"
+    ]
+  },
+  "cross-product": {
+    "label": "the vector cross product",
+    "requires": [
+      "torque"
+    ],
+    "lexical_markers": [
+      "cross product",
+      "vector product"
+    ]
+  },
+  "angular-momentum": {
+    "label": "angular momentum",
+    "requires": [
+      "momentum-definition",
+      "rotational-inertia"
+    ],
+    "lexical_markers": [
+      "angular momentum"
+    ]
+  },
+  "angular-momentum-conservation": {
+    "label": "conservation of angular momentum",
+    "requires": [
+      "angular-momentum"
+    ],
+    "lexical_markers": [
+      "conservation of angular momentum",
+      "angular momentum is conserved"
+    ]
+  },
+  "simple-harmonic-motion": {
+    "label": "simple harmonic motion",
+    "requires": [
+      "spring-force-hookes-law",
+      "newton-2nd"
+    ],
+    "lexical_markers": [
+      "simple harmonic",
+      "harmonic motion",
+      "harmonic oscillator",
+      "SHM",
+      "oscillation",
+      "oscillations",
+      "oscillates",
+      "oscillating"
+    ]
+  },
+  "pendulum": {
+    "label": "the simple pendulum",
+    "requires": [
+      "simple-harmonic-motion"
+    ],
+    "lexical_markers": [
+      "pendulum"
+    ]
+  }
+}

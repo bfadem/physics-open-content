@@ -1,0 +1,7 @@
+{
+  "name": "transfer-model",
+  "description": "Energy is treated as transfer between storage modes: work is a transfer, and friction produces internal energy.",
+  "order": [],
+  "representations_at": {},
+  "calculus_hint": {}
+}

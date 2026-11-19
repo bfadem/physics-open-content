@@ -1,0 +1,44 @@
+{
+  "flags": {
+    "trig-decomposition": "resolve a vector into components using sine and cosine",
+    "graphical-slope": "read a rate of change as the slope of a graph",
+    "graphical-area": "read an accumulated quantity as the area under a graph",
+    "derivative-analytic": "differentiate a function symbolically",
+    "integral-analytic": "integrate a function symbolically"
+  },
+  "presets": {
+    "algebra-trig": [
+      "trig-decomposition"
+    ],
+    "graphical": [
+      "trig-decomposition",
+      "graphical-slope",
+      "graphical-area"
+    ],
+    "calc-coreq-early": [
+      "trig-decomposition",
+      "graphical-slope",
+      "graphical-area"
+    ],
+    "calc-coreq-mid": [
+      "trig-decomposition",
+      "graphical-slope",
+      "graphical-area",
+      "derivative-analytic"
+    ],
+    "calc-coreq-late": [
+      "trig-decomposition",
+      "graphical-slope",
+      "graphical-area",
+      "derivative-analytic",
+      "integral-analytic"
+    ],
+    "full-calculus": [
+      "trig-decomposition",
+      "graphical-slope",
+      "graphical-area",
+      "derivative-analytic",
+      "integral-analytic"
+    ]
+  }
+}

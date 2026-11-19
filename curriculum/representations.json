@@ -1,0 +1,17 @@
+{
+  "free-body-diagram": {
+    "label": "free-body diagram"
+  },
+  "motion-diagram": {
+    "label": "motion diagram"
+  },
+  "graph-vt": {
+    "label": "velocity-versus-time graph"
+  },
+  "energy-bar-chart": {
+    "label": "energy bar chart"
+  },
+  "momentum-vector-diagram": {
+    "label": "momentum vector diagram"
+  }
+}
