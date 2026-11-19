@@ -2,6 +2,11 @@ name: smoke-test
 
 on:
   workflow_dispatch:
+    inputs:
+      model:
+        description: "Model to use for the generation test"
+        required: false
+        default: "gemini-flash-latest"
 
 permissions:
   contents: read
@@ -10,9 +15,15 @@ jobs:
   list-models:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: List available Gemini models
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python3 tools/list_models.py
+
+      - name: One generation call
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODEL: ${{ inputs.model }}
+        run: python3 tools/gen_once.py
