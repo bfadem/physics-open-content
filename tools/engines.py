@@ -23,6 +23,9 @@ import urllib.request
 
 CALL_TIMEOUT = 300   # gemma-4-31b-it is slow
 MAX_RETRIES = 3
+# Some providers sit behind Cloudflare, which rejects Python's default
+# User-Agent (HTTP 403, "error code: 1010"). Generic client name only.
+USER_AGENT = "physics-open-content/1.0"
 CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "engines.json")
 
 
@@ -41,7 +44,8 @@ class Disabled(Exception):
 def _post(url, payload, headers, timeout=CALL_TIMEOUT):
     """POST JSON; returns (status, body_text, response_headers)."""
     req = urllib.request.Request(url, data=json.dumps(payload).encode(),
-                                 headers=headers, method="POST")
+                                 headers={**headers, "User-Agent": USER_AGENT},
+                                 method="POST")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return resp.status, resp.read().decode("utf-8", "replace"), resp.headers
@@ -52,7 +56,7 @@ def _post(url, payload, headers, timeout=CALL_TIMEOUT):
 
 
 def _get(url, headers, timeout=30):
-    req = urllib.request.Request(url, headers=headers)
+    req = urllib.request.Request(url, headers={**headers, "User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.load(resp)
 
@@ -149,7 +153,9 @@ class Engine:
             if status == 429:
                 ra = self._retry_after(body, rh)
                 if self._is_daily(body, ra):
-                    raise QuotaExhausted(f"{self.label}: daily quota reached")
+                    q = re.search(r'"quotaId":\s*"([^"]+)"', body)
+                    raise QuotaExhausted(f"{self.label}: daily quota reached"
+                                         + (f" [{q.group(1)}]" if q else ""))
                 if attempt == MAX_RETRIES:
                     raise QuotaExhausted(f"{self.label}: still rate-limited "
                                          f"after {MAX_RETRIES} waits")
