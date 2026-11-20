@@ -30,6 +30,8 @@ unlimited on public repositories. Nothing calls a model from the laptop.
 
 - `tools/list_models.py`, `tools/probe_models.py` — Gemini model listing / entitlement probe
 - `tools/list_provider_models.py` — list OpenAI-compatible provider models (no quota used)
+- `tools/check_quota.py` — remaining free quota -> `docs/quota.md` (Groq from
+  rate-limit headers, one request per model; Gemini counted from today's batches)
 - `tools/engines.py` + `tools/engines.json` — router: ordered engines per role
   (author, solver), falls over on daily quota / missing model / busy
 - `tools/generate.py` — topic mode, or curriculum-gated request mode (`REQUEST=`)
@@ -45,7 +47,7 @@ unlimited on public repositories. Nothing calls a model from the laptop.
   auto-promoted to `problems/`
 - `tests/` — unittest suite, golden prompt, curriculum fixture runner
 - Workflows: `verify.yml` (CI), `generate.yml`, `probe-models.yml`,
-  `list-provider-models.yml`, `smoke-test.yml`
+  `list-provider-models.yml`, `check-quota.yml`, `smoke-test.yml`
 
 ## Providers
 
