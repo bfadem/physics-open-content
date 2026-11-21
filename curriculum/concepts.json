@@ -472,6 +472,21 @@
       "net torque"
     ]
   },
+  "rotational-ke": {
+    "label": "rotational kinetic energy",
+    "requires": [
+      "kinetic-energy",
+      "rotational-inertia"
+    ],
+    "lexical_markers": [
+      "rotational kinetic energy",
+      "rotational KE",
+      "kinetic energy of rotation",
+      "1/2 I ω^2",
+      "(1/2)Iω^2",
+      "½Iω²"
+    ]
+  },
   "cross-product": {
     "label": "the vector cross product",
     "requires": [

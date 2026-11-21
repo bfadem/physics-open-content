@@ -42,6 +42,7 @@
     "torque",
     "rotational-inertia",
     "newton-2nd-rotational",
+    "rotational-ke",
     "cross-product",
     "angular-momentum",
     "angular-momentum-conservation",

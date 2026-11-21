@@ -45,6 +45,7 @@ description, and must not be needed to solve any problem):
 - torque
 - rotational inertia (moment of inertia)
 - Newton's second law for rotation: net torque equals rotational inertia times angular acceleration
+- rotational kinetic energy
 - the vector cross product
 - angular momentum
 - conservation of angular momentum
