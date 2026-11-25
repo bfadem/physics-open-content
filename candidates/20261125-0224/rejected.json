@@ -1,0 +1,139 @@
+[
+  {
+    "id": "gen-20261125-0224-008",
+    "tier": "multi-step",
+    "topic": "Disk accelerated by a string tension",
+    "rejected_at": "author",
+    "reason": "incomplete record: missing ['solution_profile']",
+    "raw_author_output": {
+      "topic": "Disk accelerated by a string tension",
+      "statement": "A solid uniform disk of radius R and mass M has a light string wrapped around its rim. The string is pulled with a constant tension T, causing the disk to rotate without slipping. Starting from rest, find the time t required for the disk to reach an angular speed \u03c9_f.",
+      "symbols": {
+        "R": {
+          "desc": "radius of the disk",
+          "unit": "m"
+        },
+        "M": {
+          "desc": "mass of the disk",
+          "unit": "kg"
+        },
+        "T": {
+          "desc": "tension in the string",
+          "unit": "N"
+        },
+        "I": {
+          "desc": "rotational inertia of the disk about its center",
+          "unit": "kg*m^2"
+        },
+        "tau": {
+          "desc": "net torque on the disk",
+          "unit": "N*m"
+        },
+        "alpha": {
+          "desc": "angular acceleration of the disk",
+          "unit": "rad/s^2"
+        },
+        "omega_f": {
+          "desc": "final angular speed",
+          "unit": "rad/s"
+        },
+        "t": {
+          "desc": "time needed to reach \u03c9_f",
+          "unit": "s"
+        }
+      },
+      "answer_expression": "omega_f*I/(T*R)",
+      "answer_unit": "s",
+      "given": {
+        "R": "0.5",
+        "M": "2.0",
+        "T": "5.0",
+        "omega_f": "10.0"
+      },
+      "limits": [
+        {
+          "symbol": "T",
+          "to": "0",
+          "expect": "oo"
+        },
+        {
+          "symbol": "omega_f",
+          "to": "0",
+          "expect": "0"
+        }
+      ]
+    }
+  },
+  {
+    "id": "gen-20261125-0224-009",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "groq:openai/gpt-oss-120b"
+    },
+    "topic": "Rod pivoted at one end, torque from a perpendicular force",
+    "statement": "A uniform rod of length L and mass M is pivoted without friction at one end. A constant force F is applied perpendicular to the rod at the far end, producing a torque about the pivot. Find the magnitude of the angular acceleration \u03b1 of the rod.",
+    "symbols": {
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "M": {
+        "desc": "mass of the rod",
+        "unit": "kg"
+      },
+      "F": {
+        "desc": "magnitude of the applied force",
+        "unit": "N"
+      },
+      "I": {
+        "desc": "rotational inertia of the rod about the pivot",
+        "unit": "kg*m^2"
+      },
+      "tau": {
+        "desc": "net torque about the pivot",
+        "unit": "N*m"
+      },
+      "alpha": {
+        "desc": "angular acceleration of the rod",
+        "unit": "rad/s^2"
+      }
+    },
+    "answer_expression": "3*F/(M*L)",
+    "answer_unit": "rad/s^2",
+    "given": {
+      "L": "2.0",
+      "M": "5.0",
+      "F": "10.0"
+    },
+    "limits": [
+      {
+        "symbol": "F",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "M",
+        "to": "0",
+        "expect": "oo"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "torque",
+        "rotational-inertia",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "rejected_at": "precheck",
+    "reason": "ValueError: reserved identifier 'I'"
+  }
+]

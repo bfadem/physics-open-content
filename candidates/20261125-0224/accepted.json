@@ -1,0 +1,965 @@
+[
+  {
+    "id": "gen-20261125-0224-001",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "angular acceleration from angular speed and time",
+    "statement": "A turntable starts from rest and reaches an angular speed omega in a time interval t while rotating with constant angular acceleration. What is the magnitude of the turntable's angular acceleration?",
+    "symbols": {
+      "omega": {
+        "desc": "final angular speed of the turntable",
+        "unit": "rad/s"
+      },
+      "t": {
+        "desc": "time interval over which the turntable accelerates",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "omega / t",
+    "answer_unit": "rad/s^2",
+    "given": {
+      "omega": "4.71",
+      "t": "3.0"
+    },
+    "limits": [
+      {
+        "symbol": "omega",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "t",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "angular-kinematics"
+      ],
+      "intended_path": "angular-kinematics",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 1.57,
+    "solver_expression": "omega / t"
+  },
+  {
+    "id": "gen-20261125-0224-002",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "angular speed from linear speed and radius",
+    "statement": "A point on the rim of a spinning wheel of radius r moves with a constant linear speed v. What is the magnitude of the wheel's angular velocity?",
+    "symbols": {
+      "v": {
+        "desc": "linear speed of the point on the rim",
+        "unit": "m/s"
+      },
+      "r": {
+        "desc": "radius of the wheel",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "v / r",
+    "answer_unit": "rad/s",
+    "given": {
+      "v": "6.0",
+      "r": "0.40"
+    },
+    "limits": [
+      {
+        "symbol": "v",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "r",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "angular-kinematics"
+      ],
+      "intended_path": "angular-kinematics",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 15.0,
+    "solver_expression": "v/r"
+  },
+  {
+    "id": "gen-20261125-0224-003",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "torque from a force applied at an angle",
+    "statement": "A mechanic applies a force of magnitude F to a wrench at a distance r from the center of a bolt, at an angle theta relative to the line extending from the bolt through the point of application. What is the magnitude of the torque exerted on the bolt?",
+    "symbols": {
+      "F": {
+        "desc": "magnitude of the applied force",
+        "unit": "N"
+      },
+      "r": {
+        "desc": "distance from the bolt center to the point where the force is applied",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between the force direction and the line from the bolt to the point of application",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "r * F * sin(theta)",
+    "answer_unit": "N*m",
+    "given": {
+      "F": "45.0",
+      "r": "0.25",
+      "theta": "1.047"
+    },
+    "limits": [
+      {
+        "symbol": "theta",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "theta",
+        "to": "pi/2",
+        "expect": "r * F"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "torque"
+      ],
+      "intended_path": "torque",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 9.74167,
+    "solver_expression": "r * F * sin(theta)"
+  },
+  {
+    "id": "gen-20261125-0224-004",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "rotational inertia of two point masses",
+    "statement": "Two small beads of masses m_1 and m_2 are attached to a massless rigid rod at distances r_1 and r_2, respectively, from a fixed pivot axis perpendicular to the rod. What is the rotational inertia of the two-bead system about the pivot axis?",
+    "symbols": {
+      "m_1": {
+        "desc": "mass of the first bead",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the second bead",
+        "unit": "kg"
+      },
+      "r_1": {
+        "desc": "distance of the first bead from the pivot axis",
+        "unit": "m"
+      },
+      "r_2": {
+        "desc": "distance of the second bead from the pivot axis",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "m_1 * r_1**2 + m_2 * r_2**2",
+    "answer_unit": "kg*m^2",
+    "given": {
+      "m_1": "0.30",
+      "m_2": "0.50",
+      "r_1": "0.40",
+      "r_2": "0.60"
+    },
+    "limits": [
+      {
+        "symbol": "m_1",
+        "to": "0",
+        "expect": "m_2 * r_2**2"
+      },
+      {
+        "symbol": "r_1",
+        "to": "0",
+        "expect": "m_2 * r_2**2"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "rotational-inertia"
+      ],
+      "intended_path": "rotational-inertia",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 0.228,
+    "solver_expression": "m_1*r_1**2 + m_2*r_2**2"
+  },
+  {
+    "id": "gen-20261125-0224-005",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "rotational inertia of a uniform solid disk",
+    "statement": "A uniform solid disk of mass m and radius R rotates about a fixed axis perpendicular to the disk and passing through its center. What is the rotational inertia of the disk about this axis?",
+    "symbols": {
+      "m": {
+        "desc": "mass of the uniform solid disk",
+        "unit": "kg"
+      },
+      "R": {
+        "desc": "radius of the uniform solid disk",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "m * R**2 / 2",
+    "answer_unit": "kg*m^2",
+    "given": {
+      "m": "4.0",
+      "R": "0.25"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "R",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "rotational-inertia"
+      ],
+      "intended_path": "rotational-inertia",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 0.125,
+    "solver_expression": "1/2 * m * R**2"
+  },
+  {
+    "id": "gen-20261125-0224-006",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "angular acceleration from net torque and rotational inertia",
+    "statement": "A flywheel with rotational inertia I_wheel about its fixed axle experiences a constant net torque of magnitude tau. What is the magnitude of the angular acceleration of the flywheel?",
+    "symbols": {
+      "tau": {
+        "desc": "magnitude of the net torque acting on the flywheel",
+        "unit": "N*m"
+      },
+      "I_wheel": {
+        "desc": "rotational inertia of the flywheel about its axle",
+        "unit": "kg*m^2"
+      }
+    },
+    "answer_expression": "tau / I_wheel",
+    "answer_unit": "rad/s^2",
+    "given": {
+      "tau": "12.0",
+      "I_wheel": "1.5"
+    },
+    "limits": [
+      {
+        "symbol": "tau",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "I_wheel",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 8.0,
+    "solver_expression": "tau / I_wheel"
+  },
+  {
+    "id": "gen-20261125-0224-007",
+    "tier": "plug-and-chug",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "net torque from rotational inertia and angular acceleration",
+    "statement": "A turbine rotor with rotational inertia I_turb about its spin axis undergoes an angular acceleration of magnitude alpha. What is the magnitude of the net torque acting on the rotor about its spin axis?",
+    "symbols": {
+      "I_turb": {
+        "desc": "rotational inertia of the turbine rotor about its spin axis",
+        "unit": "kg*m^2"
+      },
+      "alpha": {
+        "desc": "magnitude of the angular acceleration of the rotor",
+        "unit": "rad/s^2"
+      }
+    },
+    "answer_expression": "I_turb * alpha",
+    "answer_unit": "N*m",
+    "given": {
+      "I_turb": "8.5",
+      "alpha": "4.0"
+    },
+    "limits": [
+      {
+        "symbol": "alpha",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "I_turb",
+        "to": "0",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 34.0,
+    "solver_expression": "I_turb * alpha"
+  },
+  {
+    "id": "gen-20261125-0224-010",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "inclined plane block coupled to a rotating pulley",
+    "statement": "A block of mass m rests on a rough inclined plane that makes an angle theta with the horizontal, where the coefficient of kinetic friction between the block and the plane is mu_k. A light, inextensible string attached to the block runs parallel to the incline up to a pulley of radius R and rotational inertia I_p mounted on a fixed, frictionless horizontal axle at the top of the incline. The string is wrapped around the pulley so that it unwinds without slipping relative to the pulley rim. The system is released from rest, and the block slides down the incline under gravitational acceleration g. Find the time required for the block to slide a distance d down the incline.",
+    "symbols": {
+      "m": {
+        "desc": "mass of the block",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "R": {
+        "desc": "radius of the pulley",
+        "unit": "m"
+      },
+      "I_p": {
+        "desc": "rotational inertia of the pulley about its axle",
+        "unit": "kg*m^2"
+      },
+      "theta": {
+        "desc": "angle of the inclined plane above the horizontal",
+        "unit": "rad"
+      },
+      "mu_k": {
+        "desc": "coefficient of kinetic friction between the block and the incline",
+        "unit": "1"
+      },
+      "d": {
+        "desc": "distance the block slides down the incline",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "sqrt(2*d*(I_p + m*R**2)/(m*g*R**2*(sin(theta) - mu_k*cos(theta))))",
+    "answer_unit": "s",
+    "given": {
+      "m": "2.0",
+      "g": "9.8",
+      "R": "0.15",
+      "I_p": "0.05",
+      "theta": "0.6",
+      "mu_k": "0.2",
+      "d": "1.5"
+    },
+    "limits": [
+      {
+        "symbol": "I_p",
+        "to": "0",
+        "expect": "sqrt(2*d/(g*(sin(theta) - mu_k*cos(theta))))"
+      },
+      {
+        "symbol": "mu_k",
+        "to": "0",
+        "expect": "sqrt(2*d*(I_p + m*R**2)/(m*g*R**2*sin(theta)))"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "normal-force",
+        "tension",
+        "friction-static-kinetic",
+        "inclined-plane",
+        "angular-kinematics",
+        "torque",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 1.27176,
+    "solver_expression": "sqrt(2*d*(m + I_p/R**2)/(m*g*(sin(theta) - mu_k*cos(theta))))"
+  },
+  {
+    "id": "gen-20261125-0224-011",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "rotational inertia and uniform circular motion of a two-mass rod",
+    "statement": "A light, rigid rod lies on a frictionless horizontal table and is pivoted at one end so it can rotate freely in the horizontal plane about a fixed vertical axis. Two small spheres of masses m_1 and m_2 are attached to the rod at distances r_1 and r_2 from the pivot, respectively. Starting from rest, a horizontal force of constant magnitude F is applied to the sphere of mass m_2 at a constant angle phi relative to the rod for a time interval t_0. At the end of time interval t_0, the applied force F is removed, and the rod continues to rotate at constant angular speed. Find the magnitude of the radial force exerted by the rod on the sphere of mass m_2 after the applied force is removed.",
+    "symbols": {
+      "m_1": {
+        "desc": "mass of the inner sphere",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the outer sphere",
+        "unit": "kg"
+      },
+      "r_1": {
+        "desc": "distance from the pivot to m_1",
+        "unit": "m"
+      },
+      "r_2": {
+        "desc": "distance from the pivot to m_2",
+        "unit": "m"
+      },
+      "F": {
+        "desc": "magnitude of the applied horizontal force",
+        "unit": "N"
+      },
+      "phi": {
+        "desc": "angle between the applied force and the rod",
+        "unit": "rad"
+      },
+      "t_0": {
+        "desc": "duration for which the force is applied",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "m_2*r_2**3*(F*t_0*sin(phi))**2/(m_1*r_1**2 + m_2*r_2**2)**2",
+    "answer_unit": "N",
+    "given": {
+      "m_1": "1.2",
+      "m_2": "0.8",
+      "r_1": "0.3",
+      "r_2": "0.7",
+      "F": "5.0",
+      "phi": "1.0",
+      "t_0": "2.0"
+    },
+    "limits": [
+      {
+        "symbol": "m_1",
+        "to": "0",
+        "expect": "(F*t_0*sin(phi))**2/(m_2*r_2)"
+      },
+      {
+        "symbol": "m_1",
+        "to": "oo",
+        "expect": "0"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "uniform-circular-dynamics",
+        "angular-kinematics",
+        "torque",
+        "rotational-inertia",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "rotational-inertia",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 77.7181,
+    "solver_expression": "m_2 * r_2**3 * F**2 * t_0**2 * sin(phi)**2 / (m_1 * r_1**2 + m_2 * r_2**2)**2"
+  },
+  {
+    "id": "gen-20261125-0224-012",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "rotational equilibrium of a pivoted rod held by a spring",
+    "statement": "A light, rigid rod of length L is attached at one end to a frictionless horizontal pivot, with a small block of mass m attached to its free end. Under gravitational acceleration g, the rod is held stationary at an angle phi above the horizontal by a massless spring of spring constant k. One end of the spring is attached to the rod at a distance d from the pivot, and the spring exerts a force on the rod along a line making an angle theta with the rod to hold the system in rotational equilibrium. Find the elastic potential energy stored in the spring.",
+    "symbols": {
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "mass of the block at the end of the rod",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "phi": {
+        "desc": "angle of the rod above the horizontal",
+        "unit": "rad"
+      },
+      "k": {
+        "desc": "spring constant",
+        "unit": "N/m"
+      },
+      "d": {
+        "desc": "distance from the pivot to the spring attachment point",
+        "unit": "m"
+      },
+      "theta": {
+        "desc": "angle between the spring and the rod",
+        "unit": "rad"
+      }
+    },
+    "answer_expression": "(m*g*L*cos(phi))**2/(2*k*d**2*sin(theta)**2)",
+    "answer_unit": "J",
+    "given": {
+      "L": "1.2",
+      "m": "3.0",
+      "g": "9.8",
+      "phi": "0.4",
+      "k": "400.0",
+      "d": "0.5",
+      "theta": "0.9"
+    },
+    "limits": [
+      {
+        "symbol": "k",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "phi",
+        "to": "0",
+        "expect": "(m*g*L)**2/(2*k*d**2*sin(theta)**2)"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "spring-force-hookes-law",
+        "elastic-pe",
+        "torque",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "torque",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [
+        "trig-decomposition"
+      ],
+      "calculus_any_of": []
+    },
+    "expected_value": 8.60435,
+    "solver_expression": "(m*g*L*cos(phi))**2 / (2*k*d**2*sin(theta)**2)"
+  },
+  {
+    "id": "gen-20261125-0224-013",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "two-stage angular acceleration and braking of a flywheel",
+    "statement": "A flywheel of radius R and rotational inertia I_w is mounted on a fixed, frictionless horizontal axle. Starting from rest, a constant tangential force of magnitude F is applied to the rim of the flywheel until the flywheel has rotated through an angle theta_1. At that instant, the tangential force F is removed, and a brake pad is pressed radially against the rim with a constant normal force of magnitude F_N. The coefficient of kinetic friction between the brake pad and the rim is mu_k. Find the total time from the start of the motion until the flywheel comes to rest.",
+    "symbols": {
+      "R": {
+        "desc": "radius of the flywheel",
+        "unit": "m"
+      },
+      "I_w": {
+        "desc": "rotational inertia of the flywheel about its axle",
+        "unit": "kg*m^2"
+      },
+      "F": {
+        "desc": "magnitude of the applied tangential force",
+        "unit": "N"
+      },
+      "theta_1": {
+        "desc": "angular displacement during the acceleration stage",
+        "unit": "rad"
+      },
+      "F_N": {
+        "desc": "magnitude of the normal force exerted by the brake pad",
+        "unit": "N"
+      },
+      "mu_k": {
+        "desc": "coefficient of kinetic friction between the brake pad and the rim",
+        "unit": "1"
+      }
+    },
+    "answer_expression": "sqrt(2*I_w*theta_1/(F*R))*(1 + F/(mu_k*F_N))",
+    "answer_unit": "s",
+    "given": {
+      "R": "0.4",
+      "I_w": "0.8",
+      "F": "25.0",
+      "theta_1": "12.0",
+      "F_N": "40.0",
+      "mu_k": "0.3"
+    },
+    "limits": [
+      {
+        "symbol": "I_w",
+        "to": "0",
+        "expect": "0"
+      },
+      {
+        "symbol": "mu_k",
+        "to": "oo",
+        "expect": "sqrt(2*I_w*theta_1/(F*R))"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "friction-static-kinetic",
+        "angular-kinematics",
+        "torque",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "angular-kinematics",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 4.27239,
+    "solver_expression": "(1 + F/(mu_k*F_N)) * sqrt(2*I_w*theta_1/(F*R))"
+  },
+  {
+    "id": "gen-20261125-0224-014",
+    "tier": "multi-step",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "stepped pulley with two hanging blocks",
+    "statement": "A stepped pulley consists of two rigidly joined coaxial drums of radii r_1 and r_2 and has total rotational inertia I_d about its fixed, frictionless horizontal axle. Two light, inextensible strings are wrapped in opposite senses around the two drums so that they unwind or wind without slipping relative to the drum rims. A block of mass m_1 hangs from the string on the drum of radius r_1, and a block of mass m_2 hangs from the string on the drum of radius r_2, with the masses and radii chosen so that m_2*r_2 exceeds m_1*r_1. The system is released from rest with both blocks at the same initial height under gravitational acceleration g. Find the vertical distance between the two blocks after a time interval t_0.",
+    "symbols": {
+      "r_1": {
+        "desc": "radius of the drum attached to m_1",
+        "unit": "m"
+      },
+      "r_2": {
+        "desc": "radius of the drum attached to m_2",
+        "unit": "m"
+      },
+      "I_d": {
+        "desc": "rotational inertia of the stepped pulley about its axle",
+        "unit": "kg*m^2"
+      },
+      "m_1": {
+        "desc": "mass of the rising block",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the descending block",
+        "unit": "kg"
+      },
+      "g": {
+        "desc": "gravitational acceleration",
+        "unit": "m/s^2"
+      },
+      "t_0": {
+        "desc": "time elapsed after release",
+        "unit": "s"
+      }
+    },
+    "answer_expression": "(m_2*r_2 - m_1*r_1)*(r_1 + r_2)*g*t_0**2/(2*(I_d + m_1*r_1**2 + m_2*r_2**2))",
+    "answer_unit": "m",
+    "given": {
+      "r_1": "0.2",
+      "r_2": "0.35",
+      "I_d": "0.12",
+      "m_1": "1.5",
+      "m_2": "3.0",
+      "g": "9.8",
+      "t_0": "1.5"
+    },
+    "limits": [
+      {
+        "symbol": "I_d",
+        "to": "oo",
+        "expect": "0"
+      },
+      {
+        "symbol": "m_1",
+        "to": "0",
+        "expect": "m_2*r_2*(r_1 + r_2)*g*t_0**2/(2*(I_d + m_2*r_2**2))"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "tension",
+        "angular-kinematics",
+        "torque",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 8.30651,
+    "solver_expression": "g * t_0**2 * (m_2 * r_2 - m_1 * r_1) * (r_1 + r_2) / (2 * (I_d + m_1 * r_1**2 + m_2 * r_2**2))"
+  },
+  {
+    "id": "gen-20261125-0224-015",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Newton's second law for rotation and pivot reaction force",
+    "statement": "A uniform rigid rod of mass M and length L is mounted on a horizontal frictionless pivot at one end, and its rotational inertia about the pivot is one-third of M times L squared. A small point object of mass m is rigidly attached to the rod at a distance d from the pivot (with d < L). In a uniform gravitational field of magnitude g, the rod is held horizontally and released from rest. Find the magnitude of the force exerted by the pivot on the rod immediately after release.",
+    "symbols": {
+      "M": {
+        "desc": "mass of the uniform rod",
+        "unit": "kg"
+      },
+      "L": {
+        "desc": "length of the rod",
+        "unit": "m"
+      },
+      "m": {
+        "desc": "mass of the attached point object",
+        "unit": "kg"
+      },
+      "d": {
+        "desc": "distance of the attached object from the pivot",
+        "unit": "m"
+      },
+      "g": {
+        "desc": "magnitude of gravitational acceleration",
+        "unit": "m/s^2"
+      }
+    },
+    "answer_expression": "M*g*(M*L**2 + 4*m*(3*d**2 - 3*L*d + L**2))/(4*(M*L**2 + 3*m*d**2))",
+    "answer_unit": "N",
+    "given": {
+      "M": "2.0",
+      "L": "1.2",
+      "m": "1.5",
+      "d": "0.8",
+      "g": "9.81"
+    },
+    "limits": [
+      {
+        "symbol": "m",
+        "to": "0",
+        "expect": "M*g/4"
+      },
+      {
+        "symbol": "d",
+        "to": "0",
+        "expect": "(M/4 + m)*g"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "newton-2nd",
+        "center-of-mass",
+        "angular-kinematics",
+        "torque",
+        "rotational-inertia",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "newton-2nd-rotational",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 4.905,
+    "solver_expression": "M*g*(M*L**2 + 4*m*(L**2 - 3*d*L + 3*d**2)) / (4*M*L**2 + 12*m*d**2)"
+  },
+  {
+    "id": "gen-20261125-0224-016",
+    "tier": "interesting",
+    "provenance": {
+      "author": "gemini:gemini-4-hydrogen",
+      "solver": "gemini:gemini-3-flash-preview",
+      "agreement": "agree at 8 random points"
+    },
+    "topic": "Two-stage Atwood machine with a massive pulley",
+    "statement": "A uniform disk pulley of mass M and radius R (whose rotational inertia about its fixed horizontal frictionless axle is one-half of M times R squared) has a light inextensible string passing over it without slipping. Blocks of masses m_1 and m_2 (with m_2 > m_1) hang vertically from the two ends of the string. Initially, the system is held at rest in uniform gravity with block m_1 resting on the horizontal floor and block m_2 at a height h above the floor, while the pulley is sufficiently high that neither block reaches it during the motion. The system is released from rest. When block m_2 hits the floor, it comes to rest immediately and remains on the floor, while block m_1 continues rising. Find the total angle through which the pulley rotates from the instant of release until block m_1 reaches its maximum height.",
+    "symbols": {
+      "M": {
+        "desc": "mass of the uniform disk pulley",
+        "unit": "kg"
+      },
+      "R": {
+        "desc": "radius of the pulley",
+        "unit": "m"
+      },
+      "m_1": {
+        "desc": "mass of the lighter block",
+        "unit": "kg"
+      },
+      "m_2": {
+        "desc": "mass of the heavier block",
+        "unit": "kg"
+      },
+      "h": {
+        "desc": "initial height of block m_2 above the floor",
+        "unit": "m"
+      }
+    },
+    "answer_expression": "h*m_2*(4*m_1 + M)/(R*m_1*(2*m_1 + 2*m_2 + M))",
+    "answer_unit": "rad",
+    "given": {
+      "M": "2.0",
+      "R": "0.20",
+      "m_1": "1.5",
+      "m_2": "3.0",
+      "h": "1.2"
+    },
+    "limits": [
+      {
+        "symbol": "M",
+        "to": "0",
+        "expect": "2*h*m_2/(R*(m_1 + m_2))"
+      },
+      {
+        "symbol": "M",
+        "to": "oo",
+        "expect": "h*m_2/(R*m_1)"
+      }
+    ],
+    "curriculum": {
+      "sequence": "impulse-first",
+      "cursor": "newton-2nd-rotational",
+      "requires": [
+        "constant-acceleration",
+        "newton-2nd",
+        "tension",
+        "angular-kinematics",
+        "torque",
+        "rotational-inertia",
+        "newton-2nd-rotational"
+      ],
+      "intended_path": "angular-kinematics",
+      "trivial_if_available": [],
+      "representations": [
+        "free-body-diagram"
+      ],
+      "calculus_all_of": [],
+      "calculus_any_of": []
+    },
+    "expected_value": 8.72727,
+    "solver_expression": "h*m_2*(4*m_1 + M)/(R*m_1*(2*m_1 + 2*m_2 + M))"
+  }
+]
