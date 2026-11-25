@@ -1,0 +1,16 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "work-by-torque",
+  "calculus": "graphical",
+  "target_concepts": [
+    "rotational-ke",
+    "rolling-without-slipping",
+    "work-by-torque"
+  ],
+  "tiers": {
+    "plug-and-chug": 6,
+    "multi-step": 6,
+    "interesting": 3
+  },
+  "count": 15
+}

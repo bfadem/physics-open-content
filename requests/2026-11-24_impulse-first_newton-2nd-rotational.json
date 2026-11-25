@@ -1,0 +1,17 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "newton-2nd-rotational",
+  "calculus": "graphical",
+  "target_concepts": [
+    "angular-kinematics",
+    "torque",
+    "rotational-inertia",
+    "newton-2nd-rotational"
+  ],
+  "tiers": {
+    "plug-and-chug": 7,
+    "multi-step": 6,
+    "interesting": 2
+  },
+  "count": 15
+}

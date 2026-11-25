@@ -1,0 +1,15 @@
+{
+  "sequence": "impulse-first",
+  "cursor": "angular-momentum-conservation",
+  "calculus": "graphical",
+  "target_concepts": [
+    "angular-momentum",
+    "angular-momentum-conservation"
+  ],
+  "tiers": {
+    "plug-and-chug": 5,
+    "multi-step": 7,
+    "interesting": 3
+  },
+  "count": 15
+}

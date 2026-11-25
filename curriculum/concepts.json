@@ -149,7 +149,7 @@
     "lexical_markers": [
       "impulse",
       "F delta t",
-      "F Δt"
+      "F \u0394t"
     ]
   },
   "impulse-momentum-theorem": {
@@ -311,7 +311,7 @@
       "1/2 m v^2",
       "(1/2)mv^2",
       "1/2mv^2",
-      "½mv²"
+      "\u00bdmv\u00b2"
     ]
   },
   "work-energy-theorem": {
@@ -379,7 +379,7 @@
       "energy stored in a spring",
       "1/2 k x^2",
       "(1/2)kx^2",
-      "½kx²"
+      "\u00bdkx\u00b2"
     ]
   },
   "elastic-collision-1d": {
@@ -468,7 +468,7 @@
     "lexical_markers": [
       "rotational form of newton's second law",
       "tau = I alpha",
-      "τ = Iα",
+      "\u03c4 = I\u03b1",
       "net torque"
     ]
   },
@@ -482,9 +482,39 @@
       "rotational kinetic energy",
       "rotational KE",
       "kinetic energy of rotation",
-      "1/2 I ω^2",
-      "(1/2)Iω^2",
-      "½Iω²"
+      "1/2 I \u03c9^2",
+      "(1/2)I\u03c9^2",
+      "\u00bdI\u03c9\u00b2"
+    ]
+  },
+  "rolling-without-slipping": {
+    "label": "rolling without slipping",
+    "requires": [
+      "rotational-ke",
+      "mechanical-energy-conservation"
+    ],
+    "lexical_markers": [
+      "rolling without slipping",
+      "rolls without slipping",
+      "rolling condition",
+      "v = R omega",
+      "v = R\u03c9"
+    ]
+  },
+  "work-by-torque": {
+    "label": "work and power delivered by a torque",
+    "requires": [
+      "rotational-ke",
+      "work-constant-force",
+      "power"
+    ],
+    "lexical_markers": [
+      "work done by a torque",
+      "work done by the torque",
+      "rotational work",
+      "rotational power",
+      "W = tau theta",
+      "W = \u03c4\u03b8"
     ]
   },
   "cross-product": {

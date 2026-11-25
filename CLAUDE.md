@@ -109,12 +109,15 @@ Working: verification harness (checks 1-8), multi-engine routing with
 fallback, topic-mode and curriculum-gated generation with a blind-solver
 cross-check, LaTeX/Canvas rendering. Spec milestones M0-M5 done.
 
-Not done: M6 (populate `work-first` and the other sequence stubs).
-`rotational-ke` is registered and placed in `impulse-first`, so generation
-past `extended-work-energy` is no longer fenced off; `rolling-without-slipping`
-is still unregistered, so rolling-energy problems are out of reach. Before
-populating further sequences, note that `angular-momentum` does not require
-`cross-product`, so a new ordering could expose L = r x p too early.
+Not done: M6 (populate `work-first` and the other sequence stubs). The
+rotation tail of `impulse-first` is placed (2026-11-24): `rotational-ke`,
+`rolling-without-slipping` and `work-by-torque` sit after
+`newton-2nd-rotational`, so generation through `angular-momentum-conservation`
+is open, rolling-energy problems included. The oscillation tail
+(`simple-harmonic-motion`, `pendulum`) has not been reviewed — do not
+generate past `angular-momentum-conservation`. Before populating further
+sequences, note that `angular-momentum` does not require `cross-product`, so
+a new ordering could expose L = r x p too early.
 Checks 6 and 8 rely on the model's self-reported `requires` and
 `trivial_if_available`; only the lexical check is independent of it.
 

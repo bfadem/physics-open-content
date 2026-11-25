@@ -43,6 +43,8 @@
     "rotational-inertia",
     "newton-2nd-rotational",
     "rotational-ke",
+    "rolling-without-slipping",
+    "work-by-torque",
     "cross-product",
     "angular-momentum",
     "angular-momentum-conservation",
